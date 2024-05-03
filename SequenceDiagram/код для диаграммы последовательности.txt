@@ -1,0 +1,155 @@
+--------------------------------------Accountant ---------------------------------------
+@startuml
+actor Accountant as Accountant 
+
+boundary "окно выбора действия" as ActionSelectionWindow
+boundary "окно 'Список заказов для расчета'" as application_window
+boundary "Windowcalculation" as windowCall
+boundary "errorWindow" as error_window #red
+
+'entity "database" as database
+
+Accountant -> ActionSelectionWindow: Нажата кнопка 'Список заказов для расчета'
+ActionSelectionWindow -> application_window : Отобразить
+Accountant -> application_window: Ввод номера заказа
+
+application_window -> application_window : Проверка
+
+alt Ок
+'database --> application_window: Данные успешно вненсены в базу
+ application_window -> windowCall: Нажата кнопка "расчитать"
+
+else
+application_window -> error_window : Отобразить
+end
+
+... другая альтернативная последовательность ...
+
+Accountant -> windowCall: Ввод информации
+Accountant -> windowCall: Нажата кнопка 'Подтвердить'
+windowCall -> windowCall: проверка
+
+alt OK
+ windowCall -> windowCall: Вывод стоимости
+else
+ windowCall -> error_window : Отобразить
+end
+
+opt 
+Accountant -> application_window : Нажата кнопка ''Назад''
+application_window -> ActionSelectionWindow : Отобразить
+'application_window --> ActionSelectionWindow
+Accountant -> windowCall: Нажата кнопка "Назад"
+windowCall -> application_window: Отобразить
+end
+
+@enduml
+
+--------------------------------------Admin1---------------------------------------
+@startuml
+actor Admin as Admin
+
+boundary "окно рассмотрения заявки" as application_window
+boundary "окно оформления заказа" as MakingOrder
+boundary "errorWindow" as error_window #red
+
+entity "database" as database
+
+
+alt Ок 
+ Admin -> application_window: нажата кнопка "оформить заказ"
+ application_window -> MakingOrder: Отобразить
+ Admin -> MakingOrder: Ввод информации
+ MakingOrder -> MakingOrder: проверка
+ alt Ok
+  Admin -> MakingOrder: Нажата кнопка "Подтвердить"
+  MakingOrder -> database: Добавление заявки в БД
+  MakingOrder -> MakingOrder: Оповещение об успешном добавление заяки в БД
+ else 
+  MakingOrder -> error_window : Отобразить
+ end
+'database --> application_window: Данные успешно вненсены в базу
+
+else
+Admin -> application_window: нажата кнопка "отказать"
+application_window  -> database: Добавление зявки в базу данных, как отказанную
+application_window -> application_window : Оповещение об добавление заявки, как отказанной в БД
+end
+
+... другая альтернативная последовательность ...
+
+opt 
+Admin -> MakingOrder: Нажата кнопка ''Назад''
+MakingOrder-> application_window: Отобразить
+'application_window --> ActionSelectionWindow
+end
+
+@enduml
+--------------------------------------Admin2---------------------------------------
+@startuml
+actor Admin as Admin
+
+boundary "окно выбора действия" as WindowChoise
+boundary "окно регистрации работника" as application_window
+boundary "errorWindow" as error_window #red
+
+entity "database" as database
+
+Admin -> WindowChoise : Нажата кнопка 'Зарегистрировать работаника'
+WindowChoise  -> application_window: Отобразить
+Admin -> application_window: Ввод данных
+application_window -> application_window: Проверка
+
+alt ok
+ Admin ->  application_window: нажата кнопка "Зарегистрировать"
+ application_window -> database: добавление работника в БД
+ application_window -> application_window: Информация об успешном добавлении работника в БД
+else
+ application_window -> error_window: Отобразить
+end
+
+
+... другая альтернативная последовательность ...
+
+opt 
+Admin -> application_window: Нажата кнопка ''Назад''
+application_window-> WindowChoise: Отобразить
+end
+
+@enduml
+--------------------------------------Driver1---------------------------------------
+@startuml
+actor Driver as Driver
+
+boundary "окно выбора действия" as WindowChoise
+boundary "окно просмотра активного заказа" as application_window
+
+Driver -> WindowChoise : Нажата кнопка 'Просмотр активного заказа'
+WindowChoise  -> application_window: Отобразить
+
+... другая альтернативная последовательность ...
+
+opt 
+Driver -> application_window: Нажата кнопка ''Назад''
+application_window-> WindowChoise: Отобразить
+end
+
+@enduml
+--------------------------------------Driver2---------------------------------------
+@startuml
+actor Driver as Driver
+
+boundary "окно выбора действия" as WindowChoise
+boundary "окно 'Список выполненых заказов'" as application_window
+
+Driver -> WindowChoise : Нажата кнопка 'Список выполненых заказов'
+WindowChoise  -> application_window: Отобразить
+
+... другая альтернативная последовательность ...
+
+opt 
+Driver -> application_window: Нажата кнопка ''Назад''
+application_window-> WindowChoise: Отобразить
+end
+
+@enduml

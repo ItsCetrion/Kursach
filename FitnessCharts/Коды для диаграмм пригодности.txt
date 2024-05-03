@@ -1,0 +1,206 @@
+@startuml
+actor "Заказчик" as client
+
+entity "База заказов" as orders_base
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно подачи заявки" as Application_Window
+
+control "Открытие окна подачи заявки" as open_Application
+control "Заполнение данных заказа" as add_data_order
+control "Открытие окна выбора действий" as back_toWindow #red
+control "оповещение об успешном\nдобавлении заявки в базу" as succesful
+control "оповещение об введение некоректных данных" as info_error #red
+
+'-------------------------------------------------—
+
+client -- main_window
+main_window --> open_Application : Нажата кнопка 'Подать заявку'
+open_Application --> Application_Window
+Application_Window --> add_data_order
+add_data_order --> info_error : заказчик ввел\nнекоректные данные
+info_error --> add_data_order
+add_data_order --> succesful
+succesful --> orders_base
+Application_Window --> back_toWindow : нажата кнопка 'Back'
+back_toWindow --> main_window
+@enduml
+
+
+
+@startuml
+actor "Заказчик" as client
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно заказов" as Application_Window
+boundary "Окно подробной информации" as Window_info
+
+control "Открытие окна заказов" as open_Application
+control "Ввод номера товара" as add_data_order
+control "Открытие окна выбора действий" as back_toWindow #red
+control "Открытие окна заказов" as back_toWindow2 #red
+control "оповещение об введение несуществующего номера товара" as info_error #red
+control "нажата кнопка 'Подробная информация'" as bnt_info
+
+'-------------------------------------------------—
+
+client -- main_window
+main_window --> open_Application : Нажата кнопка 'Заказы'
+open_Application --> Application_Window
+Application_Window --> add_data_order
+add_data_order --> info_error : заказчик ввел\nнесуществующий номер товара
+info_error --> add_data_order
+add_data_order --> bnt_info
+bnt_info --> Window_info
+Window_info --> back_toWindow2 : нажата кнопка 'Back'
+back_toWindow2 --> Application_Window
+Application_Window --> back_toWindow : нажата кнопка 'Back'
+back_toWindow --> main_window
+@enduml
+
+
+
+
+@startuml
+actor "водитель" as driver
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно просмотра активного заказа" as Application_Window
+
+control "Открытие окна просмотра активного заказа" as open_Application
+control "Открытие окна выбора действий" as back_toWindow #red
+'-------------------------------------------------—
+
+driver-- main_window
+main_window --> open_Application : Нажата кнопка 'Просмотр активного заказа'
+open_Application --> Application_Window
+Application_Window --> back_toWindow : нажата кнопка 'Back'
+back_toWindow --> main_window
+@enduml
+
+
+
+@startuml
+actor "водитель" as driver
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно 'Список выполненных заказов'" as Application_Window
+
+control "Открытие окна 'Список выполненных заказов'" as open_Application
+control "Открытие окна выбора действий" as back_toWindow #red
+'-------------------------------------------------—
+
+driver-- main_window
+main_window --> open_Application : Нажата кнопка 'Список выполненных заказов'
+open_Application --> Application_Window
+Application_Window --> back_toWindow : нажата кнопка 'Back'
+back_toWindow --> main_window
+@enduml
+
+
+
+@startuml
+actor "администратор" as admin
+
+entity "База заказов" as orders_base
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно 'заявок'" as Application_Window
+boundary "окно рассмотрения заявки" as Window_order
+boundary "окно оформения заказа" as Window_reg_order
+
+control "Открытие окна 'Заявок'" as open_Application
+control "Открытие окна выбора действий" as back_toWindow #red
+control "открытие окна рассмотрения заявок" as click_order
+control "открытие окна 'оформление заказа'" as making_order
+control "возвращение к вводу информации" as data_error #red
+control "Ввод информации" as enter_data
+control "информация об успешном добавлении заказа в БД" as successfully
+control "Открытия окна рассмотрения заявок" as Open_order #red
+control "открытия окна заявок" as return #red
+'-------------------------------------------------— 
+
+admin-- main_window
+main_window --> open_Application : Нажата кнопка 'рассмотреть заявку'
+open_Application --> Application_Window
+Application_Window --> back_toWindow : нажата кнопка 'Back'
+back_toWindow --> main_window
+Application_Window --> click_order : администратор нажал на заявку
+click_order --> Window_order
+Window_order --> making_order: нажата кнопка 'перейти к формлению заказа' 
+making_order --> Window_reg_order
+Window_reg_order --> enter_data
+enter_data --> data_error : администратор ввел некоректные данные
+data_error --> Window_reg_order
+enter_data --> successfully : нажата кнопка 'Подтвердить'
+successfully --> orders_base
+Window_reg_order --> Open_order : нажата кнопка 'назад'
+Open_order --> Window_order
+Window_order--> return : нажата кнопка 'Отказать' или 'Назад'
+return --> Application_Window
+@enduml
+
+
+@startuml
+actor "администратор" as admin
+
+entity "База работников" as orders_base
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно 'регистрации работника'" as Application_Window
+
+control "Открытие окна 'Регистрации работника'" as open_Application
+control "Открытие окна выбора действий" as back_toWindow #red
+control "Ввод информации" as click_order
+control "возвращение к вводу информации" as data_error #red
+control "информация об успешном добавлении работника в БД" as successfully
+
+'-------------------------------------------------— 
+
+admin-- main_window
+main_window --> open_Application : Нажата кнопка 'Зарегистрировать работника'
+open_Application --> Application_Window
+Application_Window --> back_toWindow : нажата кнопка 'Back'
+back_toWindow --> main_window
+Application_Window --> click_order
+click_order --> data_error : администратор ввел некоректные значения
+data_error --> Application_Window 
+click_order --> successfully: нажата кнопка 'Зарегистрировать'
+successfully --> orders_base
+@enduml
+
+
+
+
+@startuml
+actor "бухгалтер" as accountant
+
+boundary "Окно выбора действий" as main_window
+boundary "Окно 'список заказов для расчета'" as Application_Window
+boundary "Окно 'расчета стоимости заказа'" as cost_order
+
+control "Открытие окна 'Список заказов для рассчета'" as open_Application
+control "Открытие окна выбора действий" as back_toWindow #red
+control "Ввод номера заказа" as enter_order 
+control "Открытия окна расчета стоимости заказа" as open_cost_order
+control "Открытия окна 'списка заказов для расчета'" as return_ #red
+control "Ввод информации" as enter_data 
+control "Вывод стоимости" as print_cost
+control "возвращение к окну 'список заказов для расчета'" as return_order #red
+'-------------------------------------------------— 
+
+accountant-- main_window
+main_window --> open_Application : Нажата кнопка 'Список заказов для расчета'
+open_Application --> Application_Window
+Application_Window --> back_toWindow : нажата кнопка 'Back'
+back_toWindow --> main_window
+Application_Window --> enter_order
+enter_order --> return_ : не нашелся такой номер заказа
+return_  --> Application_Window 
+enter_order --> open_cost_order : нажата кнопка 'расчитать'
+open_cost_order  --> cost_order
+cost_order --> enter_data 
+enter_data --> print_cost : нажата кнопка 'Подтвердить'
+cost_order --> return_order : нажата кнопка 'назад'
+return_order --> Application_Window
+@enduml
