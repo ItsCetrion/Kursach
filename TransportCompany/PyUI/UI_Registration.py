@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from TransportCompany.User import User
+from TransportCompany.Entities.User import User
 from TransportCompany.Registation import Register
 from PyQt5.QtWidgets import QMessageBox
 # import UI_Login

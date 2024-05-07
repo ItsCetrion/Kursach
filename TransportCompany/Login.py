@@ -1,9 +1,10 @@
 from TransportCompany.DBContext import DBContext
+import hashlib
 
 class Login:
     def __init__(self, Email, password):
         self.__Email = Email
-        self.__password = password
+        self.__password = hashlib.md5(password.encode()).hexdigest()
 
     def CheckUserInDB(self) -> bool:
         context = DBContext()

@@ -1,10 +1,11 @@
 from TransportCompany.DBContext import DBContext
-from TransportCompany.User import User
-
+from TransportCompany.Entities.User import User
+import hashlib
 
 class Register:
     def __init__(self, user: User):
         self.User = user
+        self.User.Password = hashlib.md5(self.User.Password.encode()).hexdigest()
 
     def UserRigistation(self):
         if self.__CheckUserInDB():
