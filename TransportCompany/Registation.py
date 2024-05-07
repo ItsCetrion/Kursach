@@ -1,5 +1,6 @@
 from TransportCompany.DBContext import DBContext
 from TransportCompany.Entities.User import User
+from TransportCompany.UserRepository.UserRepository import UserRepository
 import hashlib
 
 class Register:
@@ -8,15 +9,8 @@ class Register:
         self.User.Password = hashlib.md5(self.User.Password.encode()).hexdigest()
 
     def UserRigistation(self):
-        if self.__CheckUserInDB():
-            context = DBContext()
-            cursor = context.cursor
-            query = (f"""INSERT INTO UserProgram 
-                     VALUES('{self.User.FirstName}','{self.User.LastName}','{self.User.Patronymic}','{self.User.NumberPhone}',
-                     '{self.User.Email}','{self.User.Password}','{self.User.Role}')""")
-            cursor.execute(query)
-            context.connection.commit()
-            context.connection.close()
+        if not(self.__CheckUserInDB()):
+            UserRepository.AddUserInDB(self.User)
         else:
             raise "Пользователь с таким номером телефона или Email уже есть"
 
@@ -29,6 +23,6 @@ class Register:
         result = cursor.fetchall()
         context.connection.close()
         if len(result) == 0:
-            return True
-        else:
             return False
+        else:
+            return True
