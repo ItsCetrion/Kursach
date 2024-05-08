@@ -1,13 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from TransportCompany.Entities.User import User
-from TransportCompany.Registation import Register
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import QRegExp
 from PyQt5.QtGui import QRegExpValidator
-from TransportCompany.UserRepository.UserRepository import UserRepository
-from email_validator import validate_email, EmailNotValidError
-from password_strength import PasswordStats
-# import UI_Login
 
 
 
@@ -121,15 +115,6 @@ class Ui_RegWindow(object):
 
         self.retranslateUi(RegWindow)
         QtCore.QMetaObject.connectSlotsByName(RegWindow)
-
-        self.SignUP()
-        self.lineEdit_FirstName.textChanged.connect(self.ColorGrenFirstName)
-        self.lineEdit_LastName.textChanged.connect(self.ColorGrenLastName)
-        self.lineEdit_Patronymic.textChanged.connect(self.ColorGrenPatronymic)
-        self.lineEdit_NumberPhone.textChanged.connect(self.CheckNumderPhone)
-        self.lineEdit_Email.textChanged.connect(self.CheckEmail)
-        self.lineEdit_Password.textChanged.connect(self.CheckPassword)
-        self.lineEdit_AgainPassword.textChanged.connect(self.CheckAgainPassword)
         # self.Back()
 
     def retranslateUi(self, RegWindow):
@@ -145,77 +130,6 @@ class Ui_RegWindow(object):
         self.lineEdit_Password.setPlaceholderText(_translate("MainWindow", "Password"))
         self.lineEdit_AgainPassword.setPlaceholderText(_translate("MainWindow", "Again Password"))
 
-    def ColorGrenFirstName(self):
-        self.lineEdit_FirstName.setStyleSheet("background-color: rgb(0, 255, 127);"
-                                              "border-radius: 10px")
-
-    def ColorGrenLastName(self):
-        self.lineEdit_LastName.setStyleSheet("background-color: rgb(0, 255, 127);"
-                                             "border-radius: 10px")
-
-    def ColorGrenPatronymic(self):
-        self.lineEdit_Patronymic.setStyleSheet("background-color: rgb(0, 255, 127);"
-                                               "border-radius: 10px")
-
-    def CheckNumderPhone(self):
-        if UserRepository.CheckPhoneInDB(self.lineEdit_NumberPhone.text()) or len(self.lineEdit_NumberPhone.text()) < 11:
-            self.lineEdit_NumberPhone.setStyleSheet("background-color: rgb(170, 0, 0);"
-                                                    "border-radius: 10px")
-        else:
-            self.lineEdit_NumberPhone.setStyleSheet("background-color: rgb(0, 255, 127);"
-                                                    "border-radius: 10px")
-
-    def CheckEmail(self):
-        try:
-            email = self.lineEdit_Email.text()
-            validate_email(email, check_deliverability=False)
-        except EmailNotValidError:
-            self.lineEdit_Email.setStyleSheet("background-color: rgb(170, 0, 0);"
-                                                    "border-radius: 10px")
-        else:
-            if UserRepository.CheckEmailInDB(email):
-                self.lineEdit_Email.setStyleSheet("background-color: rgb(170, 0, 0);"
-                                                        "border-radius: 10px")
-            else:
-                self.lineEdit_Email.setStyleSheet("background-color: rgb(0, 255, 127);"
-                                                        "border-radius: 10px")
-
-    def CheckPassword(self):
-        password = self.lineEdit_Password.text()
-        if len(password) == 0:
-            self.lineEdit_Password.setStyleSheet("background-color: rgb(170, 0, 0);"
-                                                 "border-radius: 10px")
-        else:
-            stats = PasswordStats(password)
-            if 0 <= stats.strength() <= 0.2:
-                self.lineEdit_Password.setStyleSheet("background-color: rgb(170, 0, 0);"
-                                                     "border-radius: 10px")
-            elif 0.2 < stats.strength() <= 0.66:
-                self.lineEdit_Password.setStyleSheet("background-color: rgb(255, 170, 0);"
-                                                     "border-radius: 10px")
-            elif 0.66 < stats.strength() <= 0.99:
-                self.lineEdit_Password.setStyleSheet("background-color: rgb(0, 255, 127);"
-                                                     "border-radius: 10px")
-
-    def CheckAgainPassword(self):
-        if self.lineEdit_AgainPassword.text() != self.lineEdit_Password.text():
-            self.lineEdit_AgainPassword.setStyleSheet("background-color: rgb(170, 0, 0);"
-                                                      "border-radius: 10px")
-        else:
-            self.lineEdit_AgainPassword.setStyleSheet("background-color: rgb(0, 255, 127);"
-                                                      "border-radius: 10px")
-
-    def CheckColor(self):
-        for LineEdit in RegisterWindow.findChildren(QtWidgets.QLineEdit):
-            hexcolor = LineEdit.palette().color(LineEdit.backgroundRole()).name()
-            if hexcolor == "#aa0000" or hexcolor == "#ffffff" or len(LineEdit.text()) < 2:
-                return False
-        else:
-            return True
-
-    def SignUP(self):
-        self.pushButton_SignUp.clicked.connect(self.functionsSignUp)
-
     @staticmethod
     def message(title, text):
         msg = QMessageBox()
@@ -225,22 +139,6 @@ class Ui_RegWindow(object):
         msg.setDefaultButton(QMessageBox.Ok)
         msg.exec_()
 
-    def functionsSignUp(self):
-        if self.CheckColor():
-            user = User()
-            user.FirstName = self.lineEdit_FirstName.text()
-            user.LastName = self.lineEdit_LastName.text()
-            user.Patronymic = self.lineEdit_Patronymic.text()
-            user.NumberPhone = self.lineEdit_NumberPhone.text()
-            user.Email = self.lineEdit_Email.text()
-            user.Password = self.lineEdit_Password.text()
-            user.Email = self.lineEdit_Email.text()
-            user.Role = "Клиент"
-            Register(user).UserRigistation()
-            self.message("Информация", "Успешно")
-        else:
-            self.message("Информация", "Не все поля заполнены корректно или вовсе незаполненны")
-        # self.WindowLogin.show()
 
     # def Back(self):
     #     self.pushButton_Back.clicked.connect(self.FunctionBack)

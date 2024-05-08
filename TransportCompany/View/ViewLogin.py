@@ -1,11 +1,9 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-from TransportCompany.Login import Login
 from PyQt5.QtWidgets import QMessageBox
 
 
 
-class Ui_LoginWindow(object):
+class ViewLogin(object):
     def setupUi(self, LoginWindow):
         LoginWindow.setObjectName("Ui_LoginWindow")
         LoginWindow.resize(552, 423)
@@ -48,8 +46,6 @@ class Ui_LoginWindow(object):
         self.retranslateUi(LoginWindow)
         QtCore.QMetaObject.connectSlotsByName(LoginWindow)
 
-        self.pushButton_SignIn.clicked.connect(self.FunctionSignIn)
-
     def retranslateUi(self, LoginWindow):
         _translate = QtCore.QCoreApplication.translate
         LoginWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -67,20 +63,12 @@ class Ui_LoginWindow(object):
         msg.setDefaultButton(QMessageBox.Ok)
         msg.exec_()
 
-    def FunctionSignIn(self):
-        email = self.lineEdit_Login.text()
-        password = self.lineEdit_Password.text()
-        if Login(email, password).CheckUserInDB():
-            self.message("Информация", "Вы успешно вошли")
-        else:
-            self.message("Информация", "Вы не верно ввели логин или пароль")
-
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     LoginWindow = QtWidgets.QMainWindow()
-    ui = Ui_LoginWindow()
+    ui = ViewLogin()
     ui.setupUi(LoginWindow)
     LoginWindow.show()
     sys.exit(app.exec_())
