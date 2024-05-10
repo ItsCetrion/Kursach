@@ -32,7 +32,7 @@ class ControllerLogin:
         email = self.view.lineEdit_Login.text()
         password = self.view.lineEdit_Password.text()
         password = hashlib.md5(password.encode()).hexdigest()
-        role = self.model.GetUserRole(email, password)
+        role = self.model.GetRole(email, password)
         if role != '':
             self.Login(role)
         else:

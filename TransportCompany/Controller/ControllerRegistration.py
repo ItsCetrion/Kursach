@@ -61,7 +61,7 @@ class ControllerRegister:
             self.view.lineEdit_Email.setStyleSheet("background-color: rgb(170, 0, 0);"
                                                     "border-radius: 10px")
         else:
-            if UserRepository.CheckEmail(email):
+            if self.model.CheckEmail(email):
                 self.view.lineEdit_Email.setStyleSheet("background-color: rgb(170, 0, 0);"
                                                         "border-radius: 10px")
             else:
@@ -103,8 +103,6 @@ class ControllerRegister:
             user.Email = self.view.lineEdit_Email.text()
             password = self.view.lineEdit_Password.text()
             user.Password = hashlib.md5(password.encode()).hexdigest()
-            user.Email = self.view.lineEdit_Email.text()
-            user.Role = "Клиент"
             self.model.UserRigistation(user)
             self.view.message("Информация", "Успешно")
             self.functionsBack()

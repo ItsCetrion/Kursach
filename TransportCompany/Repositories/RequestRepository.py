@@ -5,10 +5,6 @@ from TransportCompany.Entities.Request import Request
 
 
 class RequestRepository:
-    def __init__(self):
-        self.__context = DBContext()
-        self.__cursor = self.__context.cursor
-
     @staticmethod
     def AddRequest(request: Request):
         context = DBContext()
@@ -90,11 +86,11 @@ class RequestRepository:
 
     def Demand(self, query: str):
         try:
-            self.__context = DBContext()
-            self.__cursor = self.__context.cursor
-            self.__cursor.execute(query)
-            result = self.__cursor.fetchall()
-            self.__context.connection.close()
+            __context = DBContext()
+            __cursor = __context.cursor
+            __cursor.execute(query)
+            result = __cursor.fetchall()
+            __context.connection.close()
             return result
         except pyodbc.ProgrammingError:
             raise "проблемы с подключением"

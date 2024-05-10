@@ -14,3 +14,6 @@ class ModelRegistration:
 
     def CheckPhone(self, phone):
         return UserRepository().CheckPhone(phone)
+
+    def CheckEmail(self, email):
+        return UserRepository().CheckEmail(email)
