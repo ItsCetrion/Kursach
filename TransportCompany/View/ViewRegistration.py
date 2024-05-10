@@ -9,9 +9,6 @@ from PyQt5.QtGui import QRegExpValidator
 
 class ViewRigistration(object):
 
-    # def __init__(self):
-    #     self.WindowLogin = UI_Login.test1()
-
     def setupUi(self, RegWindow):
         RegWindow.setObjectName("MainWindow")
         RegWindow.resize(552, 485)

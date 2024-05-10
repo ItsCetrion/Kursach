@@ -1,5 +1,6 @@
 from TransportCompany.Model.Admin.ModelWindowApplication import ModelWindowApplication
 from TransportCompany.View.Admin.ViewWindowApplication import ViewWindowApplication
+from TransportCompany.Controller.Admin.ControllerRegistrationWorker import ControllerRegistrationWorker
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QCoreApplication
 import sys
@@ -8,6 +9,7 @@ class ControllerWindowApplication:
     def __init__(self):
         self.model = ModelWindowApplication()
         self.view = ViewWindowApplication()
+        self.ControllerRegWorker = ControllerRegistrationWorker()
         self._translate = QCoreApplication.translate
         self.SettingsUI()
         self.FillingTable(self.model.GetSortByDecreaseDate())
@@ -16,6 +18,7 @@ class ControllerWindowApplication:
         self.view.pushButton_Search_Client.clicked.connect(self.SearchClient)
         self.view.pushButton_AllRequest.clicked.connect(self.AllRequest)
         self.view.action_exit.triggered.connect(self.Exit)
+        self.view.action_RegistrationWorker.triggered.connect(self.OpenRegistrationWorker)
     def SettingsUI(self):
         self.app = QtWidgets.QApplication(sys.argv)
         self.WindowApplication = QtWidgets.QMainWindow()
@@ -100,6 +103,10 @@ class ControllerWindowApplication:
 
     def Exit(self):
         self.WindowApplication.close()
+
+    def OpenRegistrationWorker(self):
+        self.WindowApplication.close()
+        self.ControllerRegWorker.RunViewRegistrationWorker()
 
 
 

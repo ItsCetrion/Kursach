@@ -1,10 +1,10 @@
-from TransportCompany.Repositories.UserRepository import UserRepository
+from TransportCompany.Repositories.AllRoleRepository import AllRoleRepository
 
 
 class ModelLogin:
     @staticmethod
     def GetRole(Email, password) -> bool:
-        return UserRepository().GetRole(password, Email)
+        return AllRoleRepository().GetRole(password, Email)
 
     # @staticmethod
     #

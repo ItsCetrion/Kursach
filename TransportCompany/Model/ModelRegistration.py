@@ -1,5 +1,6 @@
 from TransportCompany.Entities.User import User
 from TransportCompany.Repositories.UserRepository import UserRepository
+from TransportCompany.Repositories.AllRoleRepository import AllRoleRepository
 
 
 class ModelRegistration:
@@ -10,10 +11,10 @@ class ModelRegistration:
             raise "Пользователь с таким номером телефона или Email уже есть"
 
     def __CheckUserInDB(self, user: User) -> bool:
-        return UserRepository().CheckEmail(user.Email)
+        return AllRoleRepository().CheckEmail(user.Email)
 
     def CheckPhone(self, phone):
-        return UserRepository().CheckPhone(phone)
+        return AllRoleRepository().CheckPhone(phone)
 
     def CheckEmail(self, email):
-        return UserRepository().CheckEmail(email)
+        return AllRoleRepository().CheckEmail(email)

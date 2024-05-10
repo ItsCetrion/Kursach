@@ -5,6 +5,5 @@ class Driver:
         self.Patronymic = None
         self.NumberPhone = None
         self.Email = None
-        self.Password = None
         self.Age = None
         self.Experience = None
