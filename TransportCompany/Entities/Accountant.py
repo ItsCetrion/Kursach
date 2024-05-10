@@ -1,4 +1,4 @@
-class User:
+class Accountant:
     def __init__(self):
         self.FirstName = None
         self.LastName = None
@@ -6,6 +6,5 @@ class User:
         self.NumberPhone = None
         self.Email = None
         self.Password = None
-        # self.__fff = None
-
-
+        self.Age = None
+        self.Experience = None
