@@ -1,5 +1,5 @@
 from TransportCompany.Entities.User import User
-from TransportCompany.UserRepository.UserRepository import UserRepository
+from TransportCompany.Repositories.UserRepository import UserRepository
 
 
 class ModelRegistration:

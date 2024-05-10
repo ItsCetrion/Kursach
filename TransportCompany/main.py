@@ -1,5 +1,5 @@
 from Controller.ControllerLogin import ControllerLogin
-from Controller.ControllerRegistration import ControllerRegister
+from Controller.Admin.ControllerWindowApplication import ControllerWindowApplication
 
 
 def main():
@@ -7,8 +7,8 @@ def main():
     app.RunViewLogin()
     app.StartProgram()
 
-    # app = ControllerRegister()
-    # app.RunViewRegister()
+    # app = ControllerWindowApplication()
+    # app.RunViewWindowApplication()
 
 
 if __name__ == "__main__":

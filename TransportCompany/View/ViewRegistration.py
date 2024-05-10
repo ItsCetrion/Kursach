@@ -7,7 +7,7 @@ from PyQt5.QtGui import QRegExpValidator
 
 
 
-class Ui_RegWindow(object):
+class ViewRigistration(object):
 
     # def __init__(self):
     #     self.WindowLogin = UI_Login.test1()
@@ -160,7 +160,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     RegisterWindow = QtWidgets.QMainWindow()
-    ui = Ui_RegWindow()
+    ui = ViewRigistration()
     ui.setupUi(RegisterWindow)
     RegisterWindow.show()
     sys.exit(app.exec_())

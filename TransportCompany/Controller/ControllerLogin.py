@@ -1,6 +1,7 @@
 from TransportCompany.View.ViewLogin import ViewLogin
 from TransportCompany.Model.ModelLogin import ModelLogin
 from TransportCompany.Controller.ControllerRegistration import ControllerRegister
+from TransportCompany.Controller.Admin.ControllerWindowApplication import ControllerWindowApplication
 from PyQt5 import QtWidgets
 import hashlib
 import sys
@@ -11,6 +12,7 @@ class ControllerLogin:
         self.model = ModelLogin()
         self.view = ViewLogin()
         self.ControllerReg = ControllerRegister()
+        self.WindowApplication = ControllerWindowApplication()
         self.SettingsUI()
         self.view.pushButton_SignIn.clicked.connect(self.FunctionSignIn)
         self.view.pushButton_SignUp.clicked.connect(self.FunctionSignUp)
@@ -30,10 +32,16 @@ class ControllerLogin:
         email = self.view.lineEdit_Login.text()
         password = self.view.lineEdit_Password.text()
         password = hashlib.md5(password.encode()).hexdigest()
-        if self.model.CheckUserInDB(email, password):
-            self.view.message("Информация", "Вы успешно вошли")
+        role = self.model.GetUserRole(email, password)
+        if role != '':
+            self.Login(role)
         else:
             self.view.message("Информация", "Вы не верно ввели логин или пароль")
+
+    def Login(self, role):
+        self.LoginWindow.close()
+        if role == "Администратор":
+            self.WindowApplication.RunViewWindowApplication()
 
     def FunctionSignUp(self):
         self.LoginWindow.close()                      # Понять как полноценно уничтожить окно

@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1292</width>
+    <height>543</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(170, 255, 255);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>721</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: qlineargradient(spread:pad, x1:0.527094, y1:0, x2:0.502463, y2:1, stop:0 rgba(0, 231, 100, 255), stop:1 rgba(255, 255, 255, 255));
+border-radius: 20px</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QTableWidget" name="tableWidget_TableApplication">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>701</width>
+       <height>451</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px</string>
+     </property>
+     <row>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </row>
+     <row>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </row>
+     <column>
+      <property name="text">
+       <string>FirstName Client</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>LastName Client</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Application Date</string>
+      </property>
+     </column>
+     <item row="0" column="0">
+      <property name="text">
+       <string>Shane</string>
+      </property>
+     </item>
+     <item row="0" column="1">
+      <property name="text">
+       <string>Martinez</string>
+      </property>
+     </item>
+     <item row="0" column="2">
+      <property name="text">
+       <string>12.02.2024</string>
+      </property>
+     </item>
+     <item row="1" column="0">
+      <property name="text">
+       <string>Katie</string>
+      </property>
+     </item>
+     <item row="1" column="1">
+      <property name="text">
+       <string>Keller</string>
+      </property>
+     </item>
+     <item row="1" column="2">
+      <property name="text">
+       <string>12.02.2024</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>0</y>
+      <width>521</width>
+      <height>471</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: qlineargradient(spread:pad, x1:0.527094, y1:0, x2:0.502463, y2:1, stop:0 rgba(0, 231, 100, 255), stop:1 rgba(255, 255, 255, 255));
+border-radius: 20px</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="pushButton_AllRequest">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>410</y>
+       <width>461</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 251, 224);
+border-radius: 10px</string>
+     </property>
+     <property name="text">
+      <string>Отобразить все заявки</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="frame_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>501</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 183, 57);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QDateEdit" name="dateEdit_Searchdate">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>23</y>
+        <width>231</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>13</pointsize>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>Измените дату</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_Date">
+      <property name="geometry">
+       <rect>
+        <x>248</x>
+        <y>23</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>Выбирите принцип поиска</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>По полной дате</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>По году и месяцу</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>По году и дню</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>По месяцу и дню</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>По году</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>По месяцу</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>По дню</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="pushButton_Search_date">
+      <property name="geometry">
+       <rect>
+        <x>394</x>
+        <y>23</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 255, 255);
+border-radius: 10px
+</string>
+      </property>
+      <property name="text">
+       <string>Search:</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="frame_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>501</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 183, 57);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLineEdit" name="lineEdit_SearchClient">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>23</y>
+        <width>231</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>Введите имя или фаимлию клиента</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);
+border-radius: 10px</string>
+      </property>
+      <property name="placeholderText">
+       <string>search by Name Client:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox_Client">
+      <property name="geometry">
+       <rect>
+        <x>248</x>
+        <y>23</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>Выбирите принеп поиска</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>По имени</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>По фамилии</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="pushButton_Search_Client">
+      <property name="geometry">
+       <rect>
+        <x>394</x>
+        <y>23</y>
+        <width>91</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 255, 255);
+border-radius: 10px
+</string>
+      </property>
+      <property name="text">
+       <string>Search:</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QFrame" name="frame_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>190</y>
+       <width>501</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 183, 57);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QComboBox" name="comboBox_SortTable">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>23</y>
+        <width>231</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string>Сортировка таблицы</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>По убывающей дате</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>По возврастающей дате</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>В алфавитном порядке</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>В обратном алфавитном порядке</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QLabel" name="label_text">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>18</y>
+        <width>211</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>13</pointsize>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+        <underline>false</underline>
+        <strikeout>false</strikeout>
+       </font>
+      </property>
+      <property name="text">
+       <string>Сортировка таблицы</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1292</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Программа</string>
+    </property>
+    <addaction name="action_RegistrationWorker"/>
+    <addaction name="action_AboatProgram"/>
+    <addaction name="action_exit"/>
+   </widget>
+   <addaction name="menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_exit">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Выход</string>
+   </property>
+  </action>
+  <action name="action_RegistrationWorker">
+   <property name="text">
+    <string>Зарегистрировать работника</string>
+   </property>
+  </action>
+  <action name="action_AboatProgram">
+   <property name="text">
+    <string>О программе</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

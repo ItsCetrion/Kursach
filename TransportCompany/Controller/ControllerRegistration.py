@@ -1,6 +1,6 @@
 from TransportCompany.Entities.User import User
-from TransportCompany.UserRepository.UserRepository import UserRepository
-from TransportCompany.View.ViewRegistration import Ui_RegWindow
+from TransportCompany.Repositories.UserRepository import UserRepository
+from TransportCompany.View.ViewRegistration import ViewRigistration
 from TransportCompany.Model.ModelRegistration import ModelRegistration
 from email_validator import validate_email, EmailNotValidError
 from password_strength import PasswordStats
@@ -12,7 +12,7 @@ import hashlib
 class ControllerRegister:
     def __init__(self):
         self.model = ModelRegistration()
-        self.view = Ui_RegWindow()
+        self.view = ViewRigistration()
         self.SettingsUI()
         self.view.pushButton_SignUp.clicked.connect(self.functionsSignUp)
         self.view.pushButton_Back.clicked.connect(self.functionsBack)
@@ -32,7 +32,6 @@ class ControllerRegister:
 
     def RunViewRegister(self):
         self.RegisterWindow.show()
-        # sys.exit(self.app.exec_())
 
     def ColorGrenFirstName(self):
         self.view.lineEdit_FirstName.setStyleSheet("background-color: rgb(0, 255, 127);"
