@@ -1,0 +1,2 @@
+class ModelConsiderationApplication:
+    pass

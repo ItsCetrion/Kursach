@@ -1,6 +1,7 @@
 from TransportCompany.Model.Admin.ModelWindowApplication import ModelWindowApplication
 from TransportCompany.View.Admin.ViewWindowApplication import ViewWindowApplication
 from TransportCompany.Controller.Admin.ControllerRegistrationWorker import ControllerRegistrationWorker
+from TransportCompany.Controller.Admin.ControllerConsiderationApplication import ControllerConsiderationApplication
 from TransportCompany.Entities.Request import Request
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QCoreApplication
@@ -26,6 +27,7 @@ class ControllerWindowApplication:
         self.IsFilterClient = False
         self.FilterDate = None
         self.FilterClient = None
+        self.ConsiderationApplication = None
 
         self.view.comboBox_SortTable.currentIndexChanged.connect(self.IdexChangeSortTable)
         self.view.pushButton_Search_date.clicked.connect(self.SearchDate)
@@ -76,7 +78,8 @@ class ControllerWindowApplication:
                 exec(f"self.view.horizontalLayout_ListNumberPages.addWidget(self.view.{name_btn})")
                 exec(f'self.view.{name_btn}.setText(self._translate("MainWindow", str(page)))')
                 exec(f'self.view.Button_Group.addButton(self.view.{name_btn}, page)')
-            self.view.PushButton1.setStyleSheet('background-color: rgb(85, 255, 127); border: 2px solid gray;')
+            if self.view.PushButton1 in self.view.Button_Group.buttons():
+                self.view.PushButton1.setStyleSheet('background-color: rgb(85, 255, 127); border: 2px solid gray;')
         elif ButtonText is not None:
             text = ButtonText
             if ButtonText == "...": ButtonText = "PushButtonEllipsis"
@@ -92,7 +95,14 @@ class ControllerWindowApplication:
     def test(self):
         index = self.view.tableWidget_TableApplication.currentRow()
         request = self.ListRequest[index]
-        self.view.message("dfdf", request.Email)
+
+        if self.ConsiderationApplication is None:
+            self.ConsiderationApplication = ControllerConsiderationApplication(self)
+            self.ConsiderationApplication.FillingFields(request)
+            self.ConsiderationApplication.ConsiderationApplication.show()
+        else:
+            self.ConsiderationApplication.FillingFields(request)
+            self.ConsiderationApplication.ConsiderationApplication.show()
 
     def ClickedButtonPage(self, button):
         if int(button.text()) != self.CursorPage:
