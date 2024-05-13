@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1292</width>
-    <height>543</height>
+    <width>1300</width>
+    <height>546</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <x>10</x>
       <y>0</y>
       <width>721</width>
-      <height>471</height>
+      <height>501</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -42,11 +42,12 @@ border-radius: 20px</string>
        <x>10</x>
        <y>10</y>
        <width>701</width>
-       <height>451</height>
+       <height>441</height>
       </rect>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 255);
+
 border-radius: 10px</string>
      </property>
      <row>
@@ -105,6 +106,109 @@ border-radius: 10px</string>
       </property>
      </item>
     </widget>
+    <widget class="QWidget" name="widget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>453</y>
+       <width>701</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/*background-color: rgb(170, 255, 127);*/
+background-color: rgb(0, 255, 255);
+border: 2px solid black;
+border-radius: 10px</string>
+     </property>
+     <widget class="QWidget" name="horizontalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>0</y>
+        <width>481</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_ListNumberPages">
+       <property name="leftMargin">
+        <number>5</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="pushButton_FirstPage">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>25</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255); border: 2px solid black;</string>
+         </property>
+         <property name="text">
+          <string>1</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QPushButton" name="pushButton_NextPage">
+      <property name="geometry">
+       <rect>
+        <x>3</x>
+        <y>5</y>
+        <width>93</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(85, 255, 127);</string>
+      </property>
+      <property name="text">
+       <string>Next &gt;</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_BackPage">
+      <property name="geometry">
+       <rect>
+        <x>101</x>
+        <y>5</y>
+        <width>93</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <italic>false</italic>
+        <bold>true</bold>
+        <underline>false</underline>
+        <strikeout>false</strikeout>
+        <kerning>true</kerning>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 0, 0);
+color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string>&lt; Back</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QFrame" name="frame_2">
     <property name="geometry">
@@ -112,7 +216,7 @@ border-radius: 10px</string>
       <x>740</x>
       <y>0</y>
       <width>521</width>
-      <height>471</height>
+      <height>501</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -129,7 +233,7 @@ border-radius: 20px</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>410</y>
+       <y>438</y>
        <width>461</width>
        <height>41</height>
       </rect>
@@ -459,6 +563,87 @@ border-radius: 10px
       </property>
      </widget>
     </widget>
+    <widget class="QFrame" name="frame_6">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>280</y>
+       <width>321</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 183, 57);</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_text_2">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>20</y>
+        <width>211</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>13</pointsize>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+        <underline>false</underline>
+        <strikeout>false</strikeout>
+       </font>
+      </property>
+      <property name="text">
+       <string>Количество заявок</string>
+      </property>
+     </widget>
+     <widget class="QLCDNumber" name="lcdNumber">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>29</y>
+        <width>51</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 0, 0);</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QPushButton" name="pushButton_BackFirstPage">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>380</y>
+       <width>461</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>11</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 251, 224);
+border-radius: 10px</string>
+     </property>
+     <property name="text">
+      <string>Вернутсья на первую страницу</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -466,7 +651,7 @@ border-radius: 10px
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1292</width>
+     <width>1300</width>
      <height>21</height>
     </rect>
    </property>

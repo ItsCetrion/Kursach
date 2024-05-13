@@ -9,7 +9,8 @@ class RequestRepository:
     def AddRequest(request: Request):
         context = DBContext()
         cursor = context.cursor
-        query = (f"""INSERT INTO Request
+        query = (f"""INSERT INTO Request(FirstName,LastName,Email,NumberPhone,PlaceDeparture,PlaceDelivery,CargoWeight,
+                     CargoDescription)
                          VALUES('{request.FirstName}','{request.LastName}','{request.Email}','{request.NumberPhone}',
                          '{request.PlaceDeparture}','{request.PlaceDelivery}',
                          '{request.CargoWeight}', '{request.CargoDescription}')""")
@@ -17,71 +18,159 @@ class RequestRepository:
         context.connection.commit()
         context.connection.close()
 
-    def GetRequestByDate(self, date: str):
-        result = self.Demand(f"""SELECT FirstName,LastName,DateRequest FROM Request WHERE DateRequest = '{date}'""")
+    def Get11RequestByDate(self, date: str, StartIndex: int, ParameterSort: str, reverse=False):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest
+                                 FROM Request WHERE DateRequest = '{date}'
+                                 Order By {ParameterSort} {sort}, ID DESC
+                                    OFFSET {StartIndex} ROWS
+                                    FETCH NEXT 11 ROWS ONLY""")
         return result
 
-    def GetRequestByYearAndMonth(self, year: int, month: int):
-        result = self.Demand(f"""SELECT FirstName,LastName,DateRequest FROM Request 
+    def Get11RequestByYearAndMonth(self, year: int, month: int, StartIndex: int, ParameterSort: str, reverse=False):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest 
+                                 FROM Request 
+                                 WHERE DATEPART(MONTH, DateRequest) = {month} and DATEPART(YEAR, DateRequest) = {year}
+                                 Order By {ParameterSort} {sort}, ID DESC
+                                    OFFSET {StartIndex} ROWS
+                                    FETCH NEXT 11 ROWS ONLY""")
+        return result
+
+    def Get11RequestByYearAndDay(self, year: int, day: int, StartIndex: int, ParameterSort: str, reverse=False):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest
+                                 FROM Request 
+                                 WHERE DATEPART(DAY, DateRequest) = {day} and DATEPART(YEAR, DateRequest) = {year}
+                                 Order By {ParameterSort} {sort}, ID DESC
+                                    OFFSET {StartIndex} ROWS
+                                    FETCH NEXT 11 ROWS ONLY""")
+        return result
+
+    def Get11RequestByMonthAndDay(self, month: int, day: int, StartIndex: int, ParameterSort: str, reverse=False):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest
+                                 FROM Request 
+                                 WHERE DATEPART(DAY, DateRequest) = {day} and DATEPART(MONTH, DateRequest) = {month}
+                                 Order By {ParameterSort} {sort}, ID DESC
+                                    OFFSET {StartIndex} ROWS
+                                    FETCH NEXT 11 ROWS ONLY""")
+        return result
+
+    def Get11RequestByYear(self, year: int, StartIndex: int, ParameterSort: str, reverse=False):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest
+                             FROM Request WHERE DATEPART(YEAR, DateRequest) = {year}
+                             Order By {ParameterSort} {sort}, ID DESC
+                                    OFFSET {StartIndex} ROWS
+                                    FETCH NEXT 11 ROWS ONLY""")
+        return result
+
+    def Get11RequestByMonth(self, month: int, StartIndex: int, ParameterSort: str, reverse=False):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest
+                                 FROM Request WHERE DATEPART(MONTH, DateRequest) = {month}
+                                 Order By {ParameterSort} {sort}, ID DESC
+                                    OFFSET {StartIndex} ROWS
+                                    FETCH NEXT 11 ROWS ONLY""")
+        return result
+
+    def Get11RequestByDay(self, day: int, StartIndex: int, ParameterSort: str, reverse=False):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest
+                                 FROM Request WHERE DATEPART(DAY, DateRequest) = {day}
+                                 Order By {ParameterSort} {sort}, ID DESC
+                                    OFFSET {StartIndex} ROWS
+                                    FETCH NEXT 11 ROWS ONLY""")
+        return result
+
+    def Get11RequestByFirstName(self, PartFirstName: str, StartIndex: int, ParameterSort: str, reverse=False):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest
+                                 From Request WHERE FirstName LIKE '{PartFirstName}%'
+                                 Order By {ParameterSort} {sort}, ID DESC
+                                    OFFSET {StartIndex} ROWS
+                                    FETCH NEXT 11 ROWS ONLY""")
+        return result
+
+    def Get11RequestByLastName(self, PartLastName: str, StartIndex: int, ParameterSort: str, reverse=False):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest
+                                 From Request WHERE LastName LIKE '{PartLastName}%'
+                                 Order By {ParameterSort} {sort}, ID DESC
+                                    OFFSET {StartIndex} ROWS
+                                    FETCH NEXT 11 ROWS ONLY""")
+        return result
+
+
+    def GetAllQuantityRequest(self):
+        result = self.Demand("SELECT COUNT(*) FROM Request"
+                             "")
+        return result[0][0]
+
+    def GetQuantityRequestByDate(self, date: str):
+        result = self.Demand(f"""SELECT COUNT(*) FROM Request 
+                                 WHERE DateRequest = '{date}'""")
+        return result[0][0]
+
+    def GetQuantityRequestByYearAndMonth(self, year: int, month: int):
+        result = self.Demand(f"""SELECT COUNT(*) FROM Request 
                                  WHERE DATEPART(MONTH, DateRequest) = {month} and DATEPART(YEAR, DateRequest) = {year}""")
-        return result
+        return result[0][0]
 
-    def GetRequestByYearAndDay(self, year: int, day: int):
-        result = self.Demand(f"""SELECT FirstName,LastName,DateRequest FROM Request 
+    def GetQuantityRequestByYearAndDay(self, year: int, day: int):
+        result = self.Demand(f"""SELECT COUNT(*) FROM Request 
                                  WHERE DATEPART(DAY, DateRequest) = {day} and DATEPART(YEAR, DateRequest) = {year}""")
-        return result
+        return result[0][0]
 
-    def GetRequestByMonthAndDay(self, month: int, day: int):
-        result = self.Demand(f"""SELECT FirstName,LastName,DateRequest FROM Request 
+    def GetQuantityRequestByMonthAndDay(self, month: int, day: int):
+        result = self.Demand(f"""SELECT COUNT(*) FROM Request 
                                  WHERE DATEPART(DAY, DateRequest) = {day} and DATEPART(MONTH, DateRequest) = {month}""")
-        return result
-    def GetRequestByYear(self, year: int):
-        result = self.Demand(f"""SELECT FirstName,LastName,DateRequest
-                             FROM Request WHERE DATEPART(YEAR, DateRequest) = {year}""")
-        return result
+        return result[0][0]
 
-    def GetRequestByMonth(self, month: int):
-        result = self.Demand(f"""SELECT FirstName,LastName,DateRequest
-                                 FROM Request WHERE DATEPART(MONTH, DateRequest) = {month}""")
-        return result
+    def GetQuantityRequestByYear(self, year: int):
+        result = self.Demand(f"""SELECT COUNT(*) FROM Request 
+                                 WHERE DATEPART(YEAR, DateRequest) = {year}""")
+        return result[0][0]
 
-    def GetRequestByDay(self, day: int):
-        result = self.Demand(f"""SELECT FirstName,LastName,DateRequest
-                                        FROM Request WHERE DATEPART(DAY, DateRequest) = {day}""")
-        return result
+    def GetQuantityRequestByMonth(self, month: int):
+        result = self.Demand(f"""SELECT COUNT(*) FROM Request 
+                                 WHERE DATEPART(MONTH, DateRequest) = {month}""")
+        return result[0][0]
 
-    def GetRequestByFirstName(self, PartFirstName):
-        result = self.Demand(f"""SELECT FirstName,LastName,DateRequest
-                                        From Request WHERE FirstName LIKE '{PartFirstName}%'""")
-        return result
+    def GetQuantityRequestByDay(self, day: int):
+        result = self.Demand(f"""SELECT COUNT(*) FROM Request 
+                                 WHERE DATEPART(DAY, DateRequest) = {day}""")
+        return result[0][0]
 
-    def GetRequestByLastName(self, PartLastName):
-        result = self.Demand(f"""SELECT FirstName,LastName,DateRequest
-                                                From Request WHERE LastName LIKE '{PartLastName}%'""")
-        return result
+    def GetQuantityRequestByFirstName(self, PartFirstName: str):
+        result = self.Demand(f"""SELECT COUNT(*) FROM Request 
+                                 WHERE FirstName LIKE '{PartFirstName}%'""")
+        return result[0][0]
 
-    def GetSortByDecreaseDate(self):
-        result = self.Demand("""SELECT FirstName, LastName, DateRequest
-                                From Request Order By DateRequest DESC""")
-        return result
+    def GetQuantityRequestByLastName(self, PartLastName: str):
+        result = self.Demand(f"""SELECT COUNT(*) FROM Request 
+                                 WHERE LastName LIKE '{PartLastName}%'""")
+        return result[0][0]
 
-    def GetSortByEscalatingDate(self):
-        result = self.Demand("""SELECT FirstName, LastName, DateRequest
-                                From Request Order By DateRequest""")
-        return result
 
-    def GetSortByAlphabeticalOrder(self):
-        result = self.Demand("""SELECT FirstName, LastName, DateRequest
-                                 From Request Order By FirstName""")
-        return result
 
-    def GetSortReverseAlphabeticalOrder(self):
-        result = self.Demand("""SELECT FirstName, LastName, DateRequest
-                                         From Request Order By FirstName DESC""")
-        return result
-
-    def GetAll(self):
-        result = self.Demand("""SELECT FirstName, LastName, DateRequest FROM Request""")
+    def Get11Request(self, StartIndex: int, ParameterSort: str, reverse):
+        sort = "ASC" if reverse is False else "DESC"
+        result = self.Demand(f"""SELECT FirstName, LastName, Email, NumberPhone, 
+                                 PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateRequest
+                                    FROM Request Order By {ParameterSort} {sort}, ID DESC
+                                                    OFFSET {StartIndex} ROWS
+                                                    FETCH NEXT 11 ROWS ONLY""")
         return result
 
     def Demand(self, query: str):

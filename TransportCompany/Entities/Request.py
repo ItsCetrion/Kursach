@@ -8,3 +8,4 @@ class Request:
         self.PlaceDelivery = None
         self.CargoWeight = None
         self.CargoDescription = None
+        self.DateRequest = None
