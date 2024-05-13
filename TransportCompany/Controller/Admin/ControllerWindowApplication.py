@@ -2,7 +2,6 @@ from TransportCompany.Model.Admin.ModelWindowApplication import ModelWindowAppli
 from TransportCompany.View.Admin.ViewWindowApplication import ViewWindowApplication
 from TransportCompany.Controller.Admin.ControllerRegistrationWorker import ControllerRegistrationWorker
 from TransportCompany.Entities.Request import Request
-from TransportCompany.SecondaryPyFile.SortData import SortData
 from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import QCoreApplication
 import sys
