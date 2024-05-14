@@ -33,7 +33,7 @@ class ControllerRequestSubmission:
         request.CargoWeight = self.view.lineEdit_CargoWeight.text()
         request.CargoDescription = self.view.lineEdit_CargoDescription.text()
 
-        if None in (list(request.__dict__.values()))[:-1]:
+        if None in (list(request.__dict__.values()))[1:-1]:
             self.view.message("Информация", "Не все поля заполнены!")
         else:
             self.model.AddRequest(request)

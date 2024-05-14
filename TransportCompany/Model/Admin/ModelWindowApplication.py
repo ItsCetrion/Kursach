@@ -7,6 +7,9 @@ class ModelWindowApplication:
     def AddRequest(self, request: Request):
         self.RequestRepository.AddRequest(request)
 
+    def DeleteRequest(self, id: int):
+        self.RequestRepository.DeleteRequest(id)
+
     def Get11RequestByDate(self, data: str, StartIndex: int, ParameterSort: str, reverse=False):
         return self.RequestRepository.Get11RequestByDate(data, StartIndex, ParameterSort, reverse)
 

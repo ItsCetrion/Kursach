@@ -43,7 +43,21 @@ class ControllerWindowApplication:
         self.view.pushButton_BackFirstPage.clicked.connect(self.ClickedBackFirstPage)
         self.view.pushButton_UpdateTable.clicked.connect(self.ClickedUpdateTable)
 
-
+    def DeleteRequestFromTable(self):
+        if ceil((self.QuantityRequest - 1) / 11) == ceil(self.QuantityRequest / 11) or \
+                ceil((self.QuantityRequest - 1) / 11) == 0:
+            self.QuantityRequest -= 1
+            self.ListRequest.clear()
+            self.SaveRequest(self.СhoiceSaveRequest((self.CursorPage - 1) * 11))
+            self.FillingTable(self.CursorPage)
+        elif ceil((self.QuantityRequest - 1) / 11) < ceil(self.QuantityRequest / 11):
+            self.QuantityRequest -= 1
+            self.CursorPage -= 1
+            self.ClearLayout_ListNumberPages()
+            self.CreateButtonsPage()
+            self.ListRequest.clear()
+            self.SaveRequest(self.СhoiceSaveRequest((self.CursorPage - 1) * 11))
+            self.FillingTable(self.CursorPage)
     def ClickedUpdateTable(self):
         self.QuantityRequest = self.model.GetAllQuantityReauest()
         self.UpdateTable()
@@ -78,7 +92,7 @@ class ControllerWindowApplication:
                 exec(f"self.view.horizontalLayout_ListNumberPages.addWidget(self.view.{name_btn})")
                 exec(f'self.view.{name_btn}.setText(self._translate("MainWindow", str(page)))')
                 exec(f'self.view.Button_Group.addButton(self.view.{name_btn}, page)')
-            if self.view.PushButton1 in self.view.Button_Group.buttons():
+            if 'PushButton1' in self.view.__dict__.keys():
                 self.view.PushButton1.setStyleSheet('background-color: rgb(85, 255, 127); border: 2px solid gray;')
         elif ButtonText is not None:
             text = ButtonText
@@ -208,15 +222,16 @@ class ControllerWindowApplication:
     def SaveRequest(self, requests):
         for request in requests:
             req = Request()
-            req.FirstName = request[0]
-            req.LastName = request[1]
-            req.Email = request[2]
-            req.NumberPhone = request[3]
-            req.PlaceDeparture = request[4]
-            req.PlaceDelivery = request[5]
-            req.CargoWeight = request[6]
-            req.CargoDescription = request[7]
-            req.DateRequest = str(request[8]).replace("-", ".")
+            req.ID = request[0]
+            req.FirstName = request[1]
+            req.LastName = request[2]
+            req.Email = request[3]
+            req.NumberPhone = request[4]
+            req.PlaceDeparture = request[5]
+            req.PlaceDelivery = request[6]
+            req.CargoWeight = request[7]
+            req.CargoDescription = request[8]
+            req.DateRequest = str(request[9]).replace("-", ".")
             self.ListRequest.append(req)
 
 
@@ -229,6 +244,7 @@ class ControllerWindowApplication:
     def RunViewWindowApplication(self):
         self.WindowApplication.show()
         sys.exit(self.app.exec_())
+
 
     def FillingTable(self, NumberPage):
         self.view.tableWidget_TableApplication.setRowCount(len(self.ListRequest))

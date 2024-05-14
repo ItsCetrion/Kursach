@@ -1,4 +1,4 @@
-class Request:
+class DenyRequest:
     def __init__(self):
         self.ID = None
         self.FirstName = None
@@ -9,4 +9,4 @@ class Request:
         self.PlaceDelivery = None
         self.CargoWeight = None
         self.CargoDescription = None
-        self.DateRequest = None
+        self.DateDeny = None
