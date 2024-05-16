@@ -31,14 +31,22 @@ class ControllerRegistrationWorker:
     def Registration(self):
         if self.view.comboBox_Worker.currentText() == "Бухгалтер":
             accountant = Accountant()
-            self.model.RegistrationAccountant(self.FillingAccountant(accountant))
-            self.view.message("Информация", "Работник успешно добавлен")
-            self.Back()
+            accountant_ = self.FillingAccountant(accountant)
+            if isinstance(accountant_, str):
+                self.view.message("Информация", accountant_)
+            else:
+                self.model.RegistrationAccountant(accountant_)
+                self.view.message("Информация", "Работник успешно добавлен")
+                self.Back()
         elif self.view.comboBox_Worker.currentText() == "Водитель":
             driver = Driver()
-            self.model.RegistrationDriver(self.FillingDriver(driver))
-            self.view.message("Информация", "Работник успешно добавлен")
-            self.Back()
+            driver_ = self.FillingDriver(driver)
+            if isinstance(driver_, str):
+                self.view.message("Информация", driver_)
+            else:
+                self.model.RegistrationDriver(driver_)
+                self.view.message("Информация", "Работник успешно добавлен")
+                self.Back()
 
     def FillingAccountant(self, accountant: Accountant):
         accountant.FirstName = self.view.lineEdit_FirstName.text()
@@ -49,9 +57,9 @@ class ControllerRegistrationWorker:
         accountant.Age = self.view.lineEdit_Age.text()
         accountant.Experience = self.view.lineEdit_Experience.text()
         if self.model.CheckEmail(accountant.Email) or self.model.CheckPhone(accountant.NumberPhone):
-            self.view.message("Информация", "Такой номер телефона или почта уже занята")
-        elif None in accountant.__dict__.values():
-            self.view.message("Информация", "Не все поля заполнены")
+            return "Такой номер телефона или почта уже занята"
+        elif (None in accountant.__dict__.values()) or "" in accountant.__dict__.values():
+            return "Не все поля заполнены"
         else:
             return accountant
 
@@ -64,9 +72,9 @@ class ControllerRegistrationWorker:
         driver.Age = self.view.lineEdit_Age.text()
         driver.Experience = self.view.lineEdit_Experience.text()
         if self.model.CheckEmail(driver.Email) or self.model.CheckPhone(driver.NumberPhone):
-            self.view.message("Информация", "Такой номер телефона или почта уже занята")
-        elif None in driver.__dict__.values():
-            self.view.message("Информация", "Не все поля заполнены")
+            return "Такой номер телефона или почта уже занята"
+        elif None in list(driver.__dict__.values())[1:] or "" in driver.__dict__.values():
+            return "Не все поля заполнены"
         else:
             return driver
 

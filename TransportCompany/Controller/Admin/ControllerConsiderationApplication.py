@@ -42,8 +42,10 @@ class ControllerConsiderationApplication():
             self.model.AddDenyRequest(self.request)
             self.view.MessageOK("Информация", "Заявка успешно отклонена!")
             self.ConsiderationApplication.destroy(destroyWindow=True)
-            self.parent.DeleteRequestFromTable()
+            self.DeleteRequestFromTable()
 
+    def DeleteRequestFromTable(self):
+        self.parent.DeleteRequestFromTable()
     def RunViewConsiderationApplication(self):
         self.ConsiderationApplication.show()
 
@@ -53,10 +55,12 @@ class ControllerConsiderationApplication():
     def ClickedMakeorder(self):
         if self.ConfirmOrder is None:
             self.ConfirmOrder = ControllerConfirmOrder(self)
+            self.ConfirmOrder.FillingFields(self.request)
             self.ConsiderationApplication.hide()
             self.ConfirmOrder.RunConfirmOrder()
         else:
             self.ConsiderationApplication.hide()
+            self.ConfirmOrder.FillingFields(self.request)
             self.ConfirmOrder.RunConfirmOrder()
 
     def Close(self):

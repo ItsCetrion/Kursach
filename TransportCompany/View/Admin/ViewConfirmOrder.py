@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class ViewConfirmOrder(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(455, 569)
+        MainWindow.resize(455, 575)
         MainWindow.setStyleSheet("background-color: rgb(170, 255, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -28,16 +28,28 @@ class ViewConfirmOrder(object):
         self.frame.setObjectName("frame")
         self.textEdit_Dispatch = QtWidgets.QTextEdit(self.frame)
         self.textEdit_Dispatch.setGeometry(QtCore.QRect(55, 50, 321, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.textEdit_Dispatch.setFont(font)
         self.textEdit_Dispatch.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius: 10px")
         self.textEdit_Dispatch.setObjectName("textEdit_Dispatch")
         self.textEdit_Delivery = QtWidgets.QTextEdit(self.frame)
         self.textEdit_Delivery.setGeometry(QtCore.QRect(55, 140, 321, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.textEdit_Delivery.setFont(font)
         self.textEdit_Delivery.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius: 10px")
         self.textEdit_Delivery.setObjectName("textEdit_Delivery")
         self.textEdit_Cargoinfo = QtWidgets.QTextEdit(self.frame)
         self.textEdit_Cargoinfo.setGeometry(QtCore.QRect(55, 230, 321, 51))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.textEdit_Cargoinfo.setFont(font)
         self.textEdit_Cargoinfo.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "border-radius: 10px")
         self.textEdit_Cargoinfo.setObjectName("textEdit_Cargoinfo")
@@ -76,6 +88,10 @@ class ViewConfirmOrder(object):
         self.label_CargoInfo.setObjectName("label_CargoInfo")
         self.comboBox_1Driver = QtWidgets.QComboBox(self.frame)
         self.comboBox_1Driver.setGeometry(QtCore.QRect(60, 331, 311, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.comboBox_1Driver.setFont(font)
         self.comboBox_1Driver.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.comboBox_1Driver.setObjectName("comboBox_1Driver")
         self.radioButton_Change2Driver = QtWidgets.QRadioButton(self.frame)
@@ -90,8 +106,13 @@ class ViewConfirmOrder(object):
         self.radioButton_Change2Driver.setObjectName("radioButton_Change2Driver")
         self.comboBox_2Driver = QtWidgets.QComboBox(self.frame)
         self.comboBox_2Driver.setGeometry(QtCore.QRect(60, 420, 311, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.comboBox_2Driver.setFont(font)
         self.comboBox_2Driver.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.comboBox_2Driver.setObjectName("comboBox_2Driver")
+        self.comboBox_2Driver.setEnabled(False)
         self.pushButton_Back = QtWidgets.QPushButton(self.frame)
         self.pushButton_Back.setGeometry(QtCore.QRect(210, 480, 181, 28))
         font = QtGui.QFont()
@@ -145,18 +166,19 @@ class ViewConfirmOrder(object):
         self.textEdit_Dispatch.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">dsfsdfdsfsd</p></body></html>"))
+"</style></head><body style=\" font-family:\'Arial\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Москва</p>\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.textEdit_Delivery.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">dsfsdfdsfsd</p></body></html>"))
+"</style></head><body style=\" font-family:\'Arial\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt;\">dsfsdfdsfsd</span></p></body></html>"))
         self.textEdit_Cargoinfo.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">dsfsdfdsfsd</p></body></html>"))
+"</style></head><body style=\" font-family:\'Arial\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt;\">dsfsdfdsfsd</span></p></body></html>"))
         self.label_c.setText(_translate("MainWindow", "Пункт отправки"))
         self.label_Delivery.setText(_translate("MainWindow", "Пункт доставки"))
         self.label_CargoInfo.setText(_translate("MainWindow", "Информация о грузе"))
@@ -164,6 +186,15 @@ class ViewConfirmOrder(object):
         self.pushButton_Back.setText(_translate("MainWindow", "Назад"))
         self.pushButton_Confirm.setText(_translate("MainWindow", "Подтвердить"))
         self.label_Driver.setText(_translate("MainWindow", "Водитель"))
+
+    @staticmethod
+    def message(title, text):
+        msg = QtWidgets.QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        msg.setIcon(QtWidgets.QMessageBox().Information)
+        msg.setDefaultButton(QtWidgets.QMessageBox().Ok)
+        msg.exec_()
 
 
 if __name__ == "__main__":

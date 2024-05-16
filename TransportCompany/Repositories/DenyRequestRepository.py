@@ -1,5 +1,6 @@
 from TransportCompany.DBcontext.DBContext import DBContext
 from TransportCompany.Entities.DenyRequest import DenyRequest
+from pyodbc import ProgrammingError
 
 
 class DenyRequestRepository:
@@ -25,5 +26,5 @@ class DenyRequestRepository:
             result = __cursor.fetchall()
             __context.connection.close()
             return result
-        except pyodbc.ProgrammingError:
+        except ProgrammingError:
             raise "проблемы с подключением"
