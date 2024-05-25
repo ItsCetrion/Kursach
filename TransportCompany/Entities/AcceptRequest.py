@@ -9,4 +9,5 @@ class AcceptRequest:
         self.PlaceDelivery = None
         self.CargoWeight = None
         self.CargoDescription = None
+        self.IdClient = None
         self.DateAccept = None

@@ -1,16 +1,16 @@
-from TransportCompany.Entities.User import User
-from TransportCompany.Repositories.UserRepository import UserRepository
+from TransportCompany.Entities.Client import Client
+from TransportCompany.Repositories.ClientRepository import ClientRepository
 from TransportCompany.Repositories.AllRoleRepository import AllRoleRepository
 
 
 class ModelRegistration:
-    def UserRigistation(self, user: User):
+    def UserRigistation(self, user: Client):
         if not(self.__CheckUserInDB(user)):
-            UserRepository.AddUser(user)
+            ClientRepository.AddUser(user)
         else:
             raise "Пользователь с таким номером телефона или Email уже есть"
 
-    def __CheckUserInDB(self, user: User) -> bool:
+    def __CheckUserInDB(self, user: Client) -> bool:
         return AllRoleRepository().CheckEmail(user.Email)
 
     def CheckPhone(self, phone):

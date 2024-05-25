@@ -13,15 +13,19 @@ class DriverRepository:
         context.connection.commit()
         context.connection.close()
 
+    def GetDriver(self, IdDriver):
+        result = self.__Demand(f"""SELECT * FROM Driver WHERE ID = {IdDriver}""")
+        return result
+
     def Get5Driver(self):
-        result = self.Demand(f"""SELECT Lastname, Firstname, Patronymic, Experience, ID From Driver Where Condition = 'Свободен'
+        result = self.__Demand(f"""SELECT Lastname, Firstname, Patronymic, Experience, ID From Driver Where Condition = 'Свободен'
                                  Order By ID
                                     OFFSET 0 ROWS
                                     FETCH NEXT 5 ROWS ONLY""")
         return result
 
     def Get5DriverWithException(self, id: int):
-        result = self.Demand(f"""SELECT Lastname, Firstname, Patronymic, 
+        result = self.__Demand(f"""SELECT Lastname, Firstname, Patronymic, 
                                  Experience, ID From Driver Where Condition = 'Свободен' and ID != {id}
                                  Order By ID
                                     OFFSET 0 ROWS
@@ -38,9 +42,7 @@ class DriverRepository:
         context.connection.commit()
         context.connection.close()
 
-
-
-    def Demand(self, query: str):
+    def __Demand(self, query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor

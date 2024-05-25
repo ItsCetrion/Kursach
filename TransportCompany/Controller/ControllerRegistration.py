@@ -1,5 +1,5 @@
-from TransportCompany.Entities.User import User
-from TransportCompany.Repositories.UserRepository import UserRepository
+from TransportCompany.Entities.Client import Client
+from TransportCompany.Repositories.ClientRepository import ClientRepository
 from TransportCompany.View.ViewRegistration import ViewRigistration
 from TransportCompany.Model.ModelRegistration import ModelRegistration
 from email_validator import validate_email, EmailNotValidError
@@ -95,7 +95,7 @@ class ControllerRegister:
 
     def functionsSignUp(self):
         if self.CheckColor():
-            user = User()
+            user = Client()
             user.FirstName = self.view.lineEdit_FirstName.text()
             user.LastName = self.view.lineEdit_LastName.text()
             user.Patronymic = self.view.lineEdit_Patronymic.text()

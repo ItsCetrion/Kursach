@@ -9,4 +9,5 @@ class DenyRequest:
         self.PlaceDelivery = None
         self.CargoWeight = None
         self.CargoDescription = None
+        self.IdClient = None
         self.DateDeny = None

@@ -3,8 +3,8 @@ from TransportCompany.View.Admin.ViewWindowApplication import ViewWindowApplicat
 from TransportCompany.Controller.Admin.ControllerRegistrationWorker import ControllerRegistrationWorker
 from TransportCompany.Controller.Admin.ControllerConsiderationApplication import ControllerConsiderationApplication
 from TransportCompany.Entities.Request import Request
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtCore import QCoreApplication
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import QCoreApplication, QSize
 import sys
 from math import ceil
 
@@ -19,7 +19,7 @@ class ControllerWindowApplication:
         self.CursorPage = 1
         self.ParameterSort = "DateRequest"
         self.reverse = True
-        self.SaveRequest(self.model.Get11Request(StartIndex=0, ParameterSort=self.ParameterSort, reverse=self.reverse))
+        self.SaveRequest(self.model.Get11RequestClients(StartIndex=0, ParameterSort=self.ParameterSort, reverse=self.reverse))
         self.SettingsUI()
         self.FillingTable(NumberPage=1)
         self.CreateButtonsPage()
@@ -32,10 +32,10 @@ class ControllerWindowApplication:
         self.view.comboBox_SortTable.currentIndexChanged.connect(self.IdexChangeSortTable)
         self.view.pushButton_Search_date.clicked.connect(self.SearchDate)
         self.view.pushButton_Search_Client.clicked.connect(self.SearchClient)
-        self.view.pushButton_UpdateTable.clicked.connect(self.UpdateTable)
+        # self.view.pushButton_UpdateTable.clicked.connect(self.UpdateTable)
         self.view.action_exit.triggered.connect(self.Exit)
         self.view.action_RegistrationWorker.triggered.connect(self.OpenRegistrationWorker)
-        self.view.tableWidget_TableApplication.clicked.connect(self.test)
+        self.view.tableWidget_TableApplication.clicked.connect(self.ClickedRow)
         self.view.lcdNumber.display(self.QuantityRequest)
         self.view.Button_Group.buttonClicked.connect(self.ClickedButtonPage)
         self.view.pushButton_NextPage.clicked.connect(self.ClickedNext)
@@ -52,7 +52,7 @@ class ControllerWindowApplication:
             self.FillingTable(self.CursorPage)
         elif ceil((self.QuantityRequest - 1) / 11) < ceil(self.QuantityRequest / 11):
             self.QuantityRequest -= 1
-            self.CursorPage -= 1
+            self.CursorPage = 1 if self.CursorPage - 1 == 0 else self.CursorPage - 1
             self.ClearLayout_ListNumberPages()
             self.CreateButtonsPage()
             self.ListRequest.clear()
@@ -86,7 +86,7 @@ class ControllerWindowApplication:
             for page in range(1, QuantityButton + 1):
                 name_btn = f"PushButton{page}"
                 exec(f"self.view.{name_btn} = QtWidgets.QPushButton(self.view.horizontalLayoutWidget)")
-                exec(f"self.view.{name_btn}.setMinimumSize(QtCore.QSize(0, 25))")
+                exec(f"self.view.{name_btn}.setMinimumSize(QSize(0, 25))")
                 exec(f"self.view.{name_btn}.setStyleSheet('background-color: rgb(255, 255, 255); border: 2px solid gray;')")
                 exec(f"self.view.{name_btn}.setObjectName('{name_btn}')")
                 exec(f"self.view.horizontalLayout_ListNumberPages.addWidget(self.view.{name_btn})")
@@ -99,24 +99,24 @@ class ControllerWindowApplication:
             if ButtonText == "...": ButtonText = "PushButtonEllipsis"
             elif ButtonText.isdigit(): ButtonText = "PushButton_Number"
             exec(f"self.view.{ButtonText} = QtWidgets.QPushButton(self.view.horizontalLayoutWidget)")
-            exec(f"self.view.{ButtonText}.setMinimumSize(QtCore.QSize(0, 25))")
+            exec(f"self.view.{ButtonText}.setMinimumSize(QSize(0, 25))")
             exec(f"self.view.{ButtonText}.setStyleSheet('background-color: rgb(255, 255, 255); border: 2px solid gray;')")
             exec(f"self.view.{ButtonText}.setObjectName('{ButtonText}')")
             exec(f"self.view.horizontalLayout_ListNumberPages.addWidget(self.view.{ButtonText})")
             exec(f'self.view.{ButtonText}.setText(self._translate("MainWindow", "{text}"))')
             if ButtonText != 'PushButtonEllipsis': exec(f'self.view.Button_Group.addButton(self.view.{ButtonText}, int(text))')
 
-    def test(self):
+    def ClickedRow(self):
         index = self.view.tableWidget_TableApplication.currentRow()
         request = self.ListRequest[index]
 
         if self.ConsiderationApplication is None:
             self.ConsiderationApplication = ControllerConsiderationApplication(self)
             self.ConsiderationApplication.FillingFields(request)
-            self.ConsiderationApplication.ConsiderationApplication.show()
+            self.ConsiderationApplication.RunViewConsiderationApplication()
         else:
             self.ConsiderationApplication.FillingFields(request)
-            self.ConsiderationApplication.ConsiderationApplication.show()
+            self.ConsiderationApplication.RunViewConsiderationApplication()
 
     def ClickedButtonPage(self, button):
         if int(button.text()) != self.CursorPage:
@@ -130,7 +130,7 @@ class ControllerWindowApplication:
             if 0 <= index_button <= 1:
                 self.StepBack(button)
             elif 3 <= index_button <= 4:
-                self.StepFrot(button)
+                self.StepFront(button)
 
             self.view.Button_Group.button(self.last_cursor).setStyleSheet("background-color: rgb(255, 255, 255);"
                                                                      "border: 2px solid gray;")
@@ -144,11 +144,11 @@ class ControllerWindowApplication:
         elif self.IsFilterClient:
             return self.ChoiceFunctionClient(index)
         else:
-            return self.model.Get11Request(StartIndex=index, ParameterSort=self.ParameterSort, reverse=self.reverse)
+            return self.model.Get11RequestClients(StartIndex=index, ParameterSort=self.ParameterSort, reverse=self.reverse)
 
 
 
-    def StepFrot(self, button):
+    def StepFront(self, button):
         if self.MaxStepFront() == 1:
             self.EditStepFront(1)
             if self.last_cursor != int(self.view.Button_Group.buttons()[-1].text()):
@@ -231,7 +231,8 @@ class ControllerWindowApplication:
             req.PlaceDelivery = request[6]
             req.CargoWeight = request[7]
             req.CargoDescription = request[8]
-            req.DateRequest = str(request[9]).replace("-", ".")
+            req.IdClient = request[9]
+            req.DateRequest = str(request[10]).replace("-", ".")
             self.ListRequest.append(req)
 
 

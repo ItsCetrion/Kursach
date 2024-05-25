@@ -71,9 +71,10 @@ class ControllerRegistrationWorker:
         driver.Email = self.view.lineEdit_Email.text()
         driver.Age = self.view.lineEdit_Age.text()
         driver.Experience = self.view.lineEdit_Experience.text()
+        values_driver = list(driver.__dict__.values())[1:-3]
         if self.model.CheckEmail(driver.Email) or self.model.CheckPhone(driver.NumberPhone):
             return "Такой номер телефона или почта уже занята"
-        elif None in list(driver.__dict__.values())[1:] or "" in driver.__dict__.values():
+        elif set([None, ""]).intersection(values_driver):
             return "Не все поля заполнены"
         else:
             return driver

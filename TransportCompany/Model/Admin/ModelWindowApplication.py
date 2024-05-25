@@ -67,6 +67,6 @@ class ModelWindowApplication:
     def GetQuantityRequestByLastName(self, PartLastName: str):
         return self.RequestRepository.GetQuantityRequestByLastName(PartLastName)
 
-    def Get11Request(self, StartIndex: int, ParameterSort: str, reverse=False):
-        return self.RequestRepository.Get11Request(StartIndex, ParameterSort, reverse)
+    def Get11RequestClients(self, StartIndex: int, ParameterSort: str, reverse=False):
+        return self.RequestRepository.Get11RequestClients(StartIndex, ParameterSort, reverse)
 

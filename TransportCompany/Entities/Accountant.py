@@ -1,5 +1,6 @@
 class Accountant:
     def __init__(self):
+        self.ID = None
         self.FirstName = None
         self.LastName = None
         self.Patronymic = None
@@ -7,3 +8,4 @@ class Accountant:
         self.Email = None
         self.Age = None
         self.Experience = None
+        self.Role = None

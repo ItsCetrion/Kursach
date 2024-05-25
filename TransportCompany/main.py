@@ -1,10 +1,11 @@
 from Controller.ControllerLogin import ControllerLogin
 from Controller.Admin.ControllerWindowApplication import ControllerWindowApplication
 from Controller.Client.ControllerRequestSubmission import ControllerRequestSubmission
-from Entities.Request import Request
+from Controller.Client.ControllerApplicationWindow import ControllerApplicationWindow
+from Entities.Client import Client
 
 
-def main():
+def main(client):
     # app = ControllerLogin()
     # app.RunViewLogin()
     # app.StartProgram()
@@ -12,9 +13,20 @@ def main():
     app = ControllerWindowApplication()
     app.RunViewWindowApplication()
 
-    # app = ControllerRequestSubmission()
+    # app = ControllerRequestSubmission(client)
     # app.RunViewRequestSubmission()
+
+    # app = ControllerApplicationWindow(1)
+    # app.RunViewApplicationWindow()
 
 
 if __name__ == "__main__":
-    main()
+    client = Client()
+    # client.Id = 1
+    # client.FirstName = "Иван"
+    # client.LastName = "Иванов"
+    # client.Email = "test@mail.ru"
+    # client.NumberPhone = "79951622900"
+    main(client)
+    # a = set([3,4]).intersection([1,3,4])
+    # print(a)

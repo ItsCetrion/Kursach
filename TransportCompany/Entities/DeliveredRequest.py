@@ -1,4 +1,4 @@
-class Request:
+class DeliveredRequest:
     def __init__(self):
         self.ID = None
         self.FirstName = None
@@ -10,4 +10,4 @@ class Request:
         self.CargoWeight = None
         self.CargoDescription = None
         self.IdClient = None
-        self.DateRequest = None
+        self.DateDelivered = None

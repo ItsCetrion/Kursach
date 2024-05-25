@@ -8,3 +8,6 @@ class Driver:
         self.Email = None
         self.Age = None
         self.Experience = None
+        self.IdOrderClient = None
+        self.Condition = None
+        self.Role = None
