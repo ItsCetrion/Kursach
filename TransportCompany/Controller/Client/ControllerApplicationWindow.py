@@ -1,6 +1,7 @@
 from TransportCompany.Model.Client.ModelApplicationWindow import ModelApplicationWindow
 from TransportCompany.View.Client.ViewApplicationWindow import ViewApplicationWindow
 from TransportCompany.Controller.Client.ControllerRequestSubmission import ControllerRequestSubmission
+from TransportCompany.Controller.Client.ControllerUserProfile import ControllerUserProfile
 from TransportCompany.Entities.DenyRequest import DenyRequest
 from TransportCompany.Entities.AcceptRequest import AcceptRequest
 from TransportCompany.Entities.Request import Request
@@ -35,11 +36,13 @@ class ControllerApplicationWindow:
         self.view.pushButton_BackFirstPage.clicked.connect(self.ClickedBackFirstPage)
         self.view.pushButton_Updatetable.clicked.connect(self.ClickedUpdatetable)
         self.view.pushButton_Search_date.clicked.connect(self.ClickedSearchDate)
-        self.view.action_SubmitApplication.triggered.connect(self.ClickedSubmitApplication)
         self.view.comboBox_SortTable.currentTextChanged.connect(self.TextChangedSortTable)
         self.view.comboBox_Status.currentTextChanged.connect(self.TextChangedStatus)
         self.view.lcdNumber.display(self.QuantityRequest)
         self.view.Button_Group.buttonClicked.connect(self.ClickedButtonPage)
+        self.view.action_profile.triggered.connect(self.ClickedProfile)
+        self.view.action_SubmitApplication.triggered.connect(self.ClickedSubmitApplication)
+        self.view.action_Exit.triggered.connect(self.ClickedExit)
 
     def SettingsUI(self):
         self.app = QApplication(sys.argv)
@@ -375,3 +378,11 @@ class ControllerApplicationWindow:
         for index, button in enumerate(BtnGroup.buttons()[:-1]):
             BtnGroup.setId(button, BtnGroup.id(button) - step)
             button.setText(self._translate("MainWindow", str(int(button.text()) - step)))
+
+    def ClickedProfile(self):
+        self.UserProfile = ControllerUserProfile(self.client, self)
+        self.UserProfile.RunViewUserProfile()
+        self.ApplicationWindow.setEnabled(False)
+
+    def ClickedExit(self):
+        self.ApplicationWindow.close()

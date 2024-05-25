@@ -1,4 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QRegExp
+from PyQt5.QtGui import QRegExpValidator
 
 
 class ViewUserProfile(object):
@@ -35,6 +37,7 @@ class ViewUserProfile(object):
         self.lineEdit_FirstName.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.lineEdit_FirstName.setText("")
         self.lineEdit_FirstName.setObjectName("lineEdit_FirstName")
+        self.lineEdit_FirstName.setReadOnly(True)
         self.lineEdit_LastName = QtWidgets.QLineEdit(self.frame)
         self.lineEdit_LastName.setGeometry(QtCore.QRect(35, 90, 201, 31))
         font = QtGui.QFont()
@@ -43,6 +46,7 @@ class ViewUserProfile(object):
         self.lineEdit_LastName.setFont(font)
         self.lineEdit_LastName.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.lineEdit_LastName.setObjectName("lineEdit_LastName")
+        self.lineEdit_LastName.setReadOnly(True)
         self.lineEdit_Patronymic = QtWidgets.QLineEdit(self.frame)
         self.lineEdit_Patronymic.setGeometry(QtCore.QRect(35, 130, 201, 31))
         font = QtGui.QFont()
@@ -51,6 +55,7 @@ class ViewUserProfile(object):
         self.lineEdit_Patronymic.setFont(font)
         self.lineEdit_Patronymic.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.lineEdit_Patronymic.setObjectName("lineEdit_Patronymic")
+        self.lineEdit_Patronymic.setReadOnly(True)
         self.frame_2 = QtWidgets.QFrame(self.centralwidget)
         self.frame_2.setGeometry(QtCore.QRect(320, 30, 451, 191))
         self.frame_2.setStyleSheet("background-color: rgb(85, 255, 255);\n"
@@ -87,14 +92,17 @@ class ViewUserProfile(object):
         self.pushButton_EditEmail.setFont(font)
         self.pushButton_EditEmail.setStyleSheet("background-color: rgb(255, 170, 127);")
         self.pushButton_EditEmail.setObjectName("pushButton_EditEmail")
-        self.textEdit_Phone = QtWidgets.QTextEdit(self.frame_2)
-        self.textEdit_Phone.setGeometry(QtCore.QRect(30, 40, 241, 41))
+        self.lineEdit_Phone = QtWidgets.QLineEdit(self.frame_2)
+        self.lineEdit_Phone.setGeometry(QtCore.QRect(30, 40, 241, 41))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
-        self.textEdit_Phone.setFont(font)
-        self.textEdit_Phone.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.textEdit_Phone.setObjectName("textEdit_Phone")
+        self.lineEdit_Phone.setFont(font)
+        self.lineEdit_Phone.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.lineEdit_Phone.setObjectName("lineEdit_Phone")
+        NumberPhoneRegx = QRegExp('\d{11}')
+        NumberPhoneValidator = QRegExpValidator(NumberPhoneRegx, self.lineEdit_Phone)
+        self.lineEdit_Phone.setValidator(NumberPhoneValidator)
         self.frame_3 = QtWidgets.QFrame(self.centralwidget)
         self.frame_3.setGeometry(QtCore.QRect(80, 248, 451, 241))
         self.frame_3.setStyleSheet("background-color: rgb(85, 255, 255);\n"
@@ -152,11 +160,6 @@ class ViewUserProfile(object):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.pushButton_EditPhone.setText(_translate("MainWindow", "Сменить телефон"))
         self.pushButton_EditEmail.setText(_translate("MainWindow", "Сменить почту"))
-        self.textEdit_Phone.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'Arial\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.textEdit_NewPassword.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -170,6 +173,15 @@ class ViewUserProfile(object):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.textEdit_OldPassword.setPlaceholderText(_translate("MainWindow", "Введите старый пароль"))
         self.pushButton_EditPassword.setText(_translate("MainWindow", "Сменить пароль"))
+
+    @staticmethod
+    def message(title, text):
+        msg = QtWidgets.QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        msg.setIcon(QtWidgets.QMessageBox.Information)
+        msg.setDefaultButton(QtWidgets.QMessageBox.Ok)
+        msg.exec_()
 
 
 if __name__ == "__main__":

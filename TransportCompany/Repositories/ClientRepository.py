@@ -5,22 +5,34 @@ from pyodbc import ProgrammingError
 
 class ClientRepository:
 
-    @staticmethod
-    def AddUser(user: Client):
-        context = DBContext()
-        cursor = context.cursor
+
+    def AddUser(self, user: Client):
         query = (f"""INSERT INTO Client(FirstName,LastName,Patronymic,NumberPhone,Email,PasswordProgram)
                      VALUES('{user.FirstName}','{user.LastName}','{user.Patronymic}','{user.NumberPhone}',
                      '{user.Email}','{user.Password}')""")
-        cursor.execute(query)
-        context.connection.commit()
-        context.connection.close()
+        self.__AUDI(query)
 
     def GetClient(self, IdClient):
-        result = self.__Request(f"""SELECT * FROM Client Where ID = {IdClient}""")
+        result = self.__request(f"""SELECT * FROM Client Where ID = {IdClient}""")
         return result
 
-    def __Request(self, query: str):
+    def UpdatePhone(self, IdClient, Phone):
+        query = (f"""UPDATE Client SET NumberPhone = '{Phone}' 
+                                   WHERE ID = {IdClient}""")
+        self.__AUDI(query)
+
+    def UpdateEmail(self, IdClient, Email):
+        query = (f"""UPDATE Client SET Email = '{Email}' 
+                                           WHERE ID = {IdClient}""")
+        self.__AUDI(query)
+
+    def UpdatePassword(self, IdClient, Password):
+        query = (f"""UPDATE Client SET PasswordProgram = '{Password}' 
+                                                   WHERE ID = {IdClient}""")
+        self.__AUDI(query)
+
+    @staticmethod
+    def __request(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor
@@ -28,5 +40,16 @@ class ClientRepository:
             result = __cursor.fetchall()
             __context.connection.close()
             return result
+        except ProgrammingError:
+            raise "Ошибка"
+
+    @staticmethod
+    def __AUDI(query: str):
+        try:
+            __context = DBContext()
+            __cursor = __context.cursor
+            __cursor.execute(query)
+            __context.connection.commit()
+            __context.connection.close()
         except ProgrammingError:
             raise "Ошибка"
