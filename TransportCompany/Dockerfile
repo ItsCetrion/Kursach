@@ -1,4 +1,4 @@
-FROM python
-WORKDIR /app
-COPY /TransportCompany/main/main.py /app/test.py
-ENTRYPOINT ["python", "main.py"]
+FROM python:3.9-slim
+COPY . .
+RUN pip install --user -r requirements.txt
+CMD ["python", "./main.py"]

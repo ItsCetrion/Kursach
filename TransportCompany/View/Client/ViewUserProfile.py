@@ -1,0 +1,182 @@
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+
+class ViewUserProfile(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(789, 524)
+        MainWindow.setStyleSheet("background-color: rgb(177, 177, 177);")
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.frame = QtWidgets.QFrame(self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(10, 30, 271, 191))
+        self.frame.setStyleSheet("background-color: rgb(85, 255, 255);\n"
+"border-radius: 20px;\n"
+"border: 2px solid black;")
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.label = QtWidgets.QLabel(self.frame)
+        self.label.setGeometry(QtCore.QRect(120, 20, 41, 16))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label.setFont(font)
+        self.label.setStyleSheet("border: 0px")
+        self.label.setObjectName("label")
+        self.lineEdit_FirstName = QtWidgets.QLineEdit(self.frame)
+        self.lineEdit_FirstName.setGeometry(QtCore.QRect(35, 50, 201, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        self.lineEdit_FirstName.setFont(font)
+        self.lineEdit_FirstName.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.lineEdit_FirstName.setText("")
+        self.lineEdit_FirstName.setObjectName("lineEdit_FirstName")
+        self.lineEdit_LastName = QtWidgets.QLineEdit(self.frame)
+        self.lineEdit_LastName.setGeometry(QtCore.QRect(35, 90, 201, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        self.lineEdit_LastName.setFont(font)
+        self.lineEdit_LastName.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.lineEdit_LastName.setObjectName("lineEdit_LastName")
+        self.lineEdit_Patronymic = QtWidgets.QLineEdit(self.frame)
+        self.lineEdit_Patronymic.setGeometry(QtCore.QRect(35, 130, 201, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        self.lineEdit_Patronymic.setFont(font)
+        self.lineEdit_Patronymic.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.lineEdit_Patronymic.setObjectName("lineEdit_Patronymic")
+        self.frame_2 = QtWidgets.QFrame(self.centralwidget)
+        self.frame_2.setGeometry(QtCore.QRect(320, 30, 451, 191))
+        self.frame_2.setStyleSheet("background-color: rgb(85, 255, 255);\n"
+"border-radius: 20px;\n"
+"border: 2px solid black;")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.textEdit_Email = QtWidgets.QTextEdit(self.frame_2)
+        self.textEdit_Email.setGeometry(QtCore.QRect(30, 110, 241, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.textEdit_Email.setFont(font)
+        self.textEdit_Email.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.textEdit_Email.setObjectName("textEdit_Email")
+        self.pushButton_EditPhone = QtWidgets.QPushButton(self.frame_2)
+        self.pushButton_EditPhone.setGeometry(QtCore.QRect(280, 40, 161, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_EditPhone.setFont(font)
+        self.pushButton_EditPhone.setStyleSheet("background-color: rgb(255, 170, 127);")
+        self.pushButton_EditPhone.setObjectName("pushButton_EditPhone")
+        self.pushButton_EditEmail = QtWidgets.QPushButton(self.frame_2)
+        self.pushButton_EditEmail.setGeometry(QtCore.QRect(280, 110, 161, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(9)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_EditEmail.setFont(font)
+        self.pushButton_EditEmail.setStyleSheet("background-color: rgb(255, 170, 127);")
+        self.pushButton_EditEmail.setObjectName("pushButton_EditEmail")
+        self.textEdit_Phone = QtWidgets.QTextEdit(self.frame_2)
+        self.textEdit_Phone.setGeometry(QtCore.QRect(30, 40, 241, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.textEdit_Phone.setFont(font)
+        self.textEdit_Phone.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.textEdit_Phone.setObjectName("textEdit_Phone")
+        self.frame_3 = QtWidgets.QFrame(self.centralwidget)
+        self.frame_3.setGeometry(QtCore.QRect(80, 248, 451, 241))
+        self.frame_3.setStyleSheet("background-color: rgb(85, 255, 255);\n"
+"border-radius: 20px;\n"
+"border: 2px solid black;")
+        self.frame_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_3.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_3.setObjectName("frame_3")
+        self.textEdit_NewPassword = QtWidgets.QTextEdit(self.frame_3)
+        self.textEdit_NewPassword.setGeometry(QtCore.QRect(30, 110, 391, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.textEdit_NewPassword.setFont(font)
+        self.textEdit_NewPassword.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.textEdit_NewPassword.setObjectName("textEdit_NewPassword")
+        self.textEdit_OldPassword = QtWidgets.QTextEdit(self.frame_3)
+        self.textEdit_OldPassword.setGeometry(QtCore.QRect(30, 40, 391, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(11)
+        self.textEdit_OldPassword.setFont(font)
+        self.textEdit_OldPassword.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.textEdit_OldPassword.setObjectName("textEdit_OldPassword")
+        self.pushButton_EditPassword = QtWidgets.QPushButton(self.frame_3)
+        self.pushButton_EditPassword.setGeometry(QtCore.QRect(45, 180, 361, 41))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton_EditPassword.setFont(font)
+        self.pushButton_EditPassword.setStyleSheet("background-color: rgb(255, 170, 127);")
+        self.pushButton_EditPassword.setObjectName("pushButton_EditPassword")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 789, 21))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.label.setText(_translate("MainWindow", "ФИО"))
+        self.textEdit_Email.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Arial\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.pushButton_EditPhone.setText(_translate("MainWindow", "Сменить телефон"))
+        self.pushButton_EditEmail.setText(_translate("MainWindow", "Сменить почту"))
+        self.textEdit_Phone.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Arial\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.textEdit_NewPassword.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Arial\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.textEdit_NewPassword.setPlaceholderText(_translate("MainWindow", "Введите новый пароль"))
+        self.textEdit_OldPassword.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'Arial\'; font-size:11pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.textEdit_OldPassword.setPlaceholderText(_translate("MainWindow", "Введите старый пароль"))
+        self.pushButton_EditPassword.setText(_translate("MainWindow", "Сменить пароль"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = ViewUserProfile()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

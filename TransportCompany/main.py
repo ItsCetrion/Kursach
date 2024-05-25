@@ -6,12 +6,12 @@ from Entities.Client import Client
 
 
 def main(client):
-    # app = ControllerLogin()
-    # app.RunViewLogin()
-    # app.StartProgram()
+    app = ControllerLogin()
+    app.RunViewLogin()
+    app.StartProgram()
 
-    app = ControllerWindowApplication()
-    app.RunViewWindowApplication()
+    # app = ControllerWindowApplication()
+    # app.RunViewWindowApplication()
 
     # app = ControllerRequestSubmission(client)
     # app.RunViewRequestSubmission()
