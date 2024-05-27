@@ -246,7 +246,6 @@ class ControllerWindowApplication:
         self.WindowApplication.show()
         sys.exit(self.app.exec_())
 
-
     def FillingTable(self, NumberPage):
         self.view.tableWidget_TableApplication.setRowCount(len(self.ListRequest))
         RowTable = ((int(NumberPage) - 1) / 11)

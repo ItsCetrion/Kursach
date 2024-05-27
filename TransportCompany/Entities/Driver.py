@@ -1,6 +1,7 @@
 class Driver:
     def __init__(self):
         self.ID = None
+        self.Password = None
         self.FirstName = None
         self.LastName = None
         self.Patronymic = None

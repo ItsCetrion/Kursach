@@ -21,9 +21,12 @@ class AllRoleRepository:
             return True
 
     def GetEntity(self, password, email) -> list:
-        result = self.__Request(f"""SELECT *
-                                  FROM CrossTable
-                                  Where Email = '{email}' and PasswordProgram = '{password}'""")
+        if password == "Null":
+            result = self.__Request(f"""SELECT * FROM CrossTable
+                                        Where Email = '{email}' and PasswordProgram is NUll""")
+        else:
+            result = self.__Request(f"""SELECT * FROM CrossTable
+                                        Where Email = '{email}' and PasswordProgram = '{password}'""")
         return result
 
     def __Request(self, query: str):

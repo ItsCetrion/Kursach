@@ -6,7 +6,7 @@ from TransportCompany.Repositories.AllRoleRepository import AllRoleRepository
 class ModelRegistration:
     def UserRigistation(self, user: Client):
         if not(self.__CheckUserInDB(user)):
-            ClientRepository.AddUser(user)
+            ClientRepository().AddUser(user)
         else:
             raise "Пользователь с таким номером телефона или Email уже есть"
 

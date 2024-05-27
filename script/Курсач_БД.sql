@@ -95,20 +95,6 @@ IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'AcceptRequest')
 						 IdClient INT CONSTRAINT FK__IdClient FOREIGN KEY(IdClient) REFERENCES Client(ID) ON DELETE CASCADE,
 						 DateAccept DATE NOT NULL DEFAULT(GETDATE()))
 
-IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DeliveredRequest')
-	CREATE TABLE DeliveredRequest(ID INT NOT NULL PRIMARY KEY,
-						 FirstName NVARCHAR(30) NOT NULL,
-						 LastName NVARCHAR(30) NOT NULL,
-						 Email NVARCHAR(320) NOT NULL,
-						 NumberPhone NVARCHAR(12) NOT NULL,
-						 PlaceDeparture VARCHAR(100) NOT NULL,
-						 PlaceDelivery VARCHAR(100) NOT NULL,
-						 CargoWeight INT NOT NULL,
-						 CargoDescription VARCHAR(100) NOT NULL,
-						 Position VARCHAR(30) NOT NULL DEFAULT('Доставлено'),
-						 IdClient INT CONSTRAINT FK____IdClient FOREIGN KEY(IdClient) REFERENCES Client(ID) ON DELETE CASCADE,
-						 DateDelivered DATE NOT NULL DEFAULT(GETDATE()))
-
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Driver')
 	Create Table Driver(ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 							 Firstname NVARCHAR(30) NOT NULL,
@@ -122,6 +108,22 @@ IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Driver')
 							 IdOrderClient INT CONSTRAINT FK_IdOrderClient FOREIGN KEY(IdOrderClient) REFERENCES AcceptRequest(ID) ON DELETE CASCADE,
 							 Condition NVARCHAR(20)NOT NULL DEFAULT('Свободен'),
 							 RoleProgram NVARCHAR(20) NOT NULL DEFAULT('Водитель'))
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DeliveredRequest')
+	CREATE TABLE DeliveredRequest(ID INT NOT NULL PRIMARY KEY,
+						 FirstName NVARCHAR(30) NOT NULL,
+						 LastName NVARCHAR(30) NOT NULL,
+						 Email NVARCHAR(320) NOT NULL,
+						 NumberPhone NVARCHAR(12) NOT NULL,
+						 PlaceDeparture VARCHAR(100) NOT NULL,
+						 PlaceDelivery VARCHAR(100) NOT NULL,
+						 CargoWeight INT NOT NULL,
+						 CargoDescription VARCHAR(100) NOT NULL,
+						 Position VARCHAR(30) NOT NULL DEFAULT('Доставлено'),
+						 IdClient INT CONSTRAINT FK____IdClient FOREIGN KEY(IdClient) REFERENCES Client(ID) ON DELETE CASCADE,
+						 IdDriver INT CONSTRAINT FK_IdDriver FOREIGN KEY(IdDriver) REFERENCES Driver(ID) ON DELETE NO ACTION,
+						 Revenue Money NULL,
+						 DateDelivered DATE NOT NULL DEFAULT(GETDATE()))
 
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Accountant')
 	Create Table Accountant(ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -171,3 +173,4 @@ SELECT ID, FirstName, LastName, Email, NumberPhone,
                                             Order By DateAccept Desc, ID DESC
                                                             OFFSET 0 ROWS
                                                             FETCH NEXT 11 ROWS ONLY
+

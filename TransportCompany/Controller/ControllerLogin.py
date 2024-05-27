@@ -3,6 +3,7 @@ from TransportCompany.Model.ModelLogin import ModelLogin
 from TransportCompany.Controller.ControllerRegistration import ControllerRegister
 from TransportCompany.Controller.Admin.ControllerWindowApplication import ControllerWindowApplication
 from TransportCompany.Controller.Client.ControllerApplicationWindow import ControllerApplicationWindow
+from TransportCompany.Controller.Driver.ControllerMainWindow import ControllerMainWindow
 from TransportCompany.Entities.Client import Client
 from TransportCompany.Entities.Driver import Driver
 from TransportCompany.Entities.Administrator import Administrator
@@ -38,7 +39,10 @@ class ControllerLogin:
     def FunctionSignIn(self):
         email = self.view.lineEdit_Login.text()
         password = self.view.lineEdit_Password.text()
-        password = hashlib.md5(password.encode()).hexdigest()
+        if password == "":
+            password = "Null"
+        else:
+            password = hashlib.md5(password.encode()).hexdigest()
         user = self.model.GetEntity(email, password)
         if len(user) == 0:
             self.view.message("Информация", "Вы не верно ввели логин или пароль")
@@ -59,6 +63,11 @@ class ControllerLogin:
             self.ApplicationWindow = ControllerApplicationWindow(entity)
             self.ApplicationWindow.RunViewApplicationWindow()
             self.LoginWindow.close()
+        elif role == "Водитель":
+            entity = self.FillingEntity([*(self.model.GetDriver(id)[0])], Driver)
+            self.MainWindow = ControllerMainWindow(entity)
+            self.MainWindow.RunMainWindow()
+            self.LoginWindow.close()
 
     def FillingEntity(self, InfoEntity: list, Entity : [Client, Driver, Administrator, Accountant]):
         entity = Entity()
@@ -71,11 +80,11 @@ class ControllerLogin:
             entity.Email = InfoEntity[5]
             entity.Password = InfoEntity[6]
             if isinstance(entity, (Accountant, Driver)):
-                entity.Age = InfoEntity[6]
-                entity.Experience = InfoEntity[7]
+                entity.Age = InfoEntity[7]
+                entity.Experience = InfoEntity[8]
             if isinstance(entity, Driver):
-                entity.IdOrderClient = InfoEntity[8]
-                entity.Condition = InfoEntity[9]
+                entity.IdOrderClient = InfoEntity[9]
+                entity.Condition = InfoEntity[10]
             entity.Role = InfoEntity[-1]
         return entity
 

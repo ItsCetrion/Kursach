@@ -6,17 +6,12 @@ from pyodbc import ProgrammingError
 class DenyRequestRepository:
 
     def AddDenyRequest(self, deny_request: DenyRequest):
-        context = DBContext()
-        cursor = context.cursor
-        query = (f"""INSERT INTO DenyRequest(ID,FirstName,LastName,Email,NumberPhone,PlaceDeparture,PlaceDelivery,
+        self.__UID(f"""INSERT INTO DenyRequest(ID,FirstName,LastName,Email,NumberPhone,PlaceDeparture,PlaceDelivery,
                                              CargoWeight,CargoDescription, IdClient)
                                  VALUES({deny_request.ID},'{deny_request.FirstName}','{deny_request.LastName}',
                                  '{deny_request.Email}','{deny_request.NumberPhone}','{deny_request.PlaceDeparture}',
                                  '{deny_request.PlaceDelivery}', {deny_request.CargoWeight},
                                  '{deny_request.CargoDescription}', {deny_request.IdClient})""")
-        cursor.execute(query)
-        context.connection.commit()
-        context.connection.close()
 
     def Get11DenyRequest(self, StartIndex: int, reverse, IdClient: int):
         sort = "ASC" if reverse is False else "DESC"
@@ -41,5 +36,15 @@ class DenyRequestRepository:
             result = __cursor.fetchall()
             __context.connection.close()
             return result
+        except ProgrammingError:
+            raise "проблемы с подключением"
+
+    def __UID(self, query: str):
+        try:
+            __context = DBContext()
+            __cursor = __context.cursor
+            __cursor.execute(query)
+            __context.connection.commit()
+            __context.connection.close()
         except ProgrammingError:
             raise "проблемы с подключением"

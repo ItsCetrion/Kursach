@@ -10,4 +10,6 @@ class DeliveredRequest:
         self.CargoWeight = None
         self.CargoDescription = None
         self.IdClient = None
+        self.IdDriver = None
+        self.Revenue = None
         self.DateDelivered = None

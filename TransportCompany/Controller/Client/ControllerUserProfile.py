@@ -64,7 +64,7 @@ class ControllerUserProfile:
             validate_email(email, check_deliverability=False)
             return True
         except EmailNotValidError:
-            self.view.message("Информация", "Почта указана не корректно")
+            self.view.message("Информация", "Почта указана некорректно")
             return False
 
     def ClickedEditPassword(self):

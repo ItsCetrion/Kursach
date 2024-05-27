@@ -5,26 +5,17 @@ from TransportCompany.Entities.Request import Request
 
 
 class RequestRepository:
-    @staticmethod
-    def AddRequest(request: Request):
-        context = DBContext()
-        cursor = context.cursor
-        query = (f"""INSERT INTO Request(FirstName,LastName,Email,NumberPhone,PlaceDeparture,PlaceDelivery,CargoWeight,
+    def AddRequest(self, request: Request):
+
+        self.__UID(f"""INSERT INTO Request(FirstName,LastName,Email,NumberPhone,PlaceDeparture,PlaceDelivery,CargoWeight,
                      CargoDescription, IdClient)
                          VALUES('{request.FirstName}','{request.LastName}','{request.Email}','{request.NumberPhone}',
                          '{request.PlaceDeparture}','{request.PlaceDelivery}',
                          '{request.CargoWeight}', '{request.CargoDescription}', {request.IdClient})""")
-        cursor.execute(query)
-        context.connection.commit()
-        context.connection.close()
 
     def DeleteRequest(self, id: int):
-        context = DBContext()
-        cursor = context.cursor
-        query = f"""DELETE FROM Request WHERE ID = {id}"""
-        cursor.execute(query)
-        context.connection.commit()
-        context.connection.close()
+        self.__UID(f"""DELETE FROM Request WHERE ID = {id}""")
+
 
     def Get11RequestByDate(self, date: str, StartIndex: int, ParameterSort: str, reverse=False):
         sort = "ASC" if reverse is False else "DESC"
@@ -199,6 +190,16 @@ class RequestRepository:
             result = __cursor.fetchall()
             __context.connection.close()
             return result
+        except ProgrammingError:
+            raise "проблемы с подключением"
+
+    def __UID(self, query: str):
+        try:
+            __context = DBContext()
+            __cursor = __context.cursor
+            __cursor.execute(query)
+            __context.connection.commit()
+            __context.connection.close()
         except ProgrammingError:
             raise "проблемы с подключением"
 

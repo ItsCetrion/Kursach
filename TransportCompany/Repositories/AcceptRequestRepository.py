@@ -4,17 +4,12 @@ from pyodbc import ProgrammingError
 
 class AcceptRequestRepository:
     def AddAcceptRequest(self, request: Request):
-        context = DBContext()
-        cursor = context.cursor
-        query = (f"""INSERT INTO AcceptRequest(ID,FirstName,LastName,Email,NumberPhone,PlaceDeparture,PlaceDelivery,
+        self.__UID(f"""INSERT INTO AcceptRequest(ID,FirstName,LastName,Email,NumberPhone,PlaceDeparture,PlaceDelivery,
                                              CargoWeight,CargoDescription, IdClient)
                                  VALUES('{request.ID}','{request.FirstName}','{request.LastName}',
                                  '{request.Email}','{request.NumberPhone}','{request.PlaceDeparture}',
                                  '{request.PlaceDelivery}', '{request.CargoWeight}',
                                  '{request.CargoDescription}', {request.IdClient})""")
-        cursor.execute(query)
-        context.connection.commit()
-        context.connection.close()
 
     def Get11AcceptRequest(self, StartIndex: int, reverse: bool, IdClient: int):
         sort = "ASC" if reverse is False else "DESC"
@@ -26,10 +21,19 @@ class AcceptRequestRepository:
                                                             FETCH NEXT 11 ROWS ONLY""")
         return result
 
+    def GetAcceptRequest(self, IdRequest):
+        result = self.__Demand(f"""SELECT ID,FirstName,LastName,Email,NumberPhone,PlaceDeparture,PlaceDelivery,
+                                   CargoWeight,CargoDescription,IdClient
+                                   FROM AcceptRequest WHERE ID = {IdRequest}""")
+        return result[0]
+
     def GetQuantityRequest(self, IdClient:int):
         result = self.__Demand(f"""SELECT COUNT(*) FROM AcceptRequest 
                                  Where IdClient = {IdClient}""")
         return result[0][0]
+
+    def DeleteAcceptRequest(self, IdRequest):
+        self.__UID(f"""DELETE FROM AcceptRequest WHERE ID = {IdRequest}""")
 
     def __Demand(self, query: str):
         try:
@@ -39,5 +43,15 @@ class AcceptRequestRepository:
             result = __cursor.fetchall()
             __context.connection.close()
             return result
+        except ProgrammingError:
+            raise "проблемы с подключением"
+
+    def __UID(self, query: str):
+        try:
+            __context = DBContext()
+            __cursor = __context.cursor
+            __cursor.execute(query)
+            __context.connection.commit()
+            __context.connection.close()
         except ProgrammingError:
             raise "проблемы с подключением"
