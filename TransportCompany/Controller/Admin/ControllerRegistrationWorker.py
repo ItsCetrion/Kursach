@@ -56,9 +56,10 @@ class ControllerRegistrationWorker:
         accountant.Email = self.view.lineEdit_Email.text()
         accountant.Age = self.view.lineEdit_Age.text()
         accountant.Experience = self.view.lineEdit_Experience.text()
+        values_driver = list(accountant.__dict__.values())[-1:-2]
         if self.model.CheckEmail(accountant.Email) or self.model.CheckPhone(accountant.NumberPhone):
             return "Такой номер телефона или почта уже занята"
-        elif (None in accountant.__dict__.values()) or "" in accountant.__dict__.values():
+        elif set([None, ""]).intersection(values_driver):
             return "Не все поля заполнены"
         else:
             return accountant

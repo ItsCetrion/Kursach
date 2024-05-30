@@ -8,4 +8,5 @@ class Accountant:
         self.Email = None
         self.Age = None
         self.Experience = None
+        self.Password = None
         self.Role = None

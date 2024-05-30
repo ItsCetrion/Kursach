@@ -18,6 +18,17 @@ class DeliveredRequestRepositories:
                                    FROM DeliveredRequest WHERE IdDriver = {IdDriver}""")
         return result
 
+    def GetAllCompletedOrders(self, sort: str):
+        result = self.__Demand(f"""SELECT ID, PlaceDeparture, PlaceDelivery 
+                                   FROM DeliveredRequest WHERE Revenue is NULL
+                                   ORDER BY ID {sort}""")
+        return result
+
+    def GetOrderByIdOrder(self, IdOrder):
+        result = self.__Demand(f"""SELECT ID, PlaceDeparture, PlaceDelivery
+                                   FROM DeliveredRequest WHERE ID = {IdOrder}""")
+        return result
+
     def __Demand(self, query: str):
         try:
             __context = DBContext()
