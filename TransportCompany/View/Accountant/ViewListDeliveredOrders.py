@@ -207,6 +207,15 @@ class ViewListDeliveredOrders(object):
         self.action_profile.setText(_translate("MainWindow", "Профиль "))
         self.action_Exit.setText(_translate("MainWindow", "Выход"))
 
+    @staticmethod
+    def message(title, text):
+        msg = QtWidgets.QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        msg.setIcon(QtWidgets.QMessageBox.Information)
+        msg.setDefaultButton(QtWidgets.QMessageBox.Ok)
+        msg.exec_()
+
 
 if __name__ == "__main__":
     import sys

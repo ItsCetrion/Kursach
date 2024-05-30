@@ -37,7 +37,7 @@ class ControllerMainWindow:
         # sys.exit(self.app.exec_())
 
     def CheckHavePassword(self):
-        if self.driver.Password is None: #Вызвать окно профиля
+        if self.driver.Password is None:
             self.DriverProfile = ControllerDriverProfile(self.driver, self)
             self.DriverProfile.RunViewDriverProfile()
             self.MainWindow.setEnabled(False)
