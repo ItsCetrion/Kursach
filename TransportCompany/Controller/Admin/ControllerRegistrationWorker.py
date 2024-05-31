@@ -29,24 +29,39 @@ class ControllerRegistrationWorker:
         self.ControllerWinApp.RunViewWindowApplication()
 
     def Registration(self):
-        if self.view.comboBox_Worker.currentText() == "Бухгалтер":
-            accountant = Accountant()
-            accountant_ = self.FillingAccountant(accountant)
-            if isinstance(accountant_, str):
-                self.view.message("Информация", accountant_)
+        if self.isCheckAgeAndExperience():
+            if self.view.comboBox_Worker.currentText() == "Бухгалтер":
+                accountant = Accountant()
+                accountant_ = self.FillingAccountant(accountant)
+                if isinstance(accountant_, str):
+                    self.view.message("Информация", accountant_)
+                else:
+                    self.model.RegistrationAccountant(accountant_)
+                    self.view.message("Информация", "Работник успешно добавлен")
+                    self.Back()
+            elif self.view.comboBox_Worker.currentText() == "Водитель":
+                driver = Driver()
+                driver_ = self.FillingDriver(driver)
+                if isinstance(driver_, str):
+                    self.view.message("Информация", driver_)
+                else:
+                    self.model.RegistrationDriver(driver_)
+                    self.view.message("Информация", "Работник успешно добавлен")
+                    self.Back()
+
+    def isCheckAgeAndExperience(self):
+        try:
+            if int(self.view.lineEdit_Age.text()) < 18:
+                self.view.message("Информация", "Нельзя назначит сотрудника младше 18 лет!")
+                return False
+            if int(self.view.lineEdit_Age.text()) - int(self.view.lineEdit_Experience.text()) < 16:
+                self.view.message("Информация", "Неправильный стаж!")
+                return False
             else:
-                self.model.RegistrationAccountant(accountant_)
-                self.view.message("Информация", "Работник успешно добавлен")
-                self.Back()
-        elif self.view.comboBox_Worker.currentText() == "Водитель":
-            driver = Driver()
-            driver_ = self.FillingDriver(driver)
-            if isinstance(driver_, str):
-                self.view.message("Информация", driver_)
-            else:
-                self.model.RegistrationDriver(driver_)
-                self.view.message("Информация", "Работник успешно добавлен")
-                self.Back()
+                return True
+        except ValueError:
+            self.view.message("Информация", "Какое-то из полей не заполнено!")
+            return False
 
     def FillingAccountant(self, accountant: Accountant):
         accountant.FirstName = self.view.lineEdit_FirstName.text()
@@ -56,7 +71,7 @@ class ControllerRegistrationWorker:
         accountant.Email = self.view.lineEdit_Email.text()
         accountant.Age = self.view.lineEdit_Age.text()
         accountant.Experience = self.view.lineEdit_Experience.text()
-        values_driver = list(accountant.__dict__.values())[-1:-2]
+        values_driver = list(accountant.__dict__.values())[1:-2]
         if self.model.CheckEmail(accountant.Email) or self.model.CheckPhone(accountant.NumberPhone):
             return "Такой номер телефона или почта уже занята"
         elif set([None, ""]).intersection(values_driver):
@@ -79,6 +94,7 @@ class ControllerRegistrationWorker:
             return "Не все поля заполнены"
         else:
             return driver
+
 
 
 

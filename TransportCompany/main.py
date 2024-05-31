@@ -3,12 +3,12 @@ from Controller.Admin.ControllerWindowApplication import ControllerWindowApplica
 
 
 def main():
-    app = ControllerLogin()
-    app.RunViewLogin()
-    app.StartProgram()
+    # app = ControllerLogin()
+    # app.RunViewLogin()
+    # app.StartProgram()
 
-    # app = ControllerWindowApplication()
-    # app.RunViewWindowApplication()
+    app = ControllerWindowApplication()
+    app.RunViewWindowApplication()
 
 
 if __name__ == "__main__":
