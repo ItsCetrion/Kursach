@@ -128,7 +128,7 @@ class ViewRequestSubmission(object):
 "background-color: rgb(255, 255, 255);")
         self.lineEdit_CargoWeight.setObjectName("lineEdit_CargoWeight")
 
-        CargoWeightRegx = QRegExp('\d{4}')
+        CargoWeightRegx = QRegExp('\d{5}')
         CargoWeightValidator = QRegExpValidator(CargoWeightRegx, self.lineEdit_CargoWeight)
         self.lineEdit_CargoWeight.setValidator(CargoWeightValidator)
 

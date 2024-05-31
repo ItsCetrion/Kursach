@@ -11,6 +11,7 @@ class ControllerRequestSubmission:
         self.SettingsUI()
         self.Client = client
         self.FillingFields()
+        self.RequestSubmission.closeEvent = self.closeEvent
 
         self.view.pushButton_CreateRequest.clicked.connect(self.ClickedCreateRequest)
         self.view.pushButton_Back.clicked.connect(self.ClickedBack)
@@ -34,6 +35,28 @@ class ControllerRequestSubmission:
 
 
     def ClickedCreateRequest(self):
+        if self.isCheckWight():
+            request = self.FillingRequest()
+            values_request = list(request.__dict__.values())[1:-1]
+            if len(set([None, ""]).intersection(values_request)) != 0:
+                self.view.message("Информация", "Не все поля заполнены!")
+            else:
+                self.model.AddRequest(request)
+                self.view.message("Информация", "Заявка отправлена, ждите рассмотрения!")
+                self.RequestSubmission.close()
+
+    def isCheckWight(self):
+        try:
+            if int(self.view.lineEdit_CargoWeight.text()) > 20000:
+                self.view.message("Информация", "Извините, грузы тяжелее чем 20 тонн, компания не перевозит!")
+                return False
+            else:
+                return True
+        except ValueError:
+            self.view.message("Информация", "Не указан вес грузу!")
+            return False
+
+    def FillingRequest(self):
         request = Request()
         request.IdClient = self.Client.ID
         request.FirstName = self.Client.FirstName
@@ -44,23 +67,17 @@ class ControllerRequestSubmission:
         request.PlaceDelivery = self.view.lineEdit_PlaceDelivery.text()
         request.CargoWeight = self.view.lineEdit_CargoWeight.text()
         request.CargoDescription = self.view.lineEdit_CargoDescription.text()
-        values_request = list(request.__dict__.values())[1:-1]
-        if len(set([None, ""]).intersection(values_request)) != 0:
-            self.view.message("Информация", "Не все поля заполнены!")
-        else:
-            self.model.AddRequest(request)
-            self.view.message("Информация", "Заявка отправлена, ждите рассмотрения!")
-            self.view.lineEdit_PlaceDispatch.clear()
-            self.view.lineEdit_PlaceDelivery.clear()
-            self.view.lineEdit_CargoDescription.clear()
-            self.view.lineEdit_CargoWeight.clear()
-            self.RequestSubmission.close()
+        return request
+
+
 
     def ClickedBack(self):
         self.RequestSubmission.close()
+
+    def closeEvent(self, event):
         self.view.lineEdit_PlaceDispatch.clear()
         self.view.lineEdit_PlaceDelivery.clear()
         self.view.lineEdit_CargoDescription.clear()
         self.view.lineEdit_CargoWeight.clear()
-
+        event.accept()
 

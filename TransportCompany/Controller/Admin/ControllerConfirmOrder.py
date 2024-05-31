@@ -5,6 +5,8 @@ from PyQt5 import QtWidgets
 from TransportCompany.Entities.Request import Request
 from TransportCompany.Entities.Driver import Driver
 import sys
+
+
 class ControllerConfirmOrder:
     def __init__(self, parent):
         self.model = ModelConfirmOrder()
@@ -88,3 +90,4 @@ class ControllerConfirmOrder:
         self.view.comboBox_2Driver.clear()
         self.view.radioButton_Change2Driver.setChecked(False)
         self.parent.RunViewConsiderationApplication()
+        event.accept()
