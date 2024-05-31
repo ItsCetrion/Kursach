@@ -286,13 +286,16 @@ class ControllerMainWindow:
 
     def ClickedCloseOrder(self):
         IdOrder = self.ActiveOrder[0]
+        IdDrivers = self.model.GetIdDriverByIdOrder(IdOrder)
         Request = self.model.GetAcceptRequest(IdOrder)
         Request = self.FillingDeliveredRequest(Request)
         self.model.DeleteAcceptRequest(IdOrder)
-        self.model.AddDeliveredRequest(Request)
+        for id_driver in IdDrivers:
+            Request.IdDriver = id_driver[0]
+            self.model.AddDeliveredRequest(Request)
         self.driver.IdOrderClient = None
         self.ClearActiveOrder()
-        self.AddRequestInTable(Request)
+            # self.AddRequestInTable(Request)
 
     def ClearActiveOrder(self):
         self.view.frame_2.close()
@@ -327,7 +330,6 @@ class ControllerMainWindow:
         deliveredRequest.CargoWeight = AcceptRequest[7]
         deliveredRequest.CargoDescription = AcceptRequest[8]
         deliveredRequest.IdClient = AcceptRequest[9]
-        deliveredRequest.IdDriver = self.driver.ID
         return deliveredRequest
 
     def ClickedProfile(self):

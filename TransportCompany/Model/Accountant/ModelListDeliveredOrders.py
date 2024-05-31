@@ -8,3 +8,6 @@ class ModelListDeliveredOrders:
     def GetOrderByIdOrder(self, IdOrder: int):
         return DeliveredRequestRepositories().GetOrderByIdOrder(IdOrder)
 
+    def GetInfoOrderAndDriver(self, IdOrder: int):
+        return DeliveredRequestRepositories().GetInfoOrderAndDriver(IdOrder)
+

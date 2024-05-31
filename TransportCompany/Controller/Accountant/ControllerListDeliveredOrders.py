@@ -1,6 +1,7 @@
 from TransportCompany.View.Accountant.ViewListDeliveredOrders import ViewListDeliveredOrders
 from TransportCompany.Model.Accountant.ModelListDeliveredOrders import ModelListDeliveredOrders
 from TransportCompany.Controller.Accountant.ControllerAccountantProfile import ControllerAccountantProfile
+from TransportCompany.Controller.Accountant.ControllerCostCalculation import ControllerCostCalculation
 from TransportCompany.Entities.Accountant import Accountant
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from PyQt5.QtCore import QCoreApplication, Qt
@@ -16,12 +17,14 @@ class ControllerListDeliveredOrders:
         self.FlagSearch = False
         self.SettingsUI()
         self.FillingTable(self.model.GetAllCompletedOrders(sort=self.sort))
+        self.CostCalculation = None
 
         self.view.comboBox_SortTable_2.currentTextChanged.connect(self.ChangeSort)
         self.view.pushButton_Search.clicked.connect(self.ClickedSearch)
         self.view.pushButton_ResetSearch.clicked.connect(self.ClickedResetSeacrch)
         self.view.action_profile.triggered.connect(self.ClickedProfile)
         self.view.action_Exit.triggered.connect(self.ClickedExit)
+        self.view.tableWidget_TableApplication.clicked.connect(self.ClickedRow)
 
     def SettingsUI(self):
         self.app = QApplication(argv)
@@ -101,6 +104,29 @@ class ControllerListDeliveredOrders:
         self.AccountantProfile = ControllerAccountantProfile(self.accountant, self)
         self.AccountantProfile.RunViewWindowApplication()
         self.ListDeliveredOrders.setEnabled(False)
+
+    def ClickedRow(self):
+
+
+        row = self.view.tableWidget_TableApplication.currentRow()
+        id_order = self.view.tableWidget_TableApplication.item(row, 0).text()
+        InfoOrderAndDriver = self.model.GetInfoOrderAndDriver(id_order)
+        self.ListDeliveredOrders.setEnabled(False)
+        if self.CostCalculation is None:
+            self.CostCalculation = ControllerCostCalculation(self)
+            self.CostCalculation.FillingFields(InfoOrderAndDriver, id_order)
+            self.CostCalculation.RunViewCostCalculation()
+        else:
+            self.CostCalculation.FillingFields(InfoOrderAndDriver, id_order)
+            self.CostCalculation.RunViewCostCalculation()
+
+        # if self.ConsiderationApplication is None:
+        #     self.ConsiderationApplication = ControllerConsiderationApplication(self)
+        #     self.ConsiderationApplication.FillingFields(request)
+        #     self.ConsiderationApplication.RunViewConsiderationApplication()
+        # else:
+        #     self.ConsiderationApplication.FillingFields(request)
+        #     self.ConsiderationApplication.RunViewConsiderationApplication()
 
     def ClickedExit(self):
         self.ListDeliveredOrders.close()

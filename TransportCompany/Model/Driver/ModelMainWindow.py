@@ -11,6 +11,8 @@ class ModelMainWindow:
 
     def GetAcceptRequest(self, IdRequest):
         return AcceptRequestRepository(). GetAcceptRequest(IdRequest)
+    def GetIdDriverByIdOrder(self, IdOrder):
+        return DriverRepository().GetIdDriverByIdOrder(IdOrder)
 
     def DeleteAcceptRequest(self, IdRequest):
         DriverRepository().DeleteIdOrder(IdRequest)

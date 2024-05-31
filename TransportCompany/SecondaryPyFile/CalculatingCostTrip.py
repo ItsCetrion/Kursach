@@ -20,12 +20,12 @@ class CostTrip:
         transport = self.__GazelleOrTruck(distance)
         if transport == "Gazell":
             RevenueTrip = 20 * distance
-            FuelConsumption = self.GazelleConsumption * self.benzine92
+            FuelConsumption = distance / 100 * self.GazelleConsumption * self.benzine92
             profit = RevenueTrip - FuelConsumption
             return profit
         elif transport == "Truck":
             CostKm = self.__CostKm(wight)
             RevenueTrip = CostKm * distance
-            FuelConsumption = self.TruckConsumption * self.diesel
+            FuelConsumption = distance / 100 * self.TruckConsumption * self.diesel
             profit = RevenueTrip - FuelConsumption
             return profit

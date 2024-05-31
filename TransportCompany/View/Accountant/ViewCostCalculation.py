@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
+class ViewCostCalculation(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(756, 416)
@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
         self.label_Logo = QtWidgets.QLabel(self.frame)
         self.label_Logo.setGeometry(QtCore.QRect(280, 185, 71, 61))
         self.label_Logo.setText("")
-        self.label_Logo.setPixmap(QtGui.QPixmap("../../Resources/Logo.png"))
+        self.label_Logo.setPixmap(QtGui.QPixmap("C:/Users/79951/Documents/GitHub/Kursach/TransportCompany/Resources/Logo.png"))
         self.label_Logo.setObjectName("label_Logo")
         self.widget = QtWidgets.QWidget(self.frame)
         self.widget.setGeometry(QtCore.QRect(10, 10, 331, 167))
@@ -153,7 +153,7 @@ class Ui_MainWindow(object):
         self.label_Logo2 = QtWidgets.QLabel(self.frame_3)
         self.label_Logo2.setGeometry(QtCore.QRect(280, 185, 71, 61))
         self.label_Logo2.setText("")
-        self.label_Logo2.setPixmap(QtGui.QPixmap("../../Resources/Logo.png"))
+        self.label_Logo2.setPixmap(QtGui.QPixmap("C:/Users/79951/Documents/GitHub/Kursach/TransportCompany/Resources/Logo.png"))
         self.label_Logo2.setObjectName("label_Logo2")
         self.layoutWidget = QtWidgets.QWidget(self.frame_3)
         self.layoutWidget.setGeometry(QtCore.QRect(10, 10, 331, 167))
@@ -371,12 +371,20 @@ class Ui_MainWindow(object):
         self.label_Distance.setText(_translate("MainWindow", "Расстояние:"))
         self.label_ProfitCompany.setText(_translate("MainWindow", "Доход компании за поездку"))
 
+    @staticmethod
+    def message(title, text):
+        msg = QtWidgets.QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        msg.setIcon(QtWidgets.QMessageBox.Information)
+        msg.setDefaultButton(QtWidgets.QMessageBox.Ok)
+        msg.exec_()
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
+    ui = ViewCostCalculation()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

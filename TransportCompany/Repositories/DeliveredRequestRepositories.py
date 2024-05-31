@@ -13,20 +13,32 @@ class DeliveredRequestRepositories:
                        '{request.PlaceDelivery}', '{request.CargoWeight}',
                        '{request.CargoDescription}', {request.IdClient}, {request.IdDriver})""")
 
-    def GetCompletedOrders(self, IdDriver):
+    def UpdateRevenue(self, IdDriver: int, IdOrder: int, revenue: float):
+        self.__UID(f"""UPDATE DeliveredRequest SET Revenue = {revenue} 
+                       WHERE IdDriver = {IdDriver} and ID = {IdOrder}""")
+
+    def GetCompletedOrders(self, IdDriver: int):
         result = self.__Demand(f"""SELECT ID, PlaceDeparture, PlaceDelivery, Revenue
-                                   FROM DeliveredRequest WHERE IdDriver = {IdDriver}""")
+                                   FROM DeliveredRequest WHERE IdDriver = {IdDriver} and Revenue is not NULL""")
         return result
 
     def GetAllCompletedOrders(self, sort: str):
         result = self.__Demand(f"""SELECT ID, PlaceDeparture, PlaceDelivery 
                                    FROM DeliveredRequest WHERE Revenue is NULL
+                                   GROUP BY ID, PlaceDeparture, PlaceDelivery
                                    ORDER BY ID {sort}""")
         return result
 
     def GetOrderByIdOrder(self, IdOrder):
         result = self.__Demand(f"""SELECT ID, PlaceDeparture, PlaceDelivery
                                    FROM DeliveredRequest WHERE ID = {IdOrder}""")
+        return result
+
+    def GetInfoOrderAndDriver(self, IdOrder):
+        result = self.__Demand(f"""SELECT Driver.ID, Driver.FirstName,  Driver.LastName, Patronymic,  Driver.Email,
+                                   Experience, PlaceDeparture, PlaceDelivery, CargoWeight
+                                   FROM DeliveredRequest JOIN Driver ON DeliveredRequest.IdDriver = Driver.ID
+                                   WHERE DeliveredRequest.ID = {IdOrder}""")
         return result
 
     def __Demand(self, query: str):

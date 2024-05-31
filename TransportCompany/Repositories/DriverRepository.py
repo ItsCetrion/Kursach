@@ -36,6 +36,10 @@ class DriverRepository:
                                     FETCH NEXT 5 ROWS ONLY""")
         return result
 
+    def GetIdDriverByIdOrder(self, IdOrder):
+        result = self.__Demand(f"""SELECT ID FROM Driver WHERE IdOrderClient = {IdOrder}""")
+        return result
+
     def UpdateDriver(self, IdRequest, IdDriver):
         self.__UID(f"""UPDATE Driver
                      SET IdOrderClient={IdRequest}, Condition='Занят'
@@ -52,6 +56,7 @@ class DriverRepository:
 
     def UpdatePassword(self, IdDriver, password):
         self.__UID(f"""Update Driver SET PasswordProgram = '{password}' WHERE ID = {IdDriver}""")
+
     def __Demand(self, query: str):
         try:
             __context = DBContext()

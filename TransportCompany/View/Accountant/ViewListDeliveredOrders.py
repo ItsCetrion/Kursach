@@ -16,7 +16,7 @@ from PyQt5.QtGui import QRegExpValidator
 class ViewListDeliveredOrders(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1054, 405)
+        MainWindow.resize(1054, 415)
         MainWindow.setStyleSheet("background-color: rgb(170, 255, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
