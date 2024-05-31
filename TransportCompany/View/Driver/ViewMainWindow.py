@@ -14,7 +14,7 @@ from PyQt5.QtWidgets import QHeaderView
 class ViewMainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(971, 555)
+        MainWindow.setFixedSize(971, 555)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(self.centralwidget)

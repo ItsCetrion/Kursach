@@ -17,7 +17,7 @@ from PyQt5.QtGui import QRegExpValidator
 class ViewRequestSubmission(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(410, 685)
+        MainWindow.setFixedSize(410, 685)
         MainWindow.setStyleSheet("/*background-color: rgb(0, 255, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

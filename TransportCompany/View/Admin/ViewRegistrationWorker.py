@@ -17,7 +17,7 @@ from PyQt5.QtWidgets import QMessageBox
 class ViewRegistrationWorker(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(414, 717)
+        MainWindow.setFixedSize(414, 717)
         MainWindow.setStyleSheet("/*background-color: rgb(0, 255, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

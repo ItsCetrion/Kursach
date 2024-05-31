@@ -6,7 +6,7 @@ from PyQt5.QtGui import QRegExpValidator
 class ViewUserProfile(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(789, 524)
+        MainWindow.setFixedSize(789, 524)
         MainWindow.setStyleSheet("background-color: rgb(177, 177, 177);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

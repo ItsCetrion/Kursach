@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QMessageBox
 class ViewLogin(object):
     def setupUi(self, LoginWindow):
         LoginWindow.setObjectName("Ui_LoginWindow")
-        LoginWindow.resize(552, 423)
+        LoginWindow.setFixedSize(570, 325)
         self.centralwidget = QtWidgets.QWidget(LoginWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.lineEdit_Login = QtWidgets.QLineEdit(self.centralwidget)

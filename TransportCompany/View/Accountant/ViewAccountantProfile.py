@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class ViewAccountantProfile(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(805, 503)
+        MainWindow.setFixedSize(805, 503)
         MainWindow.setStyleSheet("background-color: rgb(222, 222, 222);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

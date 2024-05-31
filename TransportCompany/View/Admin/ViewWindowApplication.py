@@ -17,7 +17,7 @@ from PyQt5.QtWidgets import QButtonGroup
 class ViewWindowApplication(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1300, 546)
+        MainWindow.setFixedSize(1275, 546)
         MainWindow.setStyleSheet("background-color: rgb(170, 255, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

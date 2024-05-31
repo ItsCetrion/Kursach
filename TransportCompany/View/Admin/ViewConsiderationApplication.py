@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class ViewConsiderationApplication(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(873, 518)
+        MainWindow.setFixedSize(873, 518)
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)

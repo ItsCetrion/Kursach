@@ -11,7 +11,7 @@ class ViewRigistration(object):
 
     def setupUi(self, RegWindow):
         RegWindow.setObjectName("MainWindow")
-        RegWindow.resize(552, 485)
+        RegWindow.setFixedSize(552, 450)
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         RegWindow.setFont(font)

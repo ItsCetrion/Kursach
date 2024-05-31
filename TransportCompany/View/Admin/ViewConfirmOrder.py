@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class ViewConfirmOrder(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(455, 575)
+        MainWindow.setFixedSize(455, 575)
         MainWindow.setStyleSheet("background-color: rgb(170, 255, 255);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
