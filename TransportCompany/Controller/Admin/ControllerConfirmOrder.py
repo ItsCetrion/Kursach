@@ -11,10 +11,10 @@ class ControllerConfirmOrder:
         self.view = ViewConfirmOrder()
         self.SettingsUI()
         self.parent = parent
+        self.ConfirmOrder.closeEvent = self.closeEvent
 
         self.view.pushButton_Back.clicked.connect(self.ClickedBack)
         self.view.pushButton_Confirm.clicked.connect(self.ClickedConfirm)
-        self.FillinComboBoxDriver(self.view.comboBox_1Driver, self.model.Get5Driver())
         self.view.radioButton_Change2Driver.clicked.connect(self.ClickedChange2Driver)
 
     def ClickedChange2Driver(self):
@@ -44,6 +44,7 @@ class ControllerConfirmOrder:
         self.view.textEdit_Dispatch.setText(request.PlaceDeparture)
         self.view.textEdit_Delivery.setText(request.PlaceDelivery)
         self.view.textEdit_Cargoinfo.setText(f"Описание: {request.CargoDescription}\nВес(кг): {request.CargoWeight}")
+        self.FillinComboBoxDriver(self.view.comboBox_1Driver, self.model.Get5Driver())
 
 
     def FillinComboBoxDriver(self, combobox,  drivers):
@@ -58,7 +59,6 @@ class ControllerConfirmOrder:
 
     def ClickedBack(self):
         self.ConfirmOrder.close()
-        self.parent.RunViewConsiderationApplication()
 
     def CheckParameters(self) -> bool:
         if self.view.comboBox_1Driver.currentText() == "Нет свободных водителей": return False
@@ -82,3 +82,9 @@ class ControllerConfirmOrder:
 
         else:
             self.view.message("Информация", "Ошибка назначения водителя!")
+
+    def closeEvent(self, event):
+        self.view.comboBox_1Driver.clear()
+        self.view.comboBox_2Driver.clear()
+        self.view.radioButton_Change2Driver.setChecked(False)
+        self.parent.RunViewConsiderationApplication()

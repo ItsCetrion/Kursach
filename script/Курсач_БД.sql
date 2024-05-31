@@ -110,7 +110,7 @@ IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Driver')
 							 RoleProgram NVARCHAR(20) NOT NULL DEFAULT('Водитель'))
 
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DeliveredRequest')
-	CREATE TABLE DeliveredRequest(ID INT NOT NULL PRIMARY KEY,
+	CREATE TABLE DeliveredRequest(ID INT NOT NULL,
 						 FirstName NVARCHAR(30) NOT NULL,
 						 LastName NVARCHAR(30) NOT NULL,
 						 Email NVARCHAR(320) NOT NULL,
@@ -167,10 +167,7 @@ IF EXISTS (SELECT * FROM sys.views WHERE name = 'CrossTable')
 INSERT INTO Administrator(Firstname,Lastname,Patronymic,NumberPhone,Email, PasswordProgram)
 VALUES('Евгений','Озеров','Алексеевич', '89951632863', 'zhenyaoz777piratship@list.ru', '6fb42da0e32e07b61c9f0251fe627a9c')
 
-SELECT ID, FirstName, LastName, Email, NumberPhone, 
-                                         PlaceDeparture, PlaceDelivery, CargoWeight, CargoDescription, DateAccept
-                                            FROM AcceptRequest Where Position = 'В пути' and IdClient = 1
-                                            Order By DateAccept Desc, ID DESC
-                                                            OFFSET 0 ROWS
-                                                            FETCH NEXT 11 ROWS ONLY
-
+SElect ID, PlaceDeparture, PlaceDelivery 
+from DeliveredRequest
+GROUP BY ID, PlaceDeparture, PlaceDelivery
+order b
