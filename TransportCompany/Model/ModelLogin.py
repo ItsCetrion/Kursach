@@ -10,16 +10,16 @@ class ModelLogin:
     def GetEntity(Email, password) -> list:
         return AllRoleRepository().GetEntity(password, Email)
 
-    def GetClient(self, IdClient):
+    def GetClient(self, IdClient) -> list:
         return ClientRepository().GetClient(IdClient)
 
-    def GetAdmin(self, IdAdmin):
+    def GetAdmin(self, IdAdmin) -> list:
         return AdministratorRepository().GetAdmin(IdAdmin)
 
-    def GetDriver(self, IdDriver):
+    def GetDriver(self, IdDriver) -> list:
         return DriverRepository().GetDriver(IdDriver)
 
-    def GetAccountant(self, IdAccountant):
+    def GetAccountant(self, IdAccountant) -> list:
         return AccountantRepository().GetAccountant(IdAccountant)
 
     # @staticmethod

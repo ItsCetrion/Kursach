@@ -16,66 +16,67 @@ import sys
 
 class ControllerLogin:
     def __init__(self):
-        self.model = ModelLogin()
-        self.view = ViewLogin()
-        self.ControllerReg = ControllerRegister()
-        self.SettingsUI()
-        self.view.pushButton_SignIn.clicked.connect(self.FunctionSignIn)
-        self.view.pushButton_SignUp.clicked.connect(self.FunctionSignUp)
+        self.__model = ModelLogin()
+        self.__view = ViewLogin()
+        self.__ControllerReg = ControllerRegister()
+        self.__SettingsUI()
+        self.__view.pushButton_SignIn.clicked.connect(self.__FunctionSignIn)
+        self.__view.pushButton_SignUp.clicked.connect(self.__FunctionSignUp)
 
-        self.view.lineEdit_Login.setText("test@mail.ru") #Потом удалить
-        self.view.lineEdit_Password.setText("1234567890") #Потом удалить
+        self.__view.lineEdit_Login.setText("test@mail.ru") #Потом удалить
+        self.__view.lineEdit_Password.setText("1234567890") #Потом удалить
 
-    def SettingsUI(self):
-        self.app = QtWidgets.QApplication(sys.argv)
-        self.LoginWindow = QtWidgets.QMainWindow()
-        ui = self.view
-        ui.setupUi(self.LoginWindow)
-    def RunViewLogin(self):
-        self.LoginWindow.show()
+    def __SettingsUI(self) -> None:
+        self.__app = QtWidgets.QApplication(sys.argv)
+        self.__LoginWindow = QtWidgets.QMainWindow()
+        ui = self.__view
+        ui.setupUi(self.__LoginWindow)
 
-    def StartProgram(self):
-        sys.exit(self.app.exec_())
+    def RunViewLogin(self) -> None:
+        self.__LoginWindow.show()
 
-    def FunctionSignIn(self):
-        email = self.view.lineEdit_Login.text()
-        password = self.view.lineEdit_Password.text()
+    def StartProgram(self) -> None:
+        sys.exit(self.__app.exec_())
+
+    def __FunctionSignIn(self) -> None:
+        email = self.__view.lineEdit_Login.text()
+        password = self.__view.lineEdit_Password.text()
         if password == "":
             password = "Null"
         else:
             password = hashlib.md5(password.encode()).hexdigest()
-        user = self.model.GetEntity(email, password)
+        user = self.__model.GetEntity(email, password)
         if len(user) == 0:
-            self.view.message("Информация", "Вы не верно ввели логин или пароль")
+            self.__view.message("Информация", "Вы не верно ввели логин или пароль")
         else:
-            InfoEntity = [*(self.model.GetEntity(email, password)[0])]
-            self.Login(InfoEntity)
+            InfoEntity = [*(self.__model.GetEntity(email, password)[0])]
+            self.__Login(InfoEntity)
 
-    def Login(self, InfoEntity):
+    def __Login(self, InfoEntity) -> None:
         id = InfoEntity[0]
         role = InfoEntity[-1]
         if role == "Администратор":
-            entity = self.FillingEntity(self.model.GetAdmin(id), Administrator)
+            entity = self.__FillingEntity(self.__model.GetAdmin(id), Administrator)
             self.WindowApplication = ControllerWindowApplication() #передать сущность администратор
             self.WindowApplication.RunViewWindowApplication()
-            self.LoginWindow.close()
+            self.__LoginWindow.close()
         elif role == "Клиент":
-            entity = self.FillingEntity([*(self.model.GetClient(id)[0])], Client)
+            entity = self.__FillingEntity([*(self.__model.GetClient(id)[0])], Client)
             self.ApplicationWindow = ControllerApplicationWindow(entity)
             self.ApplicationWindow.RunViewApplicationWindow()
-            self.LoginWindow.close()
+            self.__LoginWindow.close()
         elif role == "Водитель":
-            entity = self.FillingEntity([*(self.model.GetDriver(id)[0])], Driver)
+            entity = self.__FillingEntity([*(self.__model.GetDriver(id)[0])], Driver)
             self.MainWindow = ControllerMainWindow(entity)
             self.MainWindow.RunMainWindow()
-            self.LoginWindow.close()
+            self.__LoginWindow.close()
         elif role == "Бухгалтер":
-            entity = self.FillingEntity([*(self.model.GetAccountant(id)[0])], Accountant)
+            entity = self.__FillingEntity([*(self.__model.GetAccountant(id)[0])], Accountant)
             self.ListDeliveredOrders = ControllerListDeliveredOrders(entity)
             self.ListDeliveredOrders.RunViewListDeliveredOrders()
-            self.LoginWindow.close()
+            self.__LoginWindow.close()
 
-    def FillingEntity(self, InfoEntity: list, Entity : [Client, Driver, Administrator, Accountant]):
+    def __FillingEntity(self, InfoEntity: list, Entity : [Client, Driver, Administrator, Accountant]) -> [Client, Driver, Administrator, Accountant]:
         entity = Entity()
         if isinstance(entity, (Accountant, Driver, Administrator, Client)):
             entity.ID = InfoEntity[0]
@@ -94,7 +95,7 @@ class ControllerLogin:
             entity.Role = InfoEntity[-1]
         return entity
 
-    def FunctionSignUp(self):
-        self.LoginWindow.close()                      # Понять как полноценно уничтожить окно
-        self.ControllerReg.RunViewRegister()
+    def __FunctionSignUp(self) -> None:
+        self.__LoginWindow.close()                      # Понять как полноценно уничтожить окно
+        self.__ControllerReg.RunViewRegister()
 

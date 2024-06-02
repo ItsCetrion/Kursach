@@ -26,7 +26,7 @@ class ViewMainWindow(object):
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(135, 20, 121, 16))
+        self.label.setGeometry(QtCore.QRect(135, 20, 200, 16))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
