@@ -31,7 +31,8 @@ class DeliveredRequestRepositories:
 
     def GetOrderByIdOrder(self, IdOrder):
         result = self.__Demand(f"""SELECT ID, PlaceDeparture, PlaceDelivery
-                                   FROM DeliveredRequest WHERE ID = {IdOrder}""")
+                                   FROM DeliveredRequest WHERE ID = {IdOrder}
+                                   GROUP BY ID, PlaceDeparture, PlaceDelivery""")
         return result
 
     def GetInfoOrderAndDriver(self, IdOrder):
