@@ -57,23 +57,23 @@ class ControllerLogin:
         role = InfoEntity[-1]
         if role == "Администратор":
             entity = self.__FillingEntity(self.__model.GetAdmin(id), Administrator)
-            self.WindowApplication = ControllerWindowApplication() #передать сущность администратор
-            self.WindowApplication.RunViewWindowApplication()
+            self.__WindowApplication = ControllerWindowApplication() #передать сущность администратор
+            self.__WindowApplication.RunViewWindowApplication()
             self.__LoginWindow.close()
         elif role == "Клиент":
             entity = self.__FillingEntity([*(self.__model.GetClient(id)[0])], Client)
-            self.ApplicationWindow = ControllerApplicationWindow(entity)
-            self.ApplicationWindow.RunViewApplicationWindow()
+            self.__ApplicationWindow = ControllerApplicationWindow(entity)
+            self.__ApplicationWindow.RunViewApplicationWindow()
             self.__LoginWindow.close()
         elif role == "Водитель":
             entity = self.__FillingEntity([*(self.__model.GetDriver(id)[0])], Driver)
-            self.MainWindow = ControllerMainWindow(entity)
-            self.MainWindow.RunMainWindow()
+            self.__MainWindow = ControllerMainWindow(entity)
+            self.__MainWindow.RunMainWindow()
             self.__LoginWindow.close()
         elif role == "Бухгалтер":
             entity = self.__FillingEntity([*(self.__model.GetAccountant(id)[0])], Accountant)
-            self.ListDeliveredOrders = ControllerListDeliveredOrders(entity)
-            self.ListDeliveredOrders.RunViewListDeliveredOrders()
+            self.__ListDeliveredOrders = ControllerListDeliveredOrders(entity)
+            self.__ListDeliveredOrders.RunViewListDeliveredOrders()
             self.__LoginWindow.close()
 
     def __FillingEntity(self, InfoEntity: list, Entity : [Client, Driver, Administrator, Accountant]) -> [Client, Driver, Administrator, Accountant]:

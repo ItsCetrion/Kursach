@@ -10,11 +10,14 @@ class ModelRegistration:
         else:
             raise "Пользователь с таким номером телефона или Email уже есть"
 
-    def __CheckUserInDB(self, user: Client) -> bool:
+    @staticmethod
+    def __CheckUserInDB(user: Client) -> bool:
         return AllRoleRepository().CheckEmail(user.Email)
 
-    def CheckPhone(self, phone):
+    @staticmethod
+    def CheckPhone(phone):
         return AllRoleRepository().CheckPhone(phone)
 
-    def CheckEmail(self, email):
+    @staticmethod
+    def CheckEmail(email):
         return AllRoleRepository().CheckEmail(email)

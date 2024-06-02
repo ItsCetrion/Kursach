@@ -2,12 +2,15 @@ from TransportCompany.Repositories.DeliveredRequestRepositories import Delivered
 
 
 class ModelListDeliveredOrders:
-    def GetAllCompletedOrders(self, sort: str):
+    @staticmethod
+    def GetAllCompletedOrders(sort: str):
         return DeliveredRequestRepositories().GetAllCompletedOrders(sort)
 
-    def GetOrderByIdOrder(self, IdOrder: int):
+    @staticmethod
+    def GetOrderByIdOrder(IdOrder: int):
         return DeliveredRequestRepositories().GetOrderByIdOrder(IdOrder)
 
-    def GetInfoOrderAndDriver(self, IdOrder: int):
+    @staticmethod
+    def GetInfoOrderAndDriver(IdOrder: int):
         return DeliveredRequestRepositories().GetInfoOrderAndDriver(IdOrder)
 

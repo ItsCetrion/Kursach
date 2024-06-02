@@ -2,5 +2,6 @@ from TransportCompany.Repositories.DeliveredRequestRepositories import Delivered
 
 
 class ModelCostCalculation:
-    def UpdateRevenue(self, Idriver, IdOrder, Revenue):
+    @staticmethod
+    def UpdateRevenue(Idriver, IdOrder, Revenue):
         DeliveredRequestRepositories().UpdateRevenue(Idriver, IdOrder, Revenue)

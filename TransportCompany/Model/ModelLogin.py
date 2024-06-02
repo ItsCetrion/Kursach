@@ -7,22 +7,21 @@ from TransportCompany.Repositories.AccountantRepository import AccountantReposit
 
 class ModelLogin:
     @staticmethod
-    def GetEntity(Email, password) -> list:
+    def GetEntity(Email: str, password: str) -> list:
         return AllRoleRepository().GetEntity(password, Email)
 
-    def GetClient(self, IdClient) -> list:
+    @staticmethod
+    def GetClient(IdClient: int) -> list:
         return ClientRepository().GetClient(IdClient)
 
-    def GetAdmin(self, IdAdmin) -> list:
+    @staticmethod
+    def GetAdmin(IdAdmin: int) -> list:
         return AdministratorRepository().GetAdmin(IdAdmin)
 
-    def GetDriver(self, IdDriver) -> list:
+    @staticmethod
+    def GetDriver(IdDriver: int) -> list:
         return DriverRepository().GetDriver(IdDriver)
 
-    def GetAccountant(self, IdAccountant) -> list:
+    @staticmethod
+    def GetAccountant(IdAccountant: int) -> list:
         return AccountantRepository().GetAccountant(IdAccountant)
-
-    # @staticmethod
-    #
-    # def CheckRole(Email, password):
-    #     return UserRepository().CheckRole(Email, password)
