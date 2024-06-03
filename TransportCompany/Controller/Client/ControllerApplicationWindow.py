@@ -16,134 +16,122 @@ import sys
 
 class ControllerApplicationWindow:
     def __init__(self, client: Client):
-        self.model = ModelApplicationWindow()
+        self.__model = ModelApplicationWindow()
         self.view = ViewApplicationWindow()
-        self.SettingsUI()
-        self.RequestSubmission = None
-        self.client = client
+        self.__SettingsUI()
+        self.__RequestSubmission = None
+        self.__client = client
         self._translate = QApplication.translate
-        self.ListRequest = []
-        self.CursorPage = 1
-        self.reverse = True
-        self.IsFilterDate = False
-        self.DataDate = None
-        self.Status = "В пути"
-        self.QuantityRequest = self.model.GetQuantityRequest(self.CurrentTable(), self.client.ID)
-        self.SaveRequest(self.model.Get11Request(0, self.reverse, self.CurrentTable(), self.client.ID), AcceptRequest)
-        self.FillingTable(NumberPage=1)
-        self.CreateButtonsPage()
+        self.__ListRequest = []
+        self.__CursorPage = 1
+        self.__reverse = True
+        self.__IsFilterDate = False
+        self.__DataDate = None
+        self.__Status = "В пути"
+        self.__QuantityRequest = self.__model.GetQuantityRequest(self.__CurrentTable(), self.__client.ID)
+        self.__SaveRequest(self.__model.Get11Request(0, self.__reverse, self.__CurrentTable(), self.__client.ID), AcceptRequest)
+        self.__FillingTable(NumberPage=1)
+        self.__CreateButtonsPage()
         
-        self.view.pushButton_BackFirstPage.clicked.connect(self.ClickedBackFirstPage)
-        self.view.pushButton_Updatetable.clicked.connect(self.ClickedUpdatetable)
-        self.view.pushButton_Search_date.clicked.connect(self.ClickedSearchDate)
-        self.view.comboBox_SortTable.currentTextChanged.connect(self.TextChangedSortTable)
-        self.view.comboBox_Status.currentTextChanged.connect(self.TextChangedStatus)
-        self.view.lcdNumber.display(self.QuantityRequest)
-        self.view.Button_Group.buttonClicked.connect(self.ClickedButtonPage)
-        self.view.action_profile.triggered.connect(self.ClickedProfile)
-        self.view.action_SubmitApplication.triggered.connect(self.ClickedSubmitApplication)
-        self.view.action_Exit.triggered.connect(self.ClickedExit)
+        self.view.pushButton_BackFirstPage.clicked.connect(self.__ClickedBackFirstPage)
+        self.view.pushButton_Updatetable.clicked.connect(self.__ClickedUpdatetable)
+        self.view.pushButton_Search_date.clicked.connect(self.__ClickedSearchDate)
+        self.view.comboBox_SortTable.currentTextChanged.connect(self.__TextChangedSortTable)
+        self.view.comboBox_Status.currentTextChanged.connect(self.__TextChangedStatus)
+        self.view.lcdNumber.display(self.__QuantityRequest)
+        self.view.Button_Group.buttonClicked.connect(self.__ClickedButtonPage)
+        self.view.action_profile.triggered.connect(self.__ClickedProfile)
+        self.view.action_SubmitApplication.triggered.connect(self.__ClickedSubmitApplication)
+        self.view.action_Exit.triggered.connect(self.__ClickedExit)
 
-    def SettingsUI(self):
-        self.app = QApplication(sys.argv)
+    def __SettingsUI(self):
+        self.__app = QApplication(sys.argv)
         self.ApplicationWindow = QMainWindow()
         ui = self.view
         ui.setupUi(self.ApplicationWindow)
 
     def RunViewApplicationWindow(self):
         self.ApplicationWindow.show()
-        # sys.exit(self.app.exec_())
 
-    def CurrentEntities(self):
-        if self.Status == "В пути": return AcceptRequest
-        if self.Status == "Отменён": return DenyRequest
-        if self.Status == "Сформирован": return Request
-        if self.Status == "Доставлен":
+    def __CurrentEntities(self):
+        if self.__Status == "В пути": return AcceptRequest
+        if self.__Status == "Отменён": return DenyRequest
+        if self.__Status == "Сформирован": return Request
+        if self.__Status == "Доставлен":
             return DeliveredRequest
         else:
             raise "ошибка статуса"
 
-    def CurrentTable(self):
-        if self.Status == "В пути": return "AcceptRequest"
-        if self.Status == "Отменён": return "DenyRequest"
-        if self.Status == "Сформирован": return "Request"
-        if self.Status == "Доставлен": return "DeliveredRequest"
+    def __CurrentTable(self):
+        if self.__Status == "В пути": return "AcceptRequest"
+        if self.__Status == "Отменён": return "DenyRequest"
+        if self.__Status == "Сформирован": return "Request"
+        if self.__Status == "Доставлен": return "DeliveredRequest"
         else: raise "ошибка статуса"
 
-    def TextChangedSortTable(self, text):
+    def __TextChangedSortTable(self, text):
         if text == "По убывающей дате":
-            self.reverse = True
-            self.BackBeginning()
+            self.__reverse = True
+            self.__BackBeginning()
         elif text == "По возрастающей дате":
-            self.reverse = False
-            self.BackBeginning()
+            self.__reverse = False
+            self.__BackBeginning()
 
-    def TextChangedStatus(self, text):
+    def __TextChangedStatus(self, text):
         if text == "В пути":
-            self.Status = "В пути"
-            self.UpdateTable()
-            if len(self.view.Button_Group.buttons()) > 0: self.BackBeginning()
+            self.__OperationStatus("В пути")
         elif text == "Доставлен":
-            self.Status = "Доставлен"
-            self.UpdateTable()
-            if len(self.view.Button_Group.buttons()) > 0: self.BackBeginning()
+            self.__OperationStatus("Доставлен")
         elif text == "Отменён":
-            self.Status = "Отменён"
-            self.UpdateTable()
-            if len(self.view.Button_Group.buttons()) > 0: self.BackBeginning()
+            self.__OperationStatus("Отменён")
         elif text == "Сформирован":
-            self.Status = "Сформирован"
-            self.UpdateTable()
-            if len(self.view.Button_Group.buttons()) > 0: self.BackBeginning()
+            self.__OperationStatus("Сформирован")
 
-    # def Test(self):
-    #     self.QuantityRequest = self.model.GetQuantityRequest(self.CurrentTable(), self.client.ID)
-    #     self.ClearLayout_ListNumberPages()
-    #     self.CreateButtonsPage()
-    #     self.ListRequest.clear()
-    #     self.SaveRequest(self.ChoiceSaveRequest(index=0), self.CurrentEntities())
-    #     self.FillingTable(1)
+    def __OperationStatus(self, status: str):
+        self.__Status = status
+        self.__UpdateTable()
+        if len(self.view.Button_Group.buttons()) > 0: self.__BackBeginning()
 
-    def ClickedSearchDate(self):
+    def __ClickedSearchDate(self):
         date = self.view.dateEdit_Searchdate.text()
-        self.IsFilterDate = True
-        self.ChoiceParameterDate(date)
+        self.__IsFilterDate = True
+        self.__ChoiceParameterDate(date)
 
-    def ChoiceParameterDate(self, date: str):
+    def __ChoiceParameterDate(self, date: str):
         ComponentsDate = list(map(int, date.split(".")))
-        self.DataDate = ComponentsDate
+        self.__DataDate = ComponentsDate
         year = ComponentsDate[2]
         month = ComponentsDate[1]
         day = ComponentsDate[0]
         if self.view.comboBox_Date.currentText() == "По полной дате":
-            self.QuantityRequest = self.model.GetQuantityByDate(date, self.CurrentTable(), self.client.ID)
-            self.TableFilter(self.model.Get11RequestByDate(0, self.reverse, self.CurrentTable(), date, self.client.ID))
+            self.__QuantityRequest = self.__model.GetQuantityByDate(date, self.__CurrentTable(), self.__client.ID)
+            self.__TableFilter(self.__model.Get11RequestByDate(0, self.__reverse, self.__CurrentTable(), date, self.__client.ID))
         elif self.view.comboBox_Date.currentText() == "По году":
-            self.QuantityRequest = self.model.GetQuantityByYear(year, self.CurrentTable(), self.client.ID)
-            self.TableFilter(self.model.Get11RequestByYear(0, self.reverse, self.CurrentTable(), year, self.client.ID))
+            self.__QuantityRequest = self.__model.GetQuantityByYear(year, self.__CurrentTable(), self.__client.ID)
+            self.__TableFilter(self.__model.Get11RequestByYear(0, self.__reverse, self.__CurrentTable(), year, self.__client.ID))
         elif self.view.comboBox_Date.currentText() == "По месяцу":
-            self.QuantityRequest = self.model.GetQuantityByMonth(month, self.CurrentTable(), self.client.ID)
-            self.TableFilter(self.model.Get11RequestByMonth(0, self.reverse, self.CurrentTable(), month, self.client.ID))
+            self.__QuantityRequest = self.__model.GetQuantityByMonth(month, self.__CurrentTable(), self.__client.ID)
+            self.__TableFilter(self.__model.Get11RequestByMonth(0, self.__reverse, self.__CurrentTable(), month, self.__client.ID))
         elif self.view.comboBox_Date.currentText() == "По дню":
-            self.QuantityRequest = self.model.GetQuantityByDay(day, self.CurrentTable(), self.client.ID)
-            self.TableFilter(self.model.Get11RequestByDay(0, self.reverse, self.CurrentTable(), day, self.client.ID))
+            self.__QuantityRequest = self.__model.GetQuantityByDay(day, self.__CurrentTable(), self.__client.ID)
+            self.__TableFilter(self.__model.Get11RequestByDay(0, self.__reverse, self.__CurrentTable(), day, self.__client.ID))
 
-    def TableFilter(self, requests: list):
-        self.view.lcdNumber.display(self.QuantityRequest)
-        self.ListRequest.clear()
-        self.SaveRequest(requests, self.CurrentEntities())
-        self.FillingTable(1)
-        self.ClearLayout_ListNumberPages()
-        self.CreateButtonsPage()
-        self.CursorPage = 1
+    def __TableFilter(self, requests: list):
+        self.view.lcdNumber.display(self.__QuantityRequest)
+        self.__ListRequest.clear()
+        self.__SaveRequest(requests, self.__CurrentEntities())
+        self.__FillingTable(1)
+        self.__ClearLayout_ListNumberPages()
+        self.__CreateButtonsPage()
+        self.__CursorPage = 1
 
-    def ClearLayout_ListNumberPages(self):
+    def __ClearLayout_ListNumberPages(self):
         while self.view.horizontalLayout_ListNumberPages.count():
             child = self.view.horizontalLayout_ListNumberPages.takeAt(0)
             if child.widget():
                 child.widget().deleteLater()
 
-    def SaveRequest(self, list_requests, request: [Request, AcceptRequest, DenyRequest]):
+    def __SaveRequest(self, list_requests, request: [Request, AcceptRequest, DenyRequest]):
         for request_ in list_requests:
             req = request()
             req.ID = request_[0]
@@ -164,13 +152,13 @@ class ControllerApplicationWindow:
                 req.DateDeny = str(request_[10]).replace("-", ".")
             elif isinstance(req, DeliveredRequest):
                 req.DateDelivered = str(request_[10]).replace("-", ".")
-            self.ListRequest.append(req)
+            self.__ListRequest.append(req)
 
-    def FillingTable(self, NumberPage):
-        self.view.tableWidget_TableApplication.setRowCount(len(self.ListRequest))
+    def __FillingTable(self, NumberPage):
+        self.view.tableWidget_TableApplication.setRowCount(len(self.__ListRequest))
         RowTable = ((int(NumberPage) - 1) / 11)
-        for index, request in enumerate(self.ListRequest, start=((int(NumberPage) - 1) * 11) + 1):
-            self.SetItem(RowTable)
+        for index, request in enumerate(self.__ListRequest, start=((int(NumberPage) - 1) * 11) + 1):
+            self.__SetItem(RowTable)
             item = self.view.tableWidget_TableApplication.verticalHeaderItem(RowTable)
             item.setText(self._translate("MainWindow", str(index)))
             item = self.view.tableWidget_TableApplication.item(RowTable, 0)
@@ -190,31 +178,31 @@ class ControllerApplicationWindow:
                 item.setText(self._translate("MainWindow", request.DateDelivered))
             RowTable += 1
 
-    def SetItem(self, index):
-        self.view.tableWidget_TableApplication.setVerticalHeaderItem(index, self.NewItem())
-        self.view.tableWidget_TableApplication.setItem(index, 0, self.NewItem())
-        self.view.tableWidget_TableApplication.setItem(index, 1, self.NewItem())
-        self.view.tableWidget_TableApplication.setItem(index, 2, self.NewItem())
-        self.view.tableWidget_TableApplication.setItem(index, 3, self.NewItem())
+    def __SetItem(self, index):
+        self.view.tableWidget_TableApplication.setVerticalHeaderItem(index, self.__NewItem())
+        self.view.tableWidget_TableApplication.setItem(index, 0, self.__NewItem())
+        self.view.tableWidget_TableApplication.setItem(index, 1, self.__NewItem())
+        self.view.tableWidget_TableApplication.setItem(index, 2, self.__NewItem())
+        self.view.tableWidget_TableApplication.setItem(index, 3, self.__NewItem())
 
-    def NewItem(self):
+    def __NewItem(self):
         return QTableWidgetItem()
 
-    def CreateButtonsPage(self):
-        if self.QuantityRequest == 0:
+    def __CreateButtonsPage(self):
+        if self.__QuantityRequest == 0:
             pass
-        elif self.QuantityRequest <= 55:  #55 - это 5 отображаемых страниц(на 1-ой странице по 11 заявок)
-            self.CreateButton(ceil(self.QuantityRequest / 11))
+        elif self.__QuantityRequest <= 55:  #55 - это 5 отображаемых страниц(на 1-ой странице по 11 заявок)
+            self.__CreateButton(ceil(self.__QuantityRequest / 11))
         else:
-            self.CreateButton(5)
-            self.CreateButton(QuantityButton=1, ButtonText="...")
-            self.CreateButton(QuantityButton=1, ButtonText=str(ceil(self.QuantityRequest / 11)))
+            self.__CreateButton(5)
+            self.__CreateButton(QuantityButton=1, ButtonText="...")
+            self.__CreateButton(QuantityButton=1, ButtonText=str(ceil(self.__QuantityRequest / 11)))
 
-    def CreateButton(self, QuantityButton, ButtonText=None):
+    def __CreateButton(self, QuantityButton, ButtonText=None):
         if ButtonText is None:
             for page in range(1, QuantityButton + 1):
                 name_btn = f"PushButton{page}"
-                self.FunctionalCreateButton(name_btn, str(page))
+                self.__FunctionalCreateButton(name_btn, str(page))
                 exec(f'self.view.Button_Group.addButton(self.view.{name_btn}, page)')
             if 'PushButton1' in self.view.__dict__.keys():
                 self.view.PushButton1.setStyleSheet('background-color: rgb(85, 255, 127); border: 2px solid gray;')
@@ -223,11 +211,11 @@ class ControllerApplicationWindow:
             text = ButtonText
             if ButtonName == "...": ButtonName = "PushButtonEllipsis"
             elif ButtonName.isdigit(): ButtonName = "PushButton_Number"
-            self.FunctionalCreateButton(ButtonName, text)
+            self.__FunctionalCreateButton(ButtonName, text)
             if ButtonText == 'PushButton_Number':
                 exec(f'self.view.Button_Group.addButton(self.view.{ButtonName}, int(text))')
 
-    def FunctionalCreateButton(self, NameButton, TextButton):
+    def __FunctionalCreateButton(self, NameButton, TextButton):
         exec(f"self.view.{NameButton} = QPushButton(self.view.horizontalLayoutWidget)")
         exec(f"self.view.{NameButton}.setMinimumSize(QSize(0, 25))")
         exec(
@@ -236,153 +224,152 @@ class ControllerApplicationWindow:
         exec(f"self.view.horizontalLayout_ListNumberPages.addWidget(self.view.{NameButton})")
         exec(f'self.view.{NameButton}.setText(self._translate("MainWindow", str(TextButton)))')
 
-    def ClickedSubmitApplication(self):
-        if self.RequestSubmission == None:
-            self.RequestSubmission = ControllerRequestSubmission(self.client)
-            self.RequestSubmission.RunViewRequestSubmission()
+    def __ClickedSubmitApplication(self):
+        if self.__RequestSubmission == None:
+            self.__RequestSubmission = ControllerRequestSubmission(self.__client)
+            self.__RequestSubmission.RunViewRequestSubmission()
         else:
-            self.RequestSubmission.RunViewRequestSubmission()
+            self.__RequestSubmission.RunViewRequestSubmission()
 
-    def ClickedBackFirstPage(self):
-        self.BackBeginning()
+    def __ClickedBackFirstPage(self):
+        self.__BackBeginning()
 
-    def ClickedUpdatetable(self):
-        self.IsFilterDate = False
+    def __ClickedUpdatetable(self):
+        self.__IsFilterDate = False
         self.view.comboBox_Date.setCurrentIndex(0)
-        self.Status = "В пути"
-        # self.QuantityRequest = self.model.GetQuantityRequestPositionWay(self.client.ID)
+        self.__Status = "В пути"
         self.view.comboBox_Status.setCurrentIndex(0)
-        self.reverse = True
+        self.__reverse = True
         self.view.comboBox_SortTable.setCurrentIndex(0)
-        self.UpdateTable()
-        self.BackBeginning()
+        self.__UpdateTable()
+        self.__BackBeginning()
 
-    def UpdateTable(self):
-        lastQuantityRequest = self.QuantityRequest
-        self.QuantityRequest = self.model.GetQuantityRequest(self.CurrentTable(), self.client.ID)
-        self.view.lcdNumber.display(self.QuantityRequest)
-        if ceil(lastQuantityRequest / 11) < ceil(self.QuantityRequest / 11):
-            self.ClearLayout_ListNumberPages()
-            self.CreateButtonsPage()
-            self.CursorPage = 1
+    def __UpdateTable(self):
+        lastQuantityRequest = self.__QuantityRequest
+        self.__QuantityRequest = self.__model.GetQuantityRequest(self.__CurrentTable(), self.__client.ID)
+        self.view.lcdNumber.display(self.__QuantityRequest)
+        if ceil(lastQuantityRequest / 11) < ceil(self.__QuantityRequest / 11):
+            self.__ClearLayout_ListNumberPages()
+            self.__CreateButtonsPage()
+            self.__CursorPage = 1
 
-        if ceil(lastQuantityRequest / 11) > ceil(self.QuantityRequest / 11):
-            self.ClearLayout_ListNumberPages()
-            self.CreateButtonsPage()
-            self.CursorPage = 1
+        if ceil(lastQuantityRequest / 11) > ceil(self.__QuantityRequest / 11):
+            self.__ClearLayout_ListNumberPages()
+            self.__CreateButtonsPage()
+            self.__CursorPage = 1
 
-    def BackBeginning(self):
+    def __BackBeginning(self):
         btn_group = self.view.Button_Group.buttons()
         step = int(btn_group[0].text()) - 1
-        LastCursor = self.CursorPage - step if self.CursorPage != int(self.view.Button_Group.buttons()[-1].text()) else self.CursorPage
-        self.EditStepBack(step)
-        self.ListRequest.clear()
-        self.SaveRequest(self.ChoiceSaveRequest(index=0), self.CurrentEntities())
-        self.FillingTable(1)
+        LastCursor = self.__CursorPage - step if self.__CursorPage != int(self.view.Button_Group.buttons()[-1].text()) else self.__CursorPage
+        self.__EditStepBack(step)
+        self.__ListRequest.clear()
+        self.__SaveRequest(self.__ChoiceSaveRequest(index=0), self.__CurrentEntities())
+        self.__FillingTable(1)
         self.view.Button_Group.button(LastCursor).setStyleSheet("background-color: rgb(255, 255, 255);"
                                                                             "border: 2px solid gray;")
-        self.CursorPage = 1
-        self.view.Button_Group.button(self.CursorPage).setStyleSheet("background-color: rgb(85, 255, 127);"
+        self.__CursorPage = 1
+        self.view.Button_Group.button(self.__CursorPage).setStyleSheet("background-color: rgb(85, 255, 127);"
                                                                      "border: 2px solid gray;")
 
-    def ChoiceSaveRequest(self, index):
-        if self.IsFilterDate:
-            return self.ChoiceFunctionDate(index)
+    def __ChoiceSaveRequest(self, index):
+        if self.__IsFilterDate:
+            return self.__ChoiceFunctionDate(index)
         else:
-            return self.model.Get11Request(index, self.reverse, self.CurrentTable(), self.client.ID)
+            return self.__model.Get11Request(index, self.__reverse, self.__CurrentTable(), self.__client.ID)
 
-    def ChoiceFunctionDate(self, index):
+    def __ChoiceFunctionDate(self, index):
         if self.view.comboBox_Date.currentText() == "По полной дате":
             date = self.view.dateEdit_Searchdate.text()
-            return self.model.Get11RequestByDate(index, self.reverse, self.CurrentTable(), date, self.client.ID)
+            return self.__model.Get11RequestByDate(index, self.__reverse, self.__CurrentTable(), date, self.__client.ID)
         if self.view.comboBox_Date.currentText() == "По году":
-            return self.model.Get11RequestByYear(index, self.reverse, self.CurrentTable(), self.DataDate[2], self.client.ID)
+            return self.__model.Get11RequestByYear(index, self.__reverse, self.__CurrentTable(), self.__DataDate[2], self.__client.ID)
         if self.view.comboBox_Date.currentText() == "По месяцу":
-            return self.model.Get11RequestByMonth(index, self.reverse, self.CurrentTable(), self.DataDate[1], self.client.ID)
+            return self.__model.Get11RequestByMonth(index, self.__reverse, self.__CurrentTable(), self.__DataDate[1], self.__client.ID)
         if self.view.comboBox_Date.currentText() == "По дню":
-            return self.model.Get11RequestByDay(index, self.reverse, self.CurrentTable(), self.DataDate[0], self.client.ID)
+            return self.__model.Get11RequestByDay(index, self.__reverse, self.__CurrentTable(), self.__DataDate[0], self.__client.ID)
 
-    def ClickedButtonPage(self, button):
-        if int(button.text()) != self.CursorPage:
-            index_button = self.IdentifyClickedButton(button)
-            self.last_cursor = self.CursorPage
-            self.CursorPage = int(button.text())
+    def __ClickedButtonPage(self, button):
+        if int(button.text()) != self.__CursorPage:
+            index_button = self.__IdentifyClickedButton(button)
+            self.last_cursor = self.__CursorPage
+            self.__CursorPage = int(button.text())
             index = (int(button.text()) - 1) * 11
-            self.ListRequest.clear()
-            self.SaveRequest(self.ChoiceSaveRequest(index), self.CurrentEntities())
-            self.FillingTable(int(button.text()))
+            self.__ListRequest.clear()
+            self.__SaveRequest(self.__ChoiceSaveRequest(index), self.__CurrentEntities())
+            self.__FillingTable(int(button.text()))
             if 0 <= index_button <= 1:
-                self.StepBack(button)
+                self.__StepBack(button)
             elif 3 <= index_button <= 4:
-                self.StepFront(button)
+                self.__StepFront(button)
 
             self.view.Button_Group.button(self.last_cursor).setStyleSheet("background-color: rgb(255, 255, 255);"
                                                                      "border: 2px solid gray;")
-            self.view.Button_Group.button(self.CursorPage).setStyleSheet('background-color: rgb(85, 255, 127); '
+            self.view.Button_Group.button(self.__CursorPage).setStyleSheet('background-color: rgb(85, 255, 127); '
                                                                          'border: 2px solid gray;')
             del self.last_cursor
 
-    def StepFront(self, button):
-        if self.MaxStepFront() == 1:
-            self.EditStepFront(1)
+    def __StepFront(self, button):
+        if self.__MaxStepFront() == 1:
+            self.__EditStepFront(1)
             if self.last_cursor != int(self.view.Button_Group.buttons()[-1].text()):
                 self.last_cursor += 1
-        elif self.MaxStepFront() >= 2:
-            quantity = self.QuantityStepsFront(button)
-            self.EditStepFront(quantity)
+        elif self.__MaxStepFront() >= 2:
+            quantity = self.__QuantityStepsFront(button)
+            self.__EditStepFront(quantity)
             if self.last_cursor != int(self.view.Button_Group.buttons()[-1].text()):
                 self.last_cursor += quantity
 
-    def StepBack(self, button):
-        if self.MaxstepBack() == 1:
-            self.EditStepBack(1)
+    def __StepBack(self, button):
+        if self.__MaxstepBack() == 1:
+            self.__EditStepBack(1)
             if self.last_cursor != int(self.view.Button_Group.buttons()[-1].text()):
                 self.last_cursor -= 1
-        elif self.MaxstepBack() >= 2:
-            quantity = self.QuantityStepsBack(button)
-            self.EditStepBack(quantity)
+        elif self.__MaxstepBack() >= 2:
+            quantity = self.__QuantityStepsBack(button)
+            self.__EditStepBack(quantity)
             if self.last_cursor != int(self.view.Button_Group.buttons()[-1].text()):
                 self.last_cursor -= quantity
 
-    def QuantityStepsFront(self, button) -> int:
-        index = self.IdentifyClickedButton(button)
+    def __QuantityStepsFront(self, button) -> int:
+        index = self.__IdentifyClickedButton(button)
         if index == 3: return 1
         if index == 4: return 2
 
-    def QuantityStepsBack(self, button) -> int:
-        index = self.IdentifyClickedButton(button)
+    def __QuantityStepsBack(self, button) -> int:
+        index = self.__IdentifyClickedButton(button)
         if index == 0: return 2
         if index == 1: return 1
 
-    def MaxStepFront(self) -> int:
+    def __MaxStepFront(self) -> int:
         list_button = self.view.Button_Group.buttons()
         return int(list_button[5].text()) - (int(list_button[4].text()) + 1)
 
-    def MaxstepBack(self) -> int:
+    def __MaxstepBack(self) -> int:
         list_button = self.view.Button_Group.buttons()
         return int(list_button[0].text()) - 1
 
-    def IdentifyClickedButton(self, Button) -> int:
+    def __IdentifyClickedButton(self, Button) -> int:
         for index, button in enumerate(self.view.Button_Group.buttons()):
             if button == Button:
                 return index
 
-    def EditStepFront(self, step):
+    def __EditStepFront(self, step):
         BtnGroup = self.view.Button_Group
         for index, button in enumerate(BtnGroup.buttons()[:-1]):
             BtnGroup.setId(button, BtnGroup.id(button) + step)
             button.setText(self._translate("MainWindow", str(int(button.text()) + step)))
 
-    def EditStepBack(self, step):
+    def __EditStepBack(self, step):
         BtnGroup = self.view.Button_Group
         for index, button in enumerate(BtnGroup.buttons()[:-1]):
             BtnGroup.setId(button, BtnGroup.id(button) - step)
             button.setText(self._translate("MainWindow", str(int(button.text()) - step)))
 
-    def ClickedProfile(self):
-        self.UserProfile = ControllerUserProfile(self.client, self)
-        self.UserProfile.RunViewUserProfile()
+    def __ClickedProfile(self):
+        self.__UserProfile = ControllerUserProfile(self.__client, self)
+        self.__UserProfile.RunViewUserProfile()
         self.ApplicationWindow.setEnabled(False)
 
-    def ClickedExit(self):
+    def __ClickedExit(self):
         self.ApplicationWindow.close()

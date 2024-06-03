@@ -1,12 +1,16 @@
 from TransportCompany.Repositories.ClientRepository import ClientRepository
 
+
 class ModelUserProfile:
 
-    def UpdatePhone(self, IdClient, Phone):
+    @staticmethod
+    def UpdatePhone(IdClient, Phone):
         ClientRepository().UpdatePhone(IdClient, Phone)
 
-    def UpdateEmail(self, IdClient, Email):
+    @staticmethod
+    def UpdateEmail(IdClient, Email):
         ClientRepository().UpdateEmail(IdClient, Email)
 
-    def UpdatePassword(self, IdClient, Password):
+    @staticmethod
+    def UpdatePassword(IdClient, Password):
         ClientRepository().UpdatePassword(IdClient, Password)

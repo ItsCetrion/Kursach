@@ -6,46 +6,44 @@ from PyQt5 import QtWidgets
 import sys
 class ControllerRequestSubmission:
     def __init__(self, client: Client):
-        self.model = ModelRequestSubmission()
+        self.__model = ModelRequestSubmission()
         self.view = ViewRequestSubmission()
-        self.SettingsUI()
-        self.Client = client
-        self.FillingFields()
-        self.RequestSubmission.closeEvent = self.closeEvent
+        self.__SettingsUI()
+        self.__Client = client
+        self.__FillingFields()
+        self.__RequestSubmission.closeEvent = self.__closeEvent
 
-        self.view.pushButton_CreateRequest.clicked.connect(self.ClickedCreateRequest)
-        self.view.pushButton_Back.clicked.connect(self.ClickedBack)
+        self.view.pushButton_CreateRequest.clicked.connect(self.__ClickedCreateRequest)
+        self.view.pushButton_Back.clicked.connect(self.__ClickedBack)
 
 
-    def SettingsUI(self):
-        self.app = QtWidgets.QApplication(sys.argv)
-        self.RequestSubmission = QtWidgets.QMainWindow()
+    def __SettingsUI(self):
+        self.__app = QtWidgets.QApplication(sys.argv)
+        self.__RequestSubmission = QtWidgets.QMainWindow()
         ui = self.view
-        ui.setupUi(self.RequestSubmission)
+        ui.setupUi(self.__RequestSubmission)
 
     def RunViewRequestSubmission(self):
-        self.RequestSubmission.show()
-        # sys.exit(self.app.exec_())
+        self.__RequestSubmission.show()
 
-    def FillingFields(self):
-        self.view.lineEdit_FirstName.setText(str(self.Client.FirstName))
-        self.view.lineEdit_LastName.setText(str(self.Client.LastName))
-        self.view.lineEdit_Email.setText(str(self.Client.Email))
-        self.view.lineEdit_NumberPhone.setText(str(self.Client.NumberPhone))
+    def __FillingFields(self):
+        self.view.lineEdit_FirstName.setText(str(self.__Client.FirstName))
+        self.view.lineEdit_LastName.setText(str(self.__Client.LastName))
+        self.view.lineEdit_Email.setText(str(self.__Client.Email))
+        self.view.lineEdit_NumberPhone.setText(str(self.__Client.NumberPhone))
 
-
-    def ClickedCreateRequest(self):
-        if self.isCheckWight():
-            request = self.FillingRequest()
+    def __ClickedCreateRequest(self):
+        if self.__isCheckWight():
+            request = self.__FillingRequest()
             values_request = list(request.__dict__.values())[1:-1]
             if len(set([None, ""]).intersection(values_request)) != 0:
                 self.view.message("Информация", "Не все поля заполнены!")
             else:
-                self.model.AddRequest(request)
+                self.__model.AddRequest(request)
                 self.view.message("Информация", "Заявка отправлена, ждите рассмотрения!")
-                self.RequestSubmission.close()
+                self.__RequestSubmission.close()
 
-    def isCheckWight(self):
+    def __isCheckWight(self):
         try:
             if int(self.view.lineEdit_CargoWeight.text()) > 20000:
                 self.view.message("Информация", "Извините, грузы тяжелее чем 20 тонн, компания не перевозит!")
@@ -56,25 +54,23 @@ class ControllerRequestSubmission:
             self.view.message("Информация", "Не указан вес грузу!")
             return False
 
-    def FillingRequest(self):
+    def __FillingRequest(self):
         request = Request()
-        request.IdClient = self.Client.ID
-        request.FirstName = self.Client.FirstName
-        request.LastName = self.Client.LastName
-        request.Email = self.Client.Email
-        request.NumberPhone = self.Client.NumberPhone
+        request.IdClient = self.__Client.ID
+        request.FirstName = self.__Client.FirstName
+        request.LastName = self.__Client.LastName
+        request.Email = self.__Client.Email
+        request.NumberPhone = self.__Client.NumberPhone
         request.PlaceDeparture = self.view.lineEdit_PlaceDispatch.text()
         request.PlaceDelivery = self.view.lineEdit_PlaceDelivery.text()
         request.CargoWeight = self.view.lineEdit_CargoWeight.text()
         request.CargoDescription = self.view.lineEdit_CargoDescription.text()
         return request
 
+    def __ClickedBack(self):
+        self.__RequestSubmission.close()
 
-
-    def ClickedBack(self):
-        self.RequestSubmission.close()
-
-    def closeEvent(self, event):
+    def __closeEvent(self, event):
         self.view.lineEdit_PlaceDispatch.clear()
         self.view.lineEdit_PlaceDelivery.clear()
         self.view.lineEdit_CargoDescription.clear()
