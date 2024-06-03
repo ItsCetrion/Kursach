@@ -5,11 +5,14 @@ from TransportCompany.Entities.Accountant import Accountant
 from PyQt5 import QtWidgets
 import sys
 
+
 class ControllerRegistrationWorker:
-    def __init__(self):
+    def __init__(self, parent):
         self.__model = ModelRegistrationWorker()
         self.view = ViewRegistrationWorker()
+        self.__parent = parent
         self.__SettingUI()
+        self.__RegistrationWorker.closeEvent = self.closeEvent
         self.view.pushButton_Back.clicked.connect(self.__Back)
         self.view.pushButton_Registration.clicked.connect(self.__Registration)
 
@@ -21,12 +24,6 @@ class ControllerRegistrationWorker:
 
     def RunViewRegistrationWorker(self):
         self.__RegistrationWorker.show()
-
-    def __Back(self):
-        from TransportCompany.Controller.Admin.ControllerWindowApplication import ControllerWindowApplication
-        self.__ControllerWinApp = ControllerWindowApplication()
-        self.__RegistrationWorker.close()
-        self.__ControllerWinApp.RunViewWindowApplication()
 
     def __Registration(self):
         if self.__isCheckAgeAndExperience():
@@ -94,6 +91,14 @@ class ControllerRegistrationWorker:
             return "Не все поля заполнены"
         else:
             return driver
+
+    def __Back(self):
+        self.__RegistrationWorker.close()
+
+    def closeEvent(self, event):
+        self.__parent.WindowApplication.setEnabled(True)
+        self.__RegistrationWorker.close()
+
 
 
 

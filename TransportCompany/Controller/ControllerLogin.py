@@ -23,7 +23,7 @@ class ControllerLogin:
         self.__view.pushButton_SignIn.clicked.connect(self.__FunctionSignIn)
         self.__view.pushButton_SignUp.clicked.connect(self.__FunctionSignUp)
 
-        self.__view.lineEdit_Login.setText("test@mail.ru") #Потом удалить
+        self.__view.lineEdit_Login.setText("zhenyaoz777piratship@list.ru") #Потом удалить
         self.__view.lineEdit_Password.setText("1234567890") #Потом удалить
 
     def __SettingsUI(self) -> None:
@@ -56,8 +56,8 @@ class ControllerLogin:
         id = InfoEntity[0]
         role = InfoEntity[-1]
         if role == "Администратор":
-            entity = self.__FillingEntity(self.__model.GetAdmin(id), Administrator)
-            self.__WindowApplication = ControllerWindowApplication() #передать сущность администратор
+            entity = self.__FillingEntity([*(self.__model.GetAdmin(id)[0])], Administrator)
+            self.__WindowApplication = ControllerWindowApplication(entity) #передать сущность администратор
             self.__WindowApplication.RunViewWindowApplication()
             self.__LoginWindow.close()
         elif role == "Клиент":

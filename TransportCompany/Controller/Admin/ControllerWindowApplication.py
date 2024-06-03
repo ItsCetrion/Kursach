@@ -3,18 +3,20 @@ from TransportCompany.View.Admin.ViewWindowApplication import ViewWindowApplicat
 from TransportCompany.Controller.Admin.ControllerRegistrationWorker import ControllerRegistrationWorker
 from TransportCompany.Controller.Admin.ControllerConsiderationApplication import ControllerConsiderationApplication
 from TransportCompany.Entities.Request import Request
+from TransportCompany.Entities.Administrator import Administrator
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QCoreApplication, QSize
 import sys
 from math import ceil
 
+
 class ControllerWindowApplication:
-    def __init__(self):
+    def __init__(self, admin: Administrator):
         self.__model = ModelWindowApplication()
         self.view = ViewWindowApplication()
-        self.__ControllerRegWorker = ControllerRegistrationWorker()
         self._translate = QCoreApplication.translate
         self.__QuantityRequest = self.__model.GetAllQuantityReauest()
+        self.__admin = admin
         self.__ListRequest = []
         self.__CursorPage = 1
         self.__ParameterSort = "DateRequest"
@@ -44,13 +46,12 @@ class ControllerWindowApplication:
 
     def __SettingsUI(self):
         self.__app = QtWidgets.QApplication(sys.argv)
-        self.__WindowApplication = QtWidgets.QMainWindow()
+        self.WindowApplication = QtWidgets.QMainWindow()
         ui = self.view
-        ui.setupUi(self.__WindowApplication)
+        ui.setupUi(self.WindowApplication)
 
     def RunViewWindowApplication(self):
-        self.__WindowApplication.show()
-        sys.exit(self.__app.exec_())
+        self.WindowApplication.show()
 
     def DeleteRequestFromTable(self):
         if ceil((self.__QuantityRequest - 1) / 11) == ceil(self.__QuantityRequest / 11) or \
@@ -392,10 +393,11 @@ class ControllerWindowApplication:
                 child.widget().deleteLater()
 
     def __Exit(self):
-        self.__WindowApplication.close()
+        self.WindowApplication.close()
 
     def __OpenRegistrationWorker(self):
-        self.__WindowApplication.close()
+        self.__ControllerRegWorker = ControllerRegistrationWorker(self)
+        self.WindowApplication.setEnabled(False)
         self.__ControllerRegWorker.RunViewRegistrationWorker()
 
 
