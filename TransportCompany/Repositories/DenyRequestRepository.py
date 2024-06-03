@@ -27,8 +27,8 @@ class DenyRequestRepository:
         result = self.__Demand(f"""SELECT COUNT(*) FROM DenyRequest Where IdClient = {IdClient}""")
         return result[0][0]
         
-
-    def __Demand(self, query: str):
+    @staticmethod
+    def __Demand(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor
@@ -39,7 +39,8 @@ class DenyRequestRepository:
         except ProgrammingError:
             raise "проблемы с подключением"
 
-    def __UID(self, query: str):
+    @staticmethod
+    def __UID(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor

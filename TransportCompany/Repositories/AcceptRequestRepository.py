@@ -2,6 +2,7 @@ from TransportCompany.DBcontext.DBContext import DBContext
 from TransportCompany.Entities.Request import Request
 from pyodbc import ProgrammingError
 
+
 class AcceptRequestRepository:
     def AddAcceptRequest(self, request: Request):
         self.__UID(f"""INSERT INTO AcceptRequest(ID,FirstName,LastName,Email,NumberPhone,PlaceDeparture,PlaceDelivery,
@@ -10,6 +11,9 @@ class AcceptRequestRepository:
                                  '{request.Email}','{request.NumberPhone}','{request.PlaceDeparture}',
                                  '{request.PlaceDelivery}', '{request.CargoWeight}',
                                  '{request.CargoDescription}', {request.IdClient})""")
+
+    def DeleteAcceptRequest(self, IdRequest):
+        self.__UID(f"""DELETE FROM AcceptRequest WHERE ID = {IdRequest}""")
 
     def Get11AcceptRequest(self, StartIndex: int, reverse: bool, IdClient: int):
         sort = "ASC" if reverse is False else "DESC"
@@ -32,10 +36,9 @@ class AcceptRequestRepository:
                                  Where IdClient = {IdClient}""")
         return result[0][0]
 
-    def DeleteAcceptRequest(self, IdRequest):
-        self.__UID(f"""DELETE FROM AcceptRequest WHERE ID = {IdRequest}""")
 
-    def __Demand(self, query: str):
+    @staticmethod
+    def __Demand(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor
@@ -46,7 +49,8 @@ class AcceptRequestRepository:
         except ProgrammingError:
             raise "проблемы с подключением"
 
-    def __UID(self, query: str):
+    @staticmethod
+    def __UID(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor

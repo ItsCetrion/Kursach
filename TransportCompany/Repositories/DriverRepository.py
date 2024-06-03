@@ -10,6 +10,23 @@ class DriverRepository:
                            VALUES('{driver.FirstName}','{driver.LastName}','{driver.Patronymic}',
                            '{driver.NumberPhone}','{driver.Email}',{driver.Age},{driver.Experience})""")
 
+    def UpdateDriver(self, IdRequest, IdDriver):
+        self.__UID(f"""UPDATE Driver
+                     SET IdOrderClient={IdRequest}, Condition='Занят'
+                     WHERE ID = {IdDriver}""")
+
+    def DeleteIdOrder(self, IdRequest):
+        self.__UID(f"""Update Driver SET IdOrderClient = NULL,Condition='Свободен' WHERE IdOrderClient = {IdRequest}""")
+
+    def UpdatePhone(self, IdDriver, phone):
+        self.__UID(f"""Update Driver SET NumberPhone = '{phone}' WHERE ID = {IdDriver}""")
+
+    def UpdateEmail(self, IdDriver, email):
+        self.__UID(f"""Update Driver SET Email = '{email}' WHERE ID = {IdDriver}""")
+
+    def UpdatePassword(self, IdDriver, password):
+        self.__UID(f"""Update Driver SET PasswordProgram = '{password}' WHERE ID = {IdDriver}""")
+
     def GetDriver(self, IdDriver):
         result = self.__Demand(f"""SELECT * FROM Driver WHERE ID = {IdDriver}""")
         return result
@@ -40,24 +57,8 @@ class DriverRepository:
         result = self.__Demand(f"""SELECT ID FROM Driver WHERE IdOrderClient = {IdOrder}""")
         return result
 
-    def UpdateDriver(self, IdRequest, IdDriver):
-        self.__UID(f"""UPDATE Driver
-                     SET IdOrderClient={IdRequest}, Condition='Занят'
-                     WHERE ID = {IdDriver}""")
-
-    def DeleteIdOrder(self, IdRequest):
-        self.__UID(f"""Update Driver SET IdOrderClient = NULL,Condition='Свободен' WHERE IdOrderClient = {IdRequest}""")
-
-    def UpdatePhone(self, IdDriver, phone):
-        self.__UID(f"""Update Driver SET NumberPhone = '{phone}' WHERE ID = {IdDriver}""")
-
-    def UpdateEmail(self, IdDriver, email):
-        self.__UID(f"""Update Driver SET Email = '{email}' WHERE ID = {IdDriver}""")
-
-    def UpdatePassword(self, IdDriver, password):
-        self.__UID(f"""Update Driver SET PasswordProgram = '{password}' WHERE ID = {IdDriver}""")
-
-    def __Demand(self, query: str):
+    @staticmethod
+    def __Demand(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor
@@ -68,7 +69,8 @@ class DriverRepository:
         except ProgrammingError:
             raise "проблемы с подключением"
 
-    def __UID(self, query: str):
+    @staticmethod
+    def __UID(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor

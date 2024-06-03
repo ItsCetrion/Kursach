@@ -42,7 +42,8 @@ class DeliveredRequestRepositories:
                                    WHERE DeliveredRequest.ID = {IdOrder}""")
         return result
 
-    def __Demand(self, query: str):
+    @staticmethod
+    def __Demand(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor
@@ -53,7 +54,8 @@ class DeliveredRequestRepositories:
         except ProgrammingError:
             raise "проблемы с подключением"
 
-    def __UID(self, query: str):
+    @staticmethod
+    def __UID(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor

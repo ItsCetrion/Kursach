@@ -1,6 +1,7 @@
 from TransportCompany.DBcontext.DBContext import DBContext
 from pyodbc import ProgrammingError
 
+
 class AllRequestRepository:
 
     def Get11RequestByDate(self, StartIndex: int, reverse: bool, table: str, date: str, IdClient: int):
@@ -108,7 +109,8 @@ class AllRequestRepository:
         if table == "DeliveredRequest": return "DateDelivered"
         else: raise "таблицы не существует"
 
-    def __Demand(self, query: str):
+    @staticmethod
+    def __Demand(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor

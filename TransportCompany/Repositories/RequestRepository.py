@@ -182,7 +182,8 @@ class RequestRepository:
         result = self.__Demand(f"""SELECT COUNT(*) FROM Request WHERE IdClient = {IdClient}""")
         return result[0][0]
 
-    def __Demand(self, query: str):
+    @staticmethod
+    def __Demand(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor
@@ -193,7 +194,8 @@ class RequestRepository:
         except ProgrammingError:
             raise "проблемы с подключением"
 
-    def __UID(self, query: str):
+    @staticmethod
+    def __UID(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor

@@ -10,26 +10,26 @@ class ClientRepository:
         query = (f"""INSERT INTO Client(FirstName,LastName,Patronymic,NumberPhone,Email,PasswordProgram)
                      VALUES('{user.FirstName}','{user.LastName}','{user.Patronymic}','{user.NumberPhone}',
                      '{user.Email}','{user.Password}')""")
-        self.__AUDI(query)
-
-    def GetClient(self, IdClient):
-        result = self.__request(f"""SELECT * FROM Client Where ID = {IdClient}""")
-        return result
+        self.__UID(query)
 
     def UpdatePhone(self, IdClient, Phone):
         query = (f"""UPDATE Client SET NumberPhone = '{Phone}' 
                                    WHERE ID = {IdClient}""")
-        self.__AUDI(query)
+        self.__UID(query)
 
     def UpdateEmail(self, IdClient, Email):
         query = (f"""UPDATE Client SET Email = '{Email}' 
                                            WHERE ID = {IdClient}""")
-        self.__AUDI(query)
+        self.__UID(query)
 
     def UpdatePassword(self, IdClient, Password):
         query = (f"""UPDATE Client SET PasswordProgram = '{Password}' 
                                                    WHERE ID = {IdClient}""")
-        self.__AUDI(query)
+        self.__UID(query)
+
+    def GetClient(self, IdClient):
+        result = self.__request(f"""SELECT * FROM Client Where ID = {IdClient}""")
+        return result
 
     @staticmethod
     def __request(query: str):
@@ -44,7 +44,7 @@ class ClientRepository:
             raise "Ошибка"
 
     @staticmethod
-    def __AUDI(query: str):
+    def __UID(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor

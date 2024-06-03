@@ -4,7 +4,6 @@ from pyodbc import ProgrammingError
 
 class AllRoleRepository:
     def CheckPhone(self, phone: str):
-
         result = self.__Request(f"""SELECT Firstname 
                                   FROM CrossTable Where NumberPhone = '{phone}'""")
         if len(result) == 0:
@@ -29,7 +28,8 @@ class AllRoleRepository:
                                         Where Email = '{email}' and PasswordProgram = '{password}'""")
         return result
 
-    def __Request(self, query: str):
+    @staticmethod
+    def __Request(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor

@@ -7,7 +7,9 @@ class AdministratorRepository:
     def GetAdmin(self, IdAdmin):
         result = self.__Request(f"""SELECT * FROM Administrator WHERE ID = {IdAdmin}""")
         return result
-    def __Request(self, query: str):
+
+    @staticmethod
+    def __Request(query: str):
         try:
             __context = DBContext()
             __cursor = __context.cursor
