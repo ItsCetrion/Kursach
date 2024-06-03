@@ -7,49 +7,49 @@ import sys
 
 class ControllerRegistrationWorker:
     def __init__(self):
-        self.model = ModelRegistrationWorker()
+        self.__model = ModelRegistrationWorker()
         self.view = ViewRegistrationWorker()
-        self.SettingUI()
-        self.view.pushButton_Back.clicked.connect(self.Back)
-        self.view.pushButton_Registration.clicked.connect(self.Registration)
+        self.__SettingUI()
+        self.view.pushButton_Back.clicked.connect(self.__Back)
+        self.view.pushButton_Registration.clicked.connect(self.__Registration)
 
-    def SettingUI(self):
-        self.app = QtWidgets.QApplication(sys.argv)
-        self.RegistrationWorker = QtWidgets.QMainWindow()
+    def __SettingUI(self):
+        self.__app = QtWidgets.QApplication(sys.argv)
+        self.__RegistrationWorker = QtWidgets.QMainWindow()
         ui = self.view
-        ui.setupUi(self.RegistrationWorker)
+        ui.setupUi(self.__RegistrationWorker)
 
     def RunViewRegistrationWorker(self):
-        self.RegistrationWorker.show()
+        self.__RegistrationWorker.show()
 
-    def Back(self):
+    def __Back(self):
         from TransportCompany.Controller.Admin.ControllerWindowApplication import ControllerWindowApplication
-        self.ControllerWinApp = ControllerWindowApplication()
-        self.RegistrationWorker.close()
-        self.ControllerWinApp.RunViewWindowApplication()
+        self.__ControllerWinApp = ControllerWindowApplication()
+        self.__RegistrationWorker.close()
+        self.__ControllerWinApp.RunViewWindowApplication()
 
-    def Registration(self):
-        if self.isCheckAgeAndExperience():
+    def __Registration(self):
+        if self.__isCheckAgeAndExperience():
             if self.view.comboBox_Worker.currentText() == "Бухгалтер":
                 accountant = Accountant()
-                accountant_ = self.FillingAccountant(accountant)
+                accountant_ = self.__FillingAccountant(accountant)
                 if isinstance(accountant_, str):
                     self.view.message("Информация", accountant_)
                 else:
-                    self.model.RegistrationAccountant(accountant_)
+                    self.__model.RegistrationAccountant(accountant_)
                     self.view.message("Информация", "Работник успешно добавлен")
-                    self.Back()
+                    self.__Back()
             elif self.view.comboBox_Worker.currentText() == "Водитель":
                 driver = Driver()
-                driver_ = self.FillingDriver(driver)
+                driver_ = self.__FillingDriver(driver)
                 if isinstance(driver_, str):
                     self.view.message("Информация", driver_)
                 else:
-                    self.model.RegistrationDriver(driver_)
+                    self.__model.RegistrationDriver(driver_)
                     self.view.message("Информация", "Работник успешно добавлен")
-                    self.Back()
+                    self.__Back()
 
-    def isCheckAgeAndExperience(self):
+    def __isCheckAgeAndExperience(self):
         try:
             if int(self.view.lineEdit_Age.text()) < 18:
                 self.view.message("Информация", "Нельзя назначит сотрудника младше 18 лет!")
@@ -63,7 +63,7 @@ class ControllerRegistrationWorker:
             self.view.message("Информация", "Какое-то из полей не заполнено!")
             return False
 
-    def FillingAccountant(self, accountant: Accountant):
+    def __FillingAccountant(self, accountant: Accountant):
         accountant.FirstName = self.view.lineEdit_FirstName.text()
         accountant.LastName = self.view.lineEdit_LastName.text()
         accountant.Patronymic = self.view.lineEdit_Patronymic.text()
@@ -72,14 +72,14 @@ class ControllerRegistrationWorker:
         accountant.Age = self.view.lineEdit_Age.text()
         accountant.Experience = self.view.lineEdit_Experience.text()
         values_driver = list(accountant.__dict__.values())[1:-2]
-        if self.model.CheckEmail(accountant.Email) or self.model.CheckPhone(accountant.NumberPhone):
+        if self.__model.CheckEmail(accountant.Email) or self.__model.CheckPhone(accountant.NumberPhone):
             return "Такой номер телефона или почта уже занята"
         elif set([None, ""]).intersection(values_driver):
             return "Не все поля заполнены"
         else:
             return accountant
 
-    def FillingDriver(self, driver: Driver):
+    def __FillingDriver(self, driver: Driver):
         driver.FirstName = self.view.lineEdit_FirstName.text()
         driver.LastName = self.view.lineEdit_LastName.text()
         driver.Patronymic = self.view.lineEdit_Patronymic.text()
@@ -88,7 +88,7 @@ class ControllerRegistrationWorker:
         driver.Age = self.view.lineEdit_Age.text()
         driver.Experience = self.view.lineEdit_Experience.text()
         values_driver = list(driver.__dict__.values())[2:-3]
-        if self.model.CheckEmail(driver.Email) or self.model.CheckPhone(driver.NumberPhone):
+        if self.__model.CheckEmail(driver.Email) or self.__model.CheckPhone(driver.NumberPhone):
             return "Такой номер телефона или почта уже занята"
         elif set([None, ""]).intersection(values_driver):
             return "Не все поля заполнены"

@@ -4,16 +4,20 @@ from TransportCompany.Repositories.DriverRepository import DriverRepository
 from TransportCompany.Entities.Driver import Driver
 from TransportCompany.Entities.Accountant import Accountant
 
-class ModelRegistrationWorker:
 
-    def CheckPhone(self, phone):
+class ModelRegistrationWorker:
+    @staticmethod
+    def CheckPhone(phone):
         return AllRoleRepository().CheckPhone(phone)
 
-    def CheckEmail(self, email):
+    @staticmethod
+    def CheckEmail(email):
         return AllRoleRepository().CheckEmail(email)
 
-    def RegistrationAccountant(self, accountant: Accountant):
+    @staticmethod
+    def RegistrationAccountant(accountant: Accountant):
         AccountantRepository().RegistrationAccountant(accountant)
 
-    def RegistrationDriver(self, driver: Driver):
+    @staticmethod
+    def RegistrationDriver(driver: Driver):
         DriverRepository().RegistrationDriver(driver)

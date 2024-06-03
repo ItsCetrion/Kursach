@@ -3,6 +3,6 @@ from TransportCompany.Entities.DenyRequest import DenyRequest
 
 
 class ModelConsiderationApplication:
-
-    def AddDenyRequest(self, deny_request: DenyRequest):
+    @staticmethod
+    def AddDenyRequest(deny_request: DenyRequest):
         DenyRequestRepository().AddDenyRequest(deny_request)

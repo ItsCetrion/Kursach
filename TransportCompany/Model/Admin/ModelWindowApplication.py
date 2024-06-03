@@ -1,5 +1,7 @@
 from TransportCompany.Entities.Request import Request
 from TransportCompany.Repositories.RequestRepository import RequestRepository
+
+
 class ModelWindowApplication:
     def __init__(self):
         self.RequestRepository = RequestRepository()

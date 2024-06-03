@@ -2,29 +2,32 @@ from TransportCompany.Model.Admin.ModelConsiderationApplication import ModelCons
 from TransportCompany.Model.Admin.ModelWindowApplication import ModelWindowApplication
 from TransportCompany.View.Admin.ViewConsiderationApplication import ViewConsiderationApplication
 from TransportCompany.Controller.Admin.ControllerConfirmOrder import ControllerConfirmOrder
-from TransportCompany.Entities.Request import Request
 from PyQt5 import QtWidgets
 import sys
 
-class ControllerConsiderationApplication():
+
+class ControllerConsiderationApplication:
     def __init__(self, parent):
         self.view = ViewConsiderationApplication()
-        self.model = ModelConsiderationApplication()
-        self.SettingsUI()
-        self.parent = parent
-        self.ConfirmOrder = None
+        self.__model = ModelConsiderationApplication()
+        self.__SettingsUI()
+        self.__parent = parent
+        self.__ConfirmOrder = None
 
-        self.view.pushButton_Deny.clicked.connect(self.ClickedDeny)
-        self.view.pushButton_Back.clicked.connect(self.ClickedBack)
+        self.view.pushButton_Deny.clicked.connect(self.__ClickedDeny)
+        self.view.pushButton_Back.clicked.connect(self.__ClickedBack)
         self.view.pushButton_MakeOrder.clicked.connect(self.ClickedMakeorder)
-    def SettingsUI(self):
-        self.app = QtWidgets.QApplication(sys.argv)
-        self.ConsiderationApplication = QtWidgets.QDialog()
+    def __SettingsUI(self):
+        self.__app = QtWidgets.QApplication(sys.argv)
+        self.__ConsiderationApplication = QtWidgets.QDialog()
         ui = self.view
-        ui.setupUi(self.ConsiderationApplication)
+        ui.setupUi(self.__ConsiderationApplication)
+
+    def RunViewConsiderationApplication(self):
+        self.__ConsiderationApplication.show()
 
     def FillingFields(self, request):
-        self.request = request
+        self.__request = request
         self.view.lineEdit_date.setText(request.DateRequest)
         self.view.textEdit_dispatch.setText(request.PlaceDeparture)
         self.view.textEdit_delivery.setText(request.PlaceDelivery)
@@ -35,35 +38,33 @@ class ControllerConsiderationApplication():
         self.view.textEdit_Phone.setText(request.NumberPhone)
         self.view.textEdit_Email.setText(request.Email)
 
-    def ClickedDeny(self):
+    def __ClickedDeny(self):
         test = self.view.MessageQuestion()
         if test == QtWidgets.QMessageBox.Yes:
-            ModelWindowApplication().DeleteRequest(self.request.ID)
-            self.model.AddDenyRequest(self.request)
+            ModelWindowApplication().DeleteRequest(self.__request.ID)
+            self.__model.AddDenyRequest(self.__request)
             self.view.MessageOK("Информация", "Заявка успешно отклонена!")
-            self.ConsiderationApplication.destroy(destroyWindow=True)
+            self.__ConsiderationApplication.destroy(destroyWindow=True)
             self.DeleteRequestFromTable()
 
     def DeleteRequestFromTable(self):
-        self.parent.DeleteRequestFromTable()
-    def RunViewConsiderationApplication(self):
-        self.ConsiderationApplication.show()
+        self.__parent.DeleteRequestFromTable()
 
-    def ClickedBack(self):
-        self.ConsiderationApplication.destroy(destroyWindow=True)
+    def __ClickedBack(self):
+        self.__ConsiderationApplication.destroy(destroyWindow=True)
 
     def ClickedMakeorder(self):
-        if self.ConfirmOrder is None:
-            self.ConfirmOrder = ControllerConfirmOrder(self)
-            self.ConfirmOrder.FillingFields(self.request)
-            self.ConsiderationApplication.hide()
-            self.ConfirmOrder.RunConfirmOrder()
+        if self.__ConfirmOrder is None:
+            self.__ConfirmOrder = ControllerConfirmOrder(self)
+            self.__ConfirmOrder.FillingFields(self.__request)
+            self.__ConsiderationApplication.hide()
+            self.__ConfirmOrder.RunConfirmOrder()
         else:
-            self.ConsiderationApplication.hide()
-            self.ConfirmOrder.FillingFields(self.request)
-            self.ConfirmOrder.RunConfirmOrder()
+            self.__ConsiderationApplication.hide()
+            self.__ConfirmOrder.FillingFields(self.__request)
+            self.__ConfirmOrder.RunConfirmOrder()
 
     def Close(self):
-        self.ConsiderationApplication.close()
+        self.__ConsiderationApplication.close()
 
 

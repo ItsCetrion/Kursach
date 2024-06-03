@@ -2,15 +2,21 @@ from TransportCompany.DBcontext.DBContext import DBContext
 from TransportCompany.Repositories.DriverRepository import DriverRepository
 from TransportCompany.Repositories.AcceptRequestRepository import AcceptRequestRepository
 from TransportCompany.Entities.Request import Request
+
+
 class ModelConfirmOrder:
-    def Get5Driver(self):
+    @staticmethod
+    def Get5Driver():
         return DriverRepository().Get5Driver()
 
-    def Get5DriverWithException(self, id: int):
+    @staticmethod
+    def Get5DriverWithException(id: int):
         return DriverRepository().Get5DriverWithException(id)
 
-    def AddAcceptRequest(self, request: Request):
+    @staticmethod
+    def AddAcceptRequest(request: Request):
         AcceptRequestRepository().AddAcceptRequest(request)
 
-    def UpdateDriver(self, IdRequest, IdDriver):
+    @staticmethod
+    def UpdateDriver(IdRequest, IdDriver):
         DriverRepository().UpdateDriver(IdRequest, IdDriver)
