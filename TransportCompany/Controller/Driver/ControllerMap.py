@@ -8,22 +8,22 @@ class ControllerMap:
         self.view = ViewMap()
         self.PlaceDeparture = PlaceDeparture
         self.PlaceDelivery = PlaceDelivery
-        self.parent = parent
-        self.SettingsUI()
-        self.CreateMap()
-        self.view.closeEvent = self.closeEvent
-    def SettingsUI(self):
-        self.app = QApplication(sys.argv)
+        self.__parent = parent
+        self.__SettingsUI()
+        self.__CreateMap()
+        self.view.closeEvent = self.__closeEvent
+    def __SettingsUI(self):
+        self.__app = QApplication(sys.argv)
 
     def RunViewMap(self):
         self.view.showMaximized()
 
-    def CreateMap(self):
+    def __CreateMap(self):
         self.view.mapWidget = MapWidget()
         self.view.layout = QVBoxLayout()
         self.view.layout.addWidget(self.view.mapWidget)
         self.view.setLayout(self.view.layout)
-        coordinates = self.CreateCoordinates()
+        coordinates = self.__CreateCoordinates()
         self.view.map = L.map(self.view.mapWidget)
         self.view.map.setView([coordinates[0][0], coordinates[0][1]], 15)
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(self.view.map)
@@ -34,7 +34,7 @@ class ControllerMap:
         self.view.marker2.bindPopup("Конец")
         self.view.map.addLayer(self.view.marker2)
 
-    def CreateCoordinates(self):
+    def __CreateCoordinates(self):
         locator = Nominatim(user_agent="myapp")
         start_latlng = locator.geocode(self.PlaceDeparture)
         end_latlng = locator.geocode(self.PlaceDelivery)
@@ -42,6 +42,6 @@ class ControllerMap:
         del self.PlaceDeparture
         return [(start_latlng.latitude, start_latlng.longitude), (end_latlng.latitude, end_latlng.longitude)]
 
-    def closeEvent(self, event):
-        self.parent.MainWindow.setEnabled(True)
+    def __closeEvent(self, event):
+        self.__parent.MainWindow.setEnabled(True)
         event.accept()

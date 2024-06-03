@@ -1,10 +1,15 @@
 from TransportCompany.Repositories.DriverRepository import DriverRepository
+
+
 class ModelDriverProfile:
-    def UpdatePhone(self, IdDriver, phone):
+    @staticmethod
+    def UpdatePhone(IdDriver, phone):
         DriverRepository().UpdatePhone(IdDriver, phone)
 
-    def UpdateEmail(self, IdDriver, email):
+    @staticmethod
+    def UpdateEmail(IdDriver, email):
         DriverRepository().UpdateEmail(IdDriver, email)
 
-    def UpdatePassword(self, IdDriver, password):
+    @staticmethod
+    def UpdatePassword(IdDriver, password):
         DriverRepository().UpdatePassword(IdDriver, password)

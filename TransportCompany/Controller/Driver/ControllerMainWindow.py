@@ -16,40 +16,39 @@ from sys import argv
 class ControllerMainWindow:
     def __init__(self, driver: Driver):
         self.view = ViewMainWindow()
-        self.model = ModelMainWindow()
-        self.driver = driver
-        self.SettingsUI()
-        self.CreateActiveOrder()
-        self.FirstFillingTable()
+        self.__model = ModelMainWindow()
+        self.__driver = driver
+        self.__SettingsUI()
+        self.__CreateActiveOrder()
+        self.__FirstFillingTable()
 
-        self.view.action_Profile.triggered.connect(self.ClickedProfile)
-        self.view.action_Exit.triggered.connect(self.ClickedExit)
+        self.view.action_Profile.triggered.connect(self.__ClickedProfile)
+        self.view.action_Exit.triggered.connect(self.__ClickedExit)
 
-    def SettingsUI(self):
-        self.app = QApplication(argv)
+    def __SettingsUI(self):
+        self.__app = QApplication(argv)
         self.MainWindow = QMainWindow()
         ui = self.view
         ui.setupUi(self.MainWindow)
 
     def RunMainWindow(self):
         self.MainWindow.show()
-        self.CheckHavePassword()
-        # sys.exit(self.app.exec_())
+        self.__CheckHavePassword()
 
-    def CheckHavePassword(self):
-        if self.driver.Password is None:
-            self.DriverProfile = ControllerDriverProfile(self.driver, self)
-            self.DriverProfile.RunViewDriverProfile()
+    def __CheckHavePassword(self):
+        if self.__driver.Password is None:
+            self.__DriverProfile = ControllerDriverProfile(self.__driver, self)
+            self.__DriverProfile.RunViewDriverProfile()
             self.MainWindow.setEnabled(False)
             self.view.message("Информация", "Произведен первый запуск приложения.\nНеобходимо установить пароль")
 
-    def FirstFillingTable(self):
-        ListCompletedOrder = self.model.GetCompletedOrders(self.driver.ID) # Если буду делать сортировку, то убрать от сюда
+    def __FirstFillingTable(self):
+        ListCompletedOrder = self.__model.GetCompletedOrders(self.__driver.ID) # Если буду делать сортировку, то убрать от сюда
         self.view.tableWidget.setRowCount(len(ListCompletedOrder))
         _translate = QCoreApplication.translate
         RowTable = 0
         for request in ListCompletedOrder:
-            self.SetItem(RowTable)
+            self.__SetItem(RowTable)
             item = self.view.tableWidget.verticalHeaderItem(RowTable)
             item.setText(_translate("MainWindow", ""))
             item = self.view.tableWidget.item(RowTable, 0)
@@ -63,26 +62,26 @@ class ControllerMainWindow:
             RowTable += 1
 
     @staticmethod
-    def NewItem():
+    def __NewItem():
         return QTableWidgetItem()
 
-    def SetItem(self, index):
-        self.view.tableWidget.setVerticalHeaderItem(index, self.NewItem())
-        self.view.tableWidget.setItem(index, 0, self.NewItem())
-        self.view.tableWidget.setItem(index, 1, self.NewItem())
-        self.view.tableWidget.setItem(index, 2, self.NewItem())
-        self.view.tableWidget.setItem(index, 3, self.NewItem())
+    def __SetItem(self, index):
+        self.view.tableWidget.setVerticalHeaderItem(index, self.__NewItem())
+        self.view.tableWidget.setItem(index, 0, self.__NewItem())
+        self.view.tableWidget.setItem(index, 1, self.__NewItem())
+        self.view.tableWidget.setItem(index, 2, self.__NewItem())
+        self.view.tableWidget.setItem(index, 3, self.__NewItem())
 
-    def CreateActiveOrder(self):
-        if self.driver.IdOrderClient is not None:
-            self.CreateBtnOpenMap(self.view.frame)
-            self.CreateBtnCloseOrder(self.view.frame)
-            frame = self.CreateFrame(self.view.frame)
-            self.CreateTextEdits(frame)
-            self.FillingTextEdits()
-            self.CreateLineEdits(frame)
+    def __CreateActiveOrder(self):
+        if self.__driver.IdOrderClient is not None:
+            self.__CreateBtnOpenMap(self.view.frame)
+            self.__CreateBtnCloseOrder(self.view.frame)
+            frame = self.__CreateFrame(self.view.frame)
+            self.__CreateTextEdits(frame)
+            self.__FillingTextEdits()
+            self.__CreateLineEdits(frame)
 
-    def CreateFrame(self, parent: QWidget) -> QWidget:
+    def __CreateFrame(self, parent: QWidget) -> QWidget:
         self.view.frame_2 = QFrame(parent)
         self.view.frame_2.setGeometry(QRect(20, 50, 351, 351))
         self.view.frame_2.setStyleSheet("background-color: rgb(255, 255, 255);")
@@ -91,7 +90,7 @@ class ControllerMainWindow:
         self.view.frame_2.setObjectName("frame_2")
         return self.view.frame_2
 
-    def CreateTextEdits(self, parent: QWidget):
+    def __CreateTextEdits(self, parent: QWidget):
         font = QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -153,9 +152,9 @@ class ControllerMainWindow:
         self.view.textEdit_Distance.setObjectName("textEdit_Distance")
 
 
-    def FillingTextEdits(self):
-        self.ActiveOrder = self.model.GetActiveOrder(self.driver.ID)
-        distance = self.CalculatorDistance(self.ActiveOrder[4], self.ActiveOrder[5])
+    def __FillingTextEdits(self):
+        self.ActiveOrder = self.__model.GetActiveOrder(self.__driver.ID)
+        distance = self.__CalculatorDistance(self.ActiveOrder[4], self.ActiveOrder[5])
         self.view.textEdit_IDCargo.setText(str(self.ActiveOrder[0]))
         self.view.textEdit_cargo.setText(self.ActiveOrder[1])
         self.view.textEdit_FirstNameClient.setText(self.ActiveOrder[2])
@@ -166,7 +165,7 @@ class ControllerMainWindow:
         self.view.textEdit_Distance.setText(str(distance))
 
     @staticmethod
-    def CalculatorDistance(PlaceDeparture, PlaceDelivery):
+    def __CalculatorDistance(PlaceDeparture, PlaceDelivery):
         locator = Nominatim(user_agent="myapp")
         start_latlng = locator.geocode(PlaceDeparture)
         end_latlng = locator.geocode(PlaceDelivery)
@@ -176,7 +175,7 @@ class ControllerMainWindow:
         end_coordinates = (end_latlng.latitude, end_latlng.longitude)
         return f"{round(geodesic(start_coordinates, end_coordinates).km, 2)} км"
 
-    def CreateLineEdits(self, parent: QWidget):
+    def __CreateLineEdits(self, parent: QWidget):
         font = QFont()
         font.setFamily("Arial")
         font.setPointSize(10)
@@ -246,7 +245,7 @@ class ControllerMainWindow:
         self.view.lineEdit_Distance.setObjectName("lineEdit_Distance")
         self.view.lineEdit_Distance.setText(_translate("MainWindow", "Расстояние"))
 
-    def CreateBtnOpenMap(self, parent: QWidget):
+    def __CreateBtnOpenMap(self, parent: QWidget):
         font = QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -259,9 +258,9 @@ class ControllerMainWindow:
                                                "border-radius: 10px")
         self.view.pushButton_Map.setObjectName("pushButton_Map")
         self.view.pushButton_Map.setText(_translate("MainWindow", "Показать на карте"))
-        self.view.pushButton_Map.clicked.connect(self.ClickedMap)
+        self.view.pushButton_Map.clicked.connect(self.__ClickedMap)
 
-    def ClickedMap(self):
+    def __ClickedMap(self):
         if self.view.textEdit_Distance.toPlainText() != "ошибка расстояния":
             self.map = ControllerMap(self.ActiveOrder[4], self.ActiveOrder[5], self)
             self.map.RunViewMap()
@@ -269,7 +268,7 @@ class ControllerMainWindow:
         else:
             self.view.message("Информация", "Извините, видимо указанный город, не существует")
 
-    def CreateBtnCloseOrder(self, parent: QWidget):
+    def __CreateBtnCloseOrder(self, parent: QWidget):
         font = QFont()
         font.setFamily("Arial")
         font.setPointSize(11)
@@ -282,31 +281,31 @@ class ControllerMainWindow:
                                                       "border-radius: 10px")
         self.view.pushButton_CloseOrder.setObjectName("pushButton_CloseOrder")
         self.view.pushButton_CloseOrder.setText(_translate("MainWindow", "Закрыть заказ"))
-        self.view.pushButton_CloseOrder.clicked.connect(self.ClickedCloseOrder)
+        self.view.pushButton_CloseOrder.clicked.connect(self.__ClickedCloseOrder)
 
-    def ClickedCloseOrder(self):
+    def __ClickedCloseOrder(self):
         IdOrder = self.ActiveOrder[0]
-        IdDrivers = self.model.GetIdDriverByIdOrder(IdOrder)
-        Request = self.model.GetAcceptRequest(IdOrder)
-        Request = self.FillingDeliveredRequest(Request)
-        self.model.DeleteAcceptRequest(IdOrder)
+        IdDrivers = self.__model.GetIdDriverByIdOrder(IdOrder)
+        Request = self.__model.GetAcceptRequest(IdOrder)
+        Request = self.__FillingDeliveredRequest(Request)
+        self.__model.DeleteAcceptRequest(IdOrder)
         for id_driver in IdDrivers:
             Request.IdDriver = id_driver[0]
-            self.model.AddDeliveredRequest(Request)
-        self.driver.IdOrderClient = None
-        self.ClearActiveOrder()
+            self.__model.AddDeliveredRequest(Request)
+        self.__driver.IdOrderClient = None
+        self.__ClearActiveOrder()
             # self.AddRequestInTable(Request)
 
-    def ClearActiveOrder(self):
+    def __ClearActiveOrder(self):
         self.view.frame_2.close()
         self.view.pushButton_CloseOrder.close()
         self.view.pushButton_Map.close()
 
-    def AddRequestInTable(self, Request: DeliveredRequest):
+    def __AddRequestInTable(self, Request: DeliveredRequest):
         _translate = QCoreApplication.translate
         rowCount = self.view.tableWidget.rowCount()
         self.view.tableWidget.setRowCount(rowCount + 1)
-        self.SetItem(rowCount)
+        self.__SetItem(rowCount)
         item = self.view.tableWidget.verticalHeaderItem(rowCount)
         item.setText(_translate("MainWindow", ""))
         item = self.view.tableWidget.item(rowCount, 0)
@@ -318,7 +317,7 @@ class ControllerMainWindow:
         item = self.view.tableWidget.item(rowCount, 3)
         item.setText(_translate("MainWindow",  str(Request.Revenue)))
 
-    def FillingDeliveredRequest(self, AcceptRequest):
+    def __FillingDeliveredRequest(self, AcceptRequest):
         deliveredRequest = DeliveredRequest()
         deliveredRequest.ID = AcceptRequest[0]
         deliveredRequest.FirstName = AcceptRequest[1]
@@ -332,11 +331,11 @@ class ControllerMainWindow:
         deliveredRequest.IdClient = AcceptRequest[9]
         return deliveredRequest
 
-    def ClickedProfile(self):
-        self.DriverProfile = ControllerDriverProfile(self.driver, self)
-        self.DriverProfile.RunViewDriverProfile()
+    def __ClickedProfile(self):
+        self.__DriverProfile = ControllerDriverProfile(self.__driver, self)
+        self.__DriverProfile.RunViewDriverProfile()
         self.MainWindow.setEnabled(False)
 
-    def ClickedExit(self):
+    def __ClickedExit(self):
         self.MainWindow.close()
 
