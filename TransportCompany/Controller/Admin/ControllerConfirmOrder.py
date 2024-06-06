@@ -1,9 +1,9 @@
-from TransportCompany.Model.Admin.ModelConfirmOrder import ModelConfirmOrder
-from TransportCompany.View.Admin.ViewConfirmOrder import ViewConfirmOrder
-from TransportCompany.Model.Admin.ModelWindowApplication import ModelWindowApplication
+from Model.Admin.ModelConfirmOrder import ModelConfirmOrder
+from View.Admin.ViewConfirmOrder import ViewConfirmOrder
+from Model.Admin.ModelWindowApplication import ModelWindowApplication
 from PyQt5 import QtWidgets
-from TransportCompany.Entities.Request import Request
-from TransportCompany.Entities.Driver import Driver
+from Entities.Request import Request
+from Entities.Driver import Driver
 import sys
 
 

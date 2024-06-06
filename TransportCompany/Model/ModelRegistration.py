@@ -1,6 +1,6 @@
-from TransportCompany.Entities.Client import Client
-from TransportCompany.Repositories.ClientRepository import ClientRepository
-from TransportCompany.Repositories.AllRoleRepository import AllRoleRepository
+from Entities.Client import Client
+from Repositories.ClientRepository import ClientRepository
+from Repositories.AllRoleRepository import AllRoleRepository
 
 
 class ModelRegistration:

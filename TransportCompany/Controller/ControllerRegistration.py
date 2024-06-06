@@ -1,7 +1,7 @@
-from TransportCompany.Entities.Client import Client
-from TransportCompany.Repositories.ClientRepository import ClientRepository
-from TransportCompany.View.ViewRegistration import ViewRigistration
-from TransportCompany.Model.ModelRegistration import ModelRegistration
+from Entities.Client import Client
+from Repositories.ClientRepository import ClientRepository
+from View.ViewRegistration import ViewRigistration
+from Model.ModelRegistration import ModelRegistration
 from email_validator import validate_email, EmailNotValidError
 from password_strength import PasswordStats
 from PyQt5 import QtWidgets
@@ -119,7 +119,7 @@ class ControllerRegister:
             return True
 
     def __functionsBack(self):
-        from TransportCompany.Controller.ControllerLogin import ControllerLogin
+        from Controller.ControllerLogin import ControllerLogin
         self.ControllerLogin = ControllerLogin()
         self.__RegisterWindow.close()
         self.ControllerLogin.RunViewLogin()

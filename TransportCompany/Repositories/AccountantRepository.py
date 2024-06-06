@@ -1,5 +1,5 @@
-from TransportCompany.DBcontext.DBContext import DBContext
-from TransportCompany.Entities.Accountant import Accountant
+from DBcontext.DBContext import DBContext
+from Entities.Accountant import Accountant
 from pyodbc import ProgrammingError
 
 

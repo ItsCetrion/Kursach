@@ -1,8 +1,8 @@
-from TransportCompany.Repositories.AllRoleRepository import AllRoleRepository
-from TransportCompany.Repositories.AccountantRepository import AccountantRepository
-from TransportCompany.Repositories.DriverRepository import DriverRepository
-from TransportCompany.Entities.Driver import Driver
-from TransportCompany.Entities.Accountant import Accountant
+from Repositories.AllRoleRepository import AllRoleRepository
+from Repositories.AccountantRepository import AccountantRepository
+from Repositories.DriverRepository import DriverRepository
+from Entities.Driver import Driver
+from Entities.Accountant import Accountant
 
 
 class ModelRegistrationWorker:

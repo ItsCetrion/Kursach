@@ -1,7 +1,7 @@
-from TransportCompany.View.Admin.ViewRegistrationWorker import ViewRegistrationWorker
-from TransportCompany.Model.Admin.ModelRegistrationWorker import ModelRegistrationWorker
-from TransportCompany.Entities.Driver import Driver
-from TransportCompany.Entities.Accountant import Accountant
+from View.Admin.ViewRegistrationWorker import ViewRegistrationWorker
+from Model.Admin.ModelRegistrationWorker import ModelRegistrationWorker
+from Entities.Driver import Driver
+from Entities.Accountant import Accountant
 from PyQt5 import QtWidgets
 import sys
 

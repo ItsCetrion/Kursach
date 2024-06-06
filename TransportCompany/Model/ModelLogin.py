@@ -1,8 +1,8 @@
-from TransportCompany.Repositories.AllRoleRepository import AllRoleRepository
-from TransportCompany.Repositories.ClientRepository import ClientRepository
-from TransportCompany.Repositories.AdministratorRepository import AdministratorRepository
-from TransportCompany.Repositories.DriverRepository import DriverRepository
-from TransportCompany.Repositories.AccountantRepository import AccountantRepository
+from Repositories.AllRoleRepository import AllRoleRepository
+from Repositories.ClientRepository import ClientRepository
+from Repositories.AdministratorRepository import AdministratorRepository
+from Repositories.DriverRepository import DriverRepository
+from Repositories.AccountantRepository import AccountantRepository
 
 
 class ModelLogin:

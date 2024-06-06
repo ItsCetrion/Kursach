@@ -1,4 +1,4 @@
-from TransportCompany.Repositories.AccountantRepository import AccountantRepository
+from Repositories.AccountantRepository import AccountantRepository
 
 
 class ModelAccountantProfile:

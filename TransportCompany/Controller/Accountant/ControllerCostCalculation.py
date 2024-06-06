@@ -1,10 +1,11 @@
-from TransportCompany.View.Accountant.ViewCostCalculation import ViewCostCalculation
-from TransportCompany.Model.Accountant.ModelCostCalculation import ModelCostCalculation
-from TransportCompany.SecondaryPyFile.CalculatingCostTrip import CostTrip
+from View.Accountant.ViewCostCalculation import ViewCostCalculation
+from Model.Accountant.ModelCostCalculation import ModelCostCalculation
+from SecondaryPyFile.CalculatingCostTrip import CostTrip
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from sys import argv
+
 
 class ControllerCostCalculation:
     def __init__(self, parent):

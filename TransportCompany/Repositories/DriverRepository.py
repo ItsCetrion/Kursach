@@ -1,5 +1,5 @@
-from TransportCompany.DBcontext.DBContext import DBContext
-from TransportCompany.Entities.Driver import Driver
+from DBcontext.DBContext import DBContext
+from Entities.Driver import Driver
 from pyodbc import ProgrammingError
 
 

@@ -1,9 +1,9 @@
-from TransportCompany.Model.Admin.ModelWindowApplication import ModelWindowApplication
-from TransportCompany.View.Admin.ViewWindowApplication import ViewWindowApplication
-from TransportCompany.Controller.Admin.ControllerRegistrationWorker import ControllerRegistrationWorker
-from TransportCompany.Controller.Admin.ControllerConsiderationApplication import ControllerConsiderationApplication
-from TransportCompany.Entities.Request import Request
-from TransportCompany.Entities.Administrator import Administrator
+from Model.Admin.ModelWindowApplication import ModelWindowApplication
+from View.Admin.ViewWindowApplication import ViewWindowApplication
+from Controller.Admin.ControllerRegistrationWorker import ControllerRegistrationWorker
+from Controller.Admin.ControllerConsiderationApplication import ControllerConsiderationApplication
+from Entities.Request import Request
+from Entities.Administrator import Administrator
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QCoreApplication, QSize
 import sys
@@ -249,7 +249,7 @@ class ControllerWindowApplication:
 
     def __FillingTable(self, NumberPage):
         self.view.tableWidget_TableApplication.setRowCount(len(self.__ListRequest))
-        RowTable = ((int(NumberPage) - 1) / 11)
+        RowTable = ((int(NumberPage) - 1) // 11)
         for index, request in enumerate(self.__ListRequest, start=((int(NumberPage) - 1) * 11) + 1):
             self.__SetItem(RowTable)
             item = self.view.tableWidget_TableApplication.verticalHeaderItem(RowTable)

@@ -1,9 +1,9 @@
-from TransportCompany.Model.Driver.ModelMainWindow import ModelMainWindow
-from TransportCompany.View.Driver.ViewMainWindow import ViewMainWindow
-from TransportCompany.Entities.Driver import Driver
-from TransportCompany.Entities.DeliveredRequest import DeliveredRequest
-from TransportCompany.Controller.Driver.ControllerMap import ControllerMap
-from TransportCompany.Controller.Driver.ControllerDriverProfile import ControllerDriverProfile
+from Model.Driver.ModelMainWindow import ModelMainWindow
+from View.Driver.ViewMainWindow import ViewMainWindow
+from Entities.Driver import Driver
+from Entities.DeliveredRequest import DeliveredRequest
+from Controller.Driver.ControllerMap import ControllerMap
+from Controller.Driver.ControllerDriverProfile import ControllerDriverProfile
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QFrame, \
     QTextEdit, QLineEdit, QPushButton, QTableWidgetItem
 from PyQt5.QtCore import QRect, QCoreApplication

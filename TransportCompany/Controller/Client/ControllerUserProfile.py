@@ -1,6 +1,6 @@
-from TransportCompany.View.Client.ViewUserProfile import ViewUserProfile
-from TransportCompany.Model.Client.ModelUserProfile import ModelUserProfile
-from TransportCompany.Entities.Client import Client
+from View.Client.ViewUserProfile import ViewUserProfile
+from Model.Client.ModelUserProfile import ModelUserProfile
+from Entities.Client import Client
 from email_validator import validate_email, EmailNotValidError
 from password_strength import PasswordStats
 from PyQt5.QtWidgets import QApplication, QMainWindow

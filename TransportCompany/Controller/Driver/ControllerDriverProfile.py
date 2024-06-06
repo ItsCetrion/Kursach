@@ -1,6 +1,6 @@
-from TransportCompany.View.Driver.ViewDriverProfile import ViewDriverProfile
-from TransportCompany.Model.Driver.ModelDriverProfile import ModelDriverProfile
-from TransportCompany.Entities.Driver import Driver
+from View.Driver.ViewDriverProfile import ViewDriverProfile
+from Model.Driver.ModelDriverProfile import ModelDriverProfile
+from Entities.Driver import Driver
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QCoreApplication, Qt
 from email_validator import validate_email, EmailNotValidError

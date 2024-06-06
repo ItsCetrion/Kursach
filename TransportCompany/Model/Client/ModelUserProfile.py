@@ -1,4 +1,4 @@
-from TransportCompany.Repositories.ClientRepository import ClientRepository
+from Repositories.ClientRepository import ClientRepository
 
 
 class ModelUserProfile:

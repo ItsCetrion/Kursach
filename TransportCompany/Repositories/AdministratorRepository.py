@@ -1,4 +1,4 @@
-from TransportCompany.DBcontext.DBContext import DBContext
+from DBcontext.DBContext import DBContext
 from pyodbc import ProgrammingError
 
 

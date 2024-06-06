@@ -1,5 +1,5 @@
-from TransportCompany.Repositories.DenyRequestRepository import DenyRequestRepository
-from TransportCompany.Entities.DenyRequest import DenyRequest
+from Repositories.DenyRequestRepository import DenyRequestRepository
+from Entities.DenyRequest import DenyRequest
 
 
 class ModelConsiderationApplication:

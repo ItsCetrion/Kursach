@@ -1,8 +1,8 @@
-from TransportCompany.View.Accountant.ViewListDeliveredOrders import ViewListDeliveredOrders
-from TransportCompany.Model.Accountant.ModelListDeliveredOrders import ModelListDeliveredOrders
-from TransportCompany.Controller.Accountant.ControllerAccountantProfile import ControllerAccountantProfile
-from TransportCompany.Controller.Accountant.ControllerCostCalculation import ControllerCostCalculation
-from TransportCompany.Entities.Accountant import Accountant
+from View.Accountant.ViewListDeliveredOrders import ViewListDeliveredOrders
+from Model.Accountant.ModelListDeliveredOrders import ModelListDeliveredOrders
+from Controller.Accountant.ControllerAccountantProfile import ControllerAccountantProfile
+from Controller.Accountant.ControllerCostCalculation import ControllerCostCalculation
+from Entities.Accountant import Accountant
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from PyQt5.QtCore import QCoreApplication, Qt
 from sys import argv

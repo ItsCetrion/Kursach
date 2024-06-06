@@ -1,5 +1,5 @@
-from TransportCompany.DBcontext.DBContext import DBContext
-from TransportCompany.Entities.DenyRequest import DenyRequest
+from DBcontext.DBContext import DBContext
+from Entities.DenyRequest import DenyRequest
 from pyodbc import ProgrammingError
 
 

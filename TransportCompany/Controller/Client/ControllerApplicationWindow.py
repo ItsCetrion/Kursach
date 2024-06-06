@@ -1,12 +1,12 @@
-from TransportCompany.Model.Client.ModelApplicationWindow import ModelApplicationWindow
-from TransportCompany.View.Client.ViewApplicationWindow import ViewApplicationWindow
-from TransportCompany.Controller.Client.ControllerRequestSubmission import ControllerRequestSubmission
-from TransportCompany.Controller.Client.ControllerUserProfile import ControllerUserProfile
-from TransportCompany.Entities.DenyRequest import DenyRequest
-from TransportCompany.Entities.AcceptRequest import AcceptRequest
-from TransportCompany.Entities.Request import Request
-from TransportCompany.Entities.DeliveredRequest import DeliveredRequest
-from TransportCompany.Entities.Client import Client
+from Model.Client.ModelApplicationWindow import ModelApplicationWindow
+from View.Client.ViewApplicationWindow import ViewApplicationWindow
+from Controller.Client.ControllerRequestSubmission import ControllerRequestSubmission
+from Controller.Client.ControllerUserProfile import ControllerUserProfile
+from Entities.DenyRequest import DenyRequest
+from Entities.AcceptRequest import AcceptRequest
+from Entities.Request import Request
+from Entities.DeliveredRequest import DeliveredRequest
+from Entities.Client import Client
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QPushButton
 from PyQt5.QtCore import QSize
 from PyQt5.QtCore import QCoreApplication
@@ -156,7 +156,7 @@ class ControllerApplicationWindow:
 
     def __FillingTable(self, NumberPage):
         self.view.tableWidget_TableApplication.setRowCount(len(self.__ListRequest))
-        RowTable = ((int(NumberPage) - 1) / 11)
+        RowTable = ((int(NumberPage) - 1) // 11)
         for index, request in enumerate(self.__ListRequest, start=((int(NumberPage) - 1) * 11) + 1):
             self.__SetItem(RowTable)
             item = self.view.tableWidget_TableApplication.verticalHeaderItem(RowTable)

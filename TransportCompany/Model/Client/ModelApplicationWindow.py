@@ -1,4 +1,4 @@
-from TransportCompany.Repositories.AllRequestRepository import AllRequestRepository
+from Repositories.AllRequestRepository import AllRequestRepository
 
 
 class ModelApplicationWindow:

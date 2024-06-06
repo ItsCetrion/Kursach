@@ -1,5 +1,5 @@
-from TransportCompany.DBcontext.DBContext import DBContext
-from TransportCompany.Entities.Client import Client
+from DBcontext.DBContext import DBContext
+from Entities.Client import Client
 from pyodbc import ProgrammingError
 
 

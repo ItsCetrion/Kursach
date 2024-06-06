@@ -1,17 +1,18 @@
-from TransportCompany.View.ViewLogin import ViewLogin
-from TransportCompany.Model.ModelLogin import ModelLogin
-from TransportCompany.Controller.ControllerRegistration import ControllerRegister
-from TransportCompany.Controller.Admin.ControllerWindowApplication import ControllerWindowApplication
-from TransportCompany.Controller.Client.ControllerApplicationWindow import ControllerApplicationWindow
-from TransportCompany.Controller.Driver.ControllerMainWindow import ControllerMainWindow
-from TransportCompany.Controller.Accountant.ControllerListDeliveredOrders import ControllerListDeliveredOrders
-from TransportCompany.Entities.Client import Client
-from TransportCompany.Entities.Driver import Driver
-from TransportCompany.Entities.Administrator import Administrator
-from TransportCompany.Entities.Accountant import Accountant
+from View.ViewLogin import ViewLogin
+from Model.ModelLogin import ModelLogin
+from Controller.ControllerRegistration import ControllerRegister
+from Controller.Admin.ControllerWindowApplication import ControllerWindowApplication
+from Controller.Client.ControllerApplicationWindow import ControllerApplicationWindow
+from Controller.Driver.ControllerMainWindow import ControllerMainWindow
+from Controller.Accountant.ControllerListDeliveredOrders import ControllerListDeliveredOrders
+from Entities.Client import Client
+from Entities.Driver import Driver
+from Entities.Administrator import Administrator
+from Entities.Accountant import Accountant
 from PyQt5 import QtWidgets
 import hashlib
 import sys
+print(sys.path, sep='\n')
 
 
 class ControllerLogin:

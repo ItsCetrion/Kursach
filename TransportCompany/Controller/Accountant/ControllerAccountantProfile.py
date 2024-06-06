@@ -1,13 +1,12 @@
-from TransportCompany.Model.Accountant.ModelAccountantProfile import ModelAccountantProfile
-from TransportCompany.View.Accountant.ViewAccountantProfile import ViewAccountantProfile
-from TransportCompany.Entities.Accountant import Accountant
+from Model.Accountant.ModelAccountantProfile import ModelAccountantProfile
+from View.Accountant.ViewAccountantProfile import ViewAccountantProfile
+from Entities.Accountant import Accountant
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from PyQt5.QtCore import QCoreApplication
 from email_validator import validate_email, EmailNotValidError
 from password_strength import PasswordStats
 from hashlib import md5
 from sys import argv
-
 
 
 class ControllerAccountantProfile:

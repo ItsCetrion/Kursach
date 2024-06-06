@@ -1,7 +1,6 @@
-from TransportCompany.DBcontext.DBContext import DBContext
-from TransportCompany.Repositories.DriverRepository import DriverRepository
-from TransportCompany.Repositories.AcceptRequestRepository import AcceptRequestRepository
-from TransportCompany.Entities.Request import Request
+from Repositories.DriverRepository import DriverRepository
+from Repositories.AcceptRequestRepository import AcceptRequestRepository
+from Entities.Request import Request
 
 
 class ModelConfirmOrder:

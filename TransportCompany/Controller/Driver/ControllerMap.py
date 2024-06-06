@@ -1,8 +1,10 @@
-from TransportCompany.View.Driver.ViewMap import ViewMap
+from View.Driver.ViewMap import ViewMap
 import sys
 from PyQt5.QtWidgets import QApplication, QVBoxLayout
 from pyqtlet2 import L, MapWidget
 from geopy.geocoders import Nominatim
+
+
 class ControllerMap:
     def __init__(self, PlaceDeparture, PlaceDelivery, parent):
         self.view = ViewMap()

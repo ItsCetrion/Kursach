@@ -1,7 +1,7 @@
-from TransportCompany.Repositories.DriverRepository import DriverRepository
-from TransportCompany.Repositories.AcceptRequestRepository import AcceptRequestRepository
-from TransportCompany.Repositories.DeliveredRequestRepositories import DeliveredRequestRepositories
-from TransportCompany.Entities.DeliveredRequest import DeliveredRequest
+from Repositories.DriverRepository import DriverRepository
+from Repositories.AcceptRequestRepository import AcceptRequestRepository
+from Repositories.DeliveredRequestRepositories import DeliveredRequestRepositories
+from Entities.DeliveredRequest import DeliveredRequest
 
 
 class ModelMainWindow:

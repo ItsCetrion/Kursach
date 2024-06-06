@@ -1,9 +1,11 @@
-from TransportCompany.Model.Client.ModelRequestSubmission import ModelRequestSubmission
-from TransportCompany.View.Client.ViewRequestSubmission import ViewRequestSubmission
-from TransportCompany.Entities.Request import Request
-from TransportCompany.Entities.Client import Client
+from Model.Client.ModelRequestSubmission import ModelRequestSubmission
+from View.Client.ViewRequestSubmission import ViewRequestSubmission
+from Entities.Request import Request
+from Entities.Client import Client
 from PyQt5 import QtWidgets
 import sys
+
+
 class ControllerRequestSubmission:
     def __init__(self, client: Client):
         self.__model = ModelRequestSubmission()

@@ -1,4 +1,4 @@
-from TransportCompany.Repositories.DriverRepository import DriverRepository
+from Repositories.DriverRepository import DriverRepository
 
 
 class ModelDriverProfile:

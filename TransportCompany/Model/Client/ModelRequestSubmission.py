@@ -1,5 +1,5 @@
-from TransportCompany.Repositories.RequestRepository import RequestRepository
-from TransportCompany.Entities.Request import Request
+from Repositories.RequestRepository import RequestRepository
+from Entities.Request import Request
 
 
 class ModelRequestSubmission:

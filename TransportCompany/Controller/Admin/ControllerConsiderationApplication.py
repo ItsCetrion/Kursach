@@ -1,7 +1,7 @@
-from TransportCompany.Model.Admin.ModelConsiderationApplication import ModelConsiderationApplication
-from TransportCompany.Model.Admin.ModelWindowApplication import ModelWindowApplication
-from TransportCompany.View.Admin.ViewConsiderationApplication import ViewConsiderationApplication
-from TransportCompany.Controller.Admin.ControllerConfirmOrder import ControllerConfirmOrder
+from Model.Admin.ModelConsiderationApplication import ModelConsiderationApplication
+from Model.Admin.ModelWindowApplication import ModelWindowApplication
+from View.Admin.ViewConsiderationApplication import ViewConsiderationApplication
+from Controller.Admin.ControllerConfirmOrder import ControllerConfirmOrder
 from PyQt5 import QtWidgets
 import sys
 

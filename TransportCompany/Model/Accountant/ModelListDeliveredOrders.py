@@ -1,4 +1,4 @@
-from TransportCompany.Repositories.DeliveredRequestRepositories import DeliveredRequestRepositories
+from Repositories.DeliveredRequestRepositories import DeliveredRequestRepositories
 
 
 class ModelListDeliveredOrders:
