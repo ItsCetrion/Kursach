@@ -5,51 +5,43 @@ from pyodbc import ProgrammingError
 
 class ClientRepository:
 
-
-    def AddUser(self, user: Client):
-        query = (f"""INSERT INTO Client(FirstName,LastName,Patronymic,NumberPhone,Email,PasswordProgram)
-                     VALUES('{user.FirstName}','{user.LastName}','{user.Patronymic}','{user.NumberPhone}',
-                     '{user.Email}','{user.Password}')""")
-        self.__UID(query)
+    def AddUser(self, client: Client):
+        self.__UID(f"""INSERT INTO Client(FirstName,LastName,Patronymic,NumberPhone,Email,PasswordProgram)
+                     VALUES(?, ?, ?, ?, ?, ?)""", (client.FirstName, client.LastName, client.Patronymic,
+                                                   client.NumberPhone, client.Email, client.Password))
 
     def UpdatePhone(self, IdClient, Phone):
-        query = (f"""UPDATE Client SET NumberPhone = '{Phone}' 
-                                   WHERE ID = {IdClient}""")
-        self.__UID(query)
+        self.__UID(f"""UPDATE Client SET NumberPhone = ? WHERE ID = ?""", (Phone, IdClient))
 
     def UpdateEmail(self, IdClient, Email):
-        query = (f"""UPDATE Client SET Email = '{Email}' 
-                                           WHERE ID = {IdClient}""")
-        self.__UID(query)
+        self.__UID(f"""UPDATE Client SET Email = ? WHERE ID = ?""", (Email, IdClient))
 
     def UpdatePassword(self, IdClient, Password):
-        query = (f"""UPDATE Client SET PasswordProgram = '{Password}' 
-                                                   WHERE ID = {IdClient}""")
-        self.__UID(query)
+        self.__UID(f"""UPDATE Client SET PasswordProgram = ? WHERE ID = ?""", (Password, IdClient))
 
     def GetClient(self, IdClient):
-        result = self.__request(f"""SELECT * FROM Client Where ID = {IdClient}""")
+        result = self.__request(f"""SELECT * FROM Client Where ID = ?""", IdClient)
         return result
 
     @staticmethod
-    def __request(query: str):
+    def __request(query: str, list_param: [tuple, int, str] = ()):
         try:
             __context = DBContext()
             __cursor = __context.cursor
-            __cursor.execute(query)
+            __cursor.execute(query, list_param)
             result = __cursor.fetchall()
             __context.connection.close()
             return result
-        except ProgrammingError:
-            raise "Ошибка"
+        except ProgrammingError as error:
+            raise error
 
     @staticmethod
-    def __UID(query: str):
+    def __UID(query: str, list_param: [tuple, int, str] = ()):
         try:
             __context = DBContext()
             __cursor = __context.cursor
-            __cursor.execute(query)
+            __cursor.execute(query, list_param)
             __context.connection.commit()
             __context.connection.close()
-        except ProgrammingError:
-            raise "Ошибка"
+        except ProgrammingError as error:
+            raise error

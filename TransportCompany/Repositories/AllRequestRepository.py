@@ -9,12 +9,12 @@ class AllRequestRepository:
         NameDate = self.__NameDate(table)
         result = self.__Demand(f"""SELECT ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate}
-                                   FROM {table} Where IdClient = {IdClient} and {NameDate} = '{date}'
+                                   FROM {table} Where IdClient = ? and {NameDate} = ?
                                    Group by ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate}
                                    Order By {NameDate} {sort}, ID DESC
                                          OFFSET {StartIndex} ROWS
-                                         FETCH NEXT 11 ROWS ONLY""")
+                                         FETCH NEXT 11 ROWS ONLY""", (IdClient, date))
         return result
 
     def Get11RequestByYear(self, StartIndex: int, reverse: bool, table: str, year: int, IdClient: int):
@@ -22,12 +22,12 @@ class AllRequestRepository:
         NameDate = self.__NameDate(table)
         result = self.__Demand(f"""SELECT ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate} FROM {table} 
-                                   Where IdClient = {IdClient} and DATEPART(YEAR, {NameDate}) = {year}
+                                   Where IdClient = ? and DATEPART(YEAR, {NameDate}) = ?
                                    Group by ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate}
                                    Order By {NameDate} {sort}, ID DESC
                                          OFFSET {StartIndex} ROWS
-                                         FETCH NEXT 11 ROWS ONLY""")
+                                         FETCH NEXT 11 ROWS ONLY""", (IdClient, year))
         return result
 
     def Get11RequestByMonth(self, StartIndex: int, reverse: bool, table: str, month: int, IdClient: int):
@@ -35,12 +35,12 @@ class AllRequestRepository:
         NameDate = self.__NameDate(table)
         result = self.__Demand(f"""SELECT ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate} FROM {table} 
-                                   Where IdClient = {IdClient} and DATEPART(MONTH, {NameDate}) = {month}
+                                   Where IdClient = ? and DATEPART(MONTH, {NameDate}) = ?
                                    Group by ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate}
                                    Order By {NameDate} {sort}, ID DESC
                                          OFFSET {StartIndex} ROWS
-                                         FETCH NEXT 11 ROWS ONLY""")
+                                         FETCH NEXT 11 ROWS ONLY""", (IdClient, month))
         return result
 
     def Get11RequestByDay(self, StartIndex: int, reverse: bool, table: str, day: int, IdClient: int):
@@ -48,12 +48,12 @@ class AllRequestRepository:
         NameDate = self.__NameDate(table)
         result = self.__Demand(f"""SELECT ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate} FROM {table} 
-                                   Where IdClient = {IdClient} and DATEPART(DAY, {NameDate}) = {day}
+                                   Where IdClient = ? and DATEPART(DAY, {NameDate}) = ?
                                    Group by ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate}
                                    Order By {NameDate} {sort}, ID DESC
                                          OFFSET {StartIndex} ROWS
-                                         FETCH NEXT 11 ROWS ONLY""")
+                                         FETCH NEXT 11 ROWS ONLY""", (IdClient, day))
         return result
 
     def Get11Request(self, StartIndex: int, reverse: bool, table: str, IdClient: int):
@@ -61,44 +61,45 @@ class AllRequestRepository:
         NameDate = self.__NameDate(table)
         result = self.__Demand(f"""SELECT ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate}
-                                   FROM {table} Where IdClient = {IdClient}
+                                   FROM {table} Where IdClient = ?
                                    Group by ID, FirstName, LastName, Email, NumberPhone, PlaceDeparture, PlaceDelivery, 
                                    CargoWeight, CargoDescription, IdClient, {NameDate}
                                    Order By {NameDate} {sort}, ID DESC
                                         OFFSET {StartIndex} ROWS
-                                        FETCH NEXT 11 ROWS ONLY""")
+                                        FETCH NEXT 11 ROWS ONLY""", IdClient)
         return result
+
     def GetQuantityByDate(self, date: str, table: str, IdClient: int):
         NameDate = self.__NameDate(table)
         result = self.__Demand(f"""SELECT DISTINCT COUNT(*) OVER () FROM {table} 
-                                   Where IdClient = {IdClient} and {NameDate} = '{date}' 
-                                   Group by ID""")
+                                   Where IdClient = ? and {NameDate} = ?
+                                   Group by ID""", (IdClient, date))
         return result[0][0] if len(result) != 0 else 0
 
     def GetQuantityByYear(self, year: int, table: str, IdClient: int):
         NameDate = self.__NameDate(table)
         result = self.__Demand(f"""SELECT DISTINCT COUNT(*) OVER () FROM {table} 
-                                   Where IdClient = {IdClient} and DATEPART(YEAR, {NameDate}) = {year}
-                                   Group by ID""")
+                                   Where IdClient = ? and DATEPART(YEAR, {NameDate}) = ?
+                                   Group by ID""", (IdClient, year))
         return result[0][0] if len(result) != 0 else 0
 
     def GetQuantityByMonth(self, month: int, table: str, IdClient: int):
         NameDate = self.__NameDate(table)
         result = self.__Demand(f"""SELECT DISTINCT COUNT(*) OVER () FROM {table} 
-                                   Where IdClient = {IdClient} and DATEPART(MONTH, {NameDate}) = {month}
-                                   Group by ID""")
+                                   Where IdClient = ? and DATEPART(MONTH, {NameDate}) = ?
+                                   Group by ID""", (IdClient, month))
         return result[0][0] if len(result) != 0 else 0
 
     def GetQuantityByDay(self, day: int, table: str, IdClient: int):
         NameDate = self.__NameDate(table)
         result = self.__Demand(f"""SELECT DISTINCT COUNT(*) OVER () FROM {table} 
-                                   Where IdClient = {IdClient} and DATEPART(DAY, {NameDate}) = {day}
-                                   Group by ID""")
+                                   Where IdClient = ? and DATEPART(DAY, {NameDate}) = ?
+                                   Group by ID""", (IdClient, day))
         return result[0][0] if len(result) != 0 else 0
 
     def GetQuantityRequest(self, table: str, IdClient: int):
-        result = self.__Demand(f"""SELECT DISTINCT COUNT(*) OVER () FROM {table} Where IdClient = {IdClient}
-                                   Group by ID""")
+        result = self.__Demand(f"""SELECT DISTINCT COUNT(*) OVER () FROM {table} Where IdClient = ?
+                                   Group by ID""", IdClient)
         return result[0][0] if len(result) != 0 else 0
 
     @staticmethod
@@ -110,14 +111,14 @@ class AllRequestRepository:
         else: raise "таблицы не существует"
 
     @staticmethod
-    def __Demand(query: str):
+    def __Demand(query: str, list_param: [tuple, int, str] = ()):
         try:
             __context = DBContext()
             __cursor = __context.cursor
-            __cursor.execute(query)
+            __cursor.execute(query, list_param)
             result = __cursor.fetchall()
             __context.connection.close()
             return result
-        except ProgrammingError:
-            raise "проблемы с подключением"
+        except ProgrammingError as error:
+            raise error
  
