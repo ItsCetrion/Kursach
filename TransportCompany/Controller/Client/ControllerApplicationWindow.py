@@ -190,7 +190,7 @@ class ControllerApplicationWindow:
 
     def __CreateButtonsPage(self):
         if self.__QuantityRequest == 0:
-            pass
+            self.__CreateButton(1)
         elif self.__QuantityRequest <= 55:  #55 - это 5 отображаемых страниц(на 1-ой странице по 11 заявок)
             self.__CreateButton(ceil(self.__QuantityRequest / 11))
         else:
@@ -260,7 +260,10 @@ class ControllerApplicationWindow:
 
     def __BackBeginning(self):
         btn_group = self.view.Button_Group.buttons()
-        step = int(btn_group[0].text()) - 1
+        try:
+            step = int(btn_group[0].text()) - 1
+        except IndexError:
+            step = 0
         LastCursor = self.__CursorPage - step if self.__CursorPage != int(self.view.Button_Group.buttons()[-1].text()) else self.__CursorPage
         self.__EditStepBack(step)
         self.__ListRequest.clear()

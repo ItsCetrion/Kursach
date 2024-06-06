@@ -65,7 +65,7 @@ IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Request')
 						 NumberPhone NVARCHAR(12) NOT NULL,
 						 PlaceDeparture VARCHAR(100) NOT NULL,
 						 PlaceDelivery VARCHAR(100) NOT NULL,
-							 CargoWeight INT NOT NULL,
+						 CargoWeight INT NOT NULL,
 						 CargoDescription VARCHAR(100) NOT NULL,
 						 Position VARCHAR(30) NOT NULL DEFAULT('На рассмотрении'),
 						 IdClient INT CONSTRAINT FK_IdClient FOREIGN KEY(IdClient) REFERENCES Client(ID) ON DELETE CASCADE,
@@ -106,7 +106,7 @@ IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Driver')
 							 Age INT NOT NULL,
 							 Experience INT NUll,
 							 IdOrderClient INT CONSTRAINT FK_IdOrderClient FOREIGN KEY(IdOrderClient) REFERENCES AcceptRequest(ID) ON DELETE CASCADE,
-							 Condition NVARCHAR(20)NOT NULL DEFAULT('Свободен'),
+							 Condition NVARCHAR(20) NOT NULL DEFAULT('Свободен'),
 							 RoleProgram NVARCHAR(20) NOT NULL DEFAULT('Водитель'))
 
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'DeliveredRequest')
@@ -165,9 +165,4 @@ IF EXISTS (SELECT * FROM sys.views WHERE name = 'CrossTable')
 	GO
 
 INSERT INTO Administrator(Firstname,Lastname,Patronymic,NumberPhone,Email, PasswordProgram)
-VALUES('Евгений','Озеров','Алексеевич', '89951632863', 'zhenyaoz777piratship@list.ru', '6fb42da0e32e07b61c9f0251fe627a9c')
-
-SElect ID, PlaceDeparture, PlaceDelivery 
-from DeliveredRequest
-GROUP BY ID, PlaceDeparture, PlaceDelivery
-order b
+VALUES('Евгений','Озеров','Алексеевич', '89951632863', 'zhenyaoz777piratship@list.ru', 'e807f1fcf82d132f9bb018ca6738a19f')

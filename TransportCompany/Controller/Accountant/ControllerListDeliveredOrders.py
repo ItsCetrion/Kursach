@@ -39,8 +39,8 @@ class ControllerListDeliveredOrders:
 
     def __CheckHavePassword(self):
         if self.__accountant.Password is None:
-            self.AccountantProfile = ControllerAccountantProfile(self.__accountant, self)
-            self.AccountantProfile.RunViewWindowApplication()
+            self.__AccountantProfile = ControllerAccountantProfile(self.__accountant, self)
+            self.__AccountantProfile.RunViewWindowApplication()
             self.ListDeliveredOrders.setEnabled(False)
             self.view.message("Информация", "Произведен первый запуск приложения.\nНеобходимо установить пароль")
 
@@ -101,8 +101,8 @@ class ControllerListDeliveredOrders:
         self.__FillingTable(self.__model.GetAllCompletedOrders(sort=self.__sort))
 
     def __ClickedProfile(self):
-        self.AccountantProfile = ControllerAccountantProfile(self.__accountant, self)
-        self.AccountantProfile.RunViewWindowApplication()
+        self.__AccountantProfile = ControllerAccountantProfile(self.__accountant, self)
+        self.__AccountantProfile.RunViewWindowApplication()
         self.ListDeliveredOrders.setEnabled(False)
 
     def __ClickedRow(self):

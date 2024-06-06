@@ -29,33 +29,21 @@ back_toWindow --> main_window
 
 
 @startuml
-actor "Заказчик" as client
+actor "Клиент" as client
 
-boundary "Окно выбора действий" as main_window
-boundary "Окно заказов" as Application_Window
-boundary "Окно подробной информации" as Window_info
+entity "База заказов" as orders_base
 
-control "Открытие окна заказов" as open_Application
-control "Ввод номера товара" as add_data_order
-control "Открытие окна выбора действий" as back_toWindow #red
-control "Открытие окна заказов" as back_toWindow2 #red
-control "оповещение об введение несуществующего номера товара" as info_error #red
-control "нажата кнопка 'Подробная информация'" as bnt_info
+boundary "Главное окно клиента" as main_window
+boundary "Таблица заказов" as tableOrder
+
+control "Выбор статуса заказа" as ChooseStatus
 
 '-------------------------------------------------—
 
 client -- main_window
-main_window --> open_Application : Нажата кнопка 'Заказы'
-open_Application --> Application_Window
-Application_Window --> add_data_order
-add_data_order --> info_error : заказчик ввел\nнесуществующий номер товара
-info_error --> add_data_order
-add_data_order --> bnt_info
-bnt_info --> Window_info
-Window_info --> back_toWindow2 : нажата кнопка 'Back'
-back_toWindow2 --> Application_Window
-Application_Window --> back_toWindow : нажата кнопка 'Back'
-back_toWindow --> main_window
+main_window --> ChooseStatus
+ChooseStatus --> orders_base : Поиск заказов\nпо статусу
+ChooseStatus --> tableOrder : отображение найденных\nзаказов в таблицу
 @enduml
 
 
@@ -173,34 +161,51 @@ successfully --> orders_base
 
 
 @startuml
-actor "бухгалтер" as accountant
+actor "Бухгалтер" as accountant
 
-boundary "Окно выбора действий" as main_window
-boundary "Окно 'список заказов для расчета'" as Application_Window
-boundary "Окно 'расчета стоимости заказа'" as cost_order
+entity "База данных" as orders_base
 
-control "Открытие окна 'Список заказов для рассчета'" as open_Application
-control "Открытие окна выбора действий" as back_toWindow #red
-control "Ввод номера заказа" as enter_order 
-control "Открытия окна расчета стоимости заказа" as open_cost_order
-control "Открытия окна 'списка заказов для расчета'" as return_ #red
-control "Ввод информации" as enter_data 
-control "Вывод стоимости" as print_cost
-control "возвращение к окну 'список заказов для расчета'" as return_order #red
+boundary "Главное окно бухгалтера" as main_window
+boundary "Окно расчета стоимости грузоперевозки" as Cost
+
+control "открытие окна расчета\nстоимости грузоперевозки" as open
+control "назад" as back_mainWindow #red
+control "Выбор опасный ли груз" as Danger
+control "Подтвердить" as sac
+
 '-------------------------------------------------— 
+accountant -- main_window
+main_window --> open: нажата заяка из таблицы
+open --> Cost
+Cost --> back_mainWindow : нажата кнопка 'Назад'
+back_mainWindow  --> main_window
+Cost --> Danger
+Danger --> sac: Нажата кнопка подтвердить
+sac --> orders_base
+sac --> main_window: возрат к главному окну
+@enduml
 
-accountant-- main_window
-main_window --> open_Application : Нажата кнопка 'Список заказов для расчета'
-open_Application --> Application_Window
-Application_Window --> back_toWindow : нажата кнопка 'Back'
-back_toWindow --> main_window
-Application_Window --> enter_order
-enter_order --> return_ : не нашелся такой номер заказа
-return_  --> Application_Window 
-enter_order --> open_cost_order : нажата кнопка 'расчитать'
-open_cost_order  --> cost_order
-cost_order --> enter_data 
-enter_data --> print_cost : нажата кнопка 'Подтвердить'
-cost_order --> return_order : нажата кнопка 'назад'
-return_order --> Application_Window
+
+
+@startuml
+actor "Пользователь" as client
+
+entity "База данных" as orders_base
+
+boundary "Окно авторизации" as login_window
+boundary "Главное окно пользователя" as main_Window
+
+control "проверка данных" as check_data
+control "открытие главного окна пользователя" as open_main_window
+control "оповещение об введение некоректных данных" as info_error #red
+
+'-------------------------------------------------—
+
+client -- login_window
+login_window --> check_data : Ввели данные и нажали\nкнопка 'Войти'
+check_data --> info_error : Введены некоректные данные
+info_error --> login_window 
+check_data --> orders_base
+check_data --> open_main_window: Введены корректные данные
+open_main_window --> main_Window
 @enduml

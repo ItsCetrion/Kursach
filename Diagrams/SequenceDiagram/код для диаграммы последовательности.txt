@@ -1,46 +1,21 @@
 --------------------------------------Accountant ---------------------------------------
 @startuml
-actor Accountant as Accountant 
+actor "Бухгалтер" as Accountant 
 
-boundary "окно выбора действия" as ActionSelectionWindow
-boundary "окно 'Список заказов для расчета'" as application_window
-boundary "Windowcalculation" as windowCall
-boundary "errorWindow" as error_window #red
+boundary "Главное окно" as MainWindow
+boundary "Окно расчета стоимости грузоперевозки" as CostWindow
 
-'entity "database" as database
+entity "database" as database
 
-Accountant -> ActionSelectionWindow: Нажата кнопка 'Список заказов для расчета'
-ActionSelectionWindow -> application_window : Отобразить
-Accountant -> application_window: Ввод номера заказа
-
-application_window -> application_window : Проверка
-
-alt Ок
-'database --> application_window: Данные успешно вненсены в базу
- application_window -> windowCall: Нажата кнопка "расчитать"
-
-else
-application_window -> error_window : Отобразить
-end
-
-... другая альтернативная последовательность ...
-
-Accountant -> windowCall: Ввод информации
-Accountant -> windowCall: Нажата кнопка 'Подтвердить'
-windowCall -> windowCall: проверка
-
-alt OK
- windowCall -> windowCall: Вывод стоимости
-else
- windowCall -> error_window : Отобразить
-end
+Accountant -> MainWindow : Выбрана поездка
+MainWindow -> CostWindow : Указана опасность груза
+CostWindow -> database : Нажата кнопка "Подтвердить"
+database -> CostWindow :  Сообщение об успехе
+CostWindow -> MainWindow : Отобразить
 
 opt 
-Accountant -> application_window : Нажата кнопка ''Назад''
-application_window -> ActionSelectionWindow : Отобразить
-'application_window --> ActionSelectionWindow
-Accountant -> windowCall: Нажата кнопка "Назад"
-windowCall -> application_window: Отобразить
+Accountant -> CostWindow: Нажата кнопка ''Назад''
+CostWindow -> MainWindow: отобразить
 end
 
 @enduml
@@ -152,4 +127,20 @@ Driver -> application_window: Нажата кнопка ''Назад''
 application_window-> WindowChoise: Отобразить
 end
 
+@enduml
+--------------------------------------Client2---------------------------------------
+@startuml
+actor "Клиент" as client
+
+
+boundary "Главное окно клиента" as main_window
+entity "База заказов" as orders_base
+boundary "Таблица заказов" as tableOrder
+
+'-------------------------------------------------—
+
+client -> main_window : Выбор статуса заказа
+main_window  -> orders_base: Поиск заказа по статусу
+orders_base ->main_window  : Возврат данных
+main_window -> tableOrder: Отображение найденных заказов
 @enduml

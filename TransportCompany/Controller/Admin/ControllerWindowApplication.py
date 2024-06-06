@@ -86,6 +86,8 @@ class ControllerWindowApplication:
             self.__ClickedButtonPage(self.view.Button_Group.button(self.__CursorPage - 1))
 
     def __CreateButtonsPage(self):
+        if self.__QuantityRequest == 0:
+            self.__CreateButton(1)
         if self.__QuantityRequest <= 55:  #55 - это 5 отображаемых страниц(на 1-ой странице по 11 заявок)
             self.__CreateButton(ceil(self.__QuantityRequest / 11))
         else:
