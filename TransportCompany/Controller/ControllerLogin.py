@@ -12,7 +12,6 @@ from Entities.Accountant import Accountant
 from PyQt5 import QtWidgets
 import hashlib
 import sys
-print(sys.path, sep='\n')
 
 
 class ControllerLogin:
